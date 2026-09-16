@@ -39,61 +39,44 @@ vercel --prod --yes
 
 ---
 
-## 🟠 2. APUNTAR EL DOMINIO iskoficial.com EN GODADDY
+## 🟠 2. CONECTAR GITHUB CON VERCEL (para publicar con un solo `git push`)
 
-Los registros exactos están en `DNS_GODADDY.md`, explicados paso a paso.
+La web ya está publicada, pero Vercel **no pudo enlazarse con tu repositorio de GitHub**
+(lo intenté 3 veces). El error fue:
+
+> You need admin or write access to the repository "isk-store" to link it.
+
+Pasa porque tu cuenta de Vercel (**iskoficial5**) y tu cuenta de GitHub
+(**jerryguanipa-blip**) no están conectadas entre sí. Solo tú puedes autorizarlo desde el
+navegador:
+
+1. Entra a https://vercel.com/isk-offcial/isk-store/settings/git
+2. Clic en **Connect Git Repository** → **GitHub**.
+3. Inicia sesión con **jerryguanipa-blip** y autoriza la app de Vercel
+   (puedes darle acceso solo al repo `isk-store`).
+4. Elige `jerryguanipa-blip/isk-store`, rama `main`.
+
+Desde ese momento cada `git push` publica la web sola. **Mientras tanto**, para publicar
+cambios usa en `D:\isk-store`:
+
+```bash
+vercel --prod --yes
+```
+
+---
+
+## 🟠 3. APUNTAR EL DOMINIO iskoficial.com EN GODADDY
+
+⚠️ **Hoy iskoficial.com apunta a una tienda de Shopify.** Al cambiar los DNS, se deja de ver
+Shopify y se ve la tienda nueva. Si pagas un plan de Shopify, decide antes qué hacer con él.
+
+Los registros exactos están en `DNS_GODADDY.md`, explicados paso a paso:
+`A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`.
 Hasta que hagas eso, la web vive en la URL de Vercel (está en `REPORTE.md`).
 
 ---
 
-## 🟡 3. REDES SOCIALES: LAS CUENTAS SON UNA SUPOSICIÓN
-
-En `src/config/site.ts` puse:
-
-- Instagram: `https://www.instagram.com/iskoficial`
-- TikTok: `https://www.tiktok.com/@iskoficial`
-- Facebook: `https://www.facebook.com/iskoficial`
-
-**No verifiqué que existan.** Si tus cuentas se llaman distinto, corrige esas tres líneas.
-Si alguna red no la usas, bórrala de ahí y desaparece del footer.
-
----
-
-## 🟡 4. CORREO DE CONTACTO
-
-Puse `hola@iskoficial.com` en `src/config/site.ts`. Aparece en las páginas legales
-(privacidad, cambios, términos). **Si ese buzón no existe, créalo o cámbialo**, porque
-legalmente es el canal de contacto que estás publicando.
-
----
-
-## 🟡 5. LIBRO DE RECLAMACIONES: FALTA GUARDARLO EN ALGÚN LADO
-
-Hoy el formulario valida los datos, genera un código de reclamo y lo envía por WhatsApp.
-Funciona y cumple con mostrar el libro, **pero la normativa de Indecopi pide además:**
-
-- Guardar cada reclamo (mínimo 2 años).
-- Enviar una copia al correo del consumidor.
-- Responder en máximo 15 días hábiles.
-
-Para cumplirlo del todo hace falta una base de datos y un envío de correo
-(por ejemplo Supabase + Resend). No lo monté porque requiere cuentas y claves tuyas.
-La estructura del formulario ya está lista para enchufarlo.
-
----
-
-## 🟡 6. DATOS DE LA EMPRESA EN LAS PÁGINAS LEGALES
-
-Las páginas legales están escritas y son correctas, pero **les falta la razón social y el
-RUC**, que es lo que exige Indecopi. Cuando me los pases (o los pongas tú) hay que
-agregarlos en:
-
-- `src/app/terminos/page.tsx` → sección "1. QUIÉNES SOMOS"
-- `src/app/libro-de-reclamaciones/page.tsx` → recuadro de la izquierda
-
----
-
-## 🟠 7. FOTOS REALES DE LA TRIPLE BLACK (la principal es provisional)
+## 🟠 4. FOTOS REALES DE LA TRIPLE BLACK (la principal es provisional)
 
 Pediste **solo AF1 clásicas blancas y negras**. La blanca quedó con 3 fotos reales de la
 AF1 '07 Triple White clásica. Para la negra **no existe ninguna foto libre** de la AF1 '07
@@ -127,6 +110,53 @@ vercel --prod --yes
 
 ---
 
-## 🟢 8. COSAS QUE DECIDÍ YO
+## 🟡 5. REDES SOCIALES: LAS CUENTAS SON UNA SUPOSICIÓN
+
+En `src/config/site.ts` puse:
+
+- Instagram: `https://www.instagram.com/iskoficial`
+- TikTok: `https://www.tiktok.com/@iskoficial`
+- Facebook: `https://www.facebook.com/iskoficial`
+
+**No verifiqué que existan.** Si tus cuentas se llaman distinto, corrige esas tres líneas.
+Si alguna red no la usas, bórrala de ahí y desaparece del footer.
+
+---
+
+## 🟡 6. CORREO DE CONTACTO
+
+Puse `hola@iskoficial.com` en `src/config/site.ts`. Aparece en las páginas legales
+(privacidad, cambios, términos). **Si ese buzón no existe, créalo o cámbialo**, porque
+legalmente es el canal de contacto que estás publicando.
+
+---
+
+## 🟡 7. LIBRO DE RECLAMACIONES: FALTA GUARDARLO EN ALGÚN LADO
+
+Hoy el formulario valida los datos, genera un código de reclamo y lo envía por WhatsApp.
+Funciona y cumple con mostrar el libro, **pero la normativa de Indecopi pide además:**
+
+- Guardar cada reclamo (mínimo 2 años).
+- Enviar una copia al correo del consumidor.
+- Responder en máximo 15 días hábiles.
+
+Para cumplirlo del todo hace falta una base de datos y un envío de correo
+(por ejemplo Supabase + Resend). No lo monté porque requiere cuentas y claves tuyas.
+La estructura del formulario ya está lista para enchufarlo.
+
+---
+
+## 🟡 8. DATOS DE LA EMPRESA EN LAS PÁGINAS LEGALES
+
+Las páginas legales están escritas y son correctas, pero **les falta la razón social y el
+RUC**, que es lo que exige Indecopi. Cuando me los pases (o los pongas tú) hay que
+agregarlos en:
+
+- `src/app/terminos/page.tsx` → sección "1. QUIÉNES SOMOS"
+- `src/app/libro-de-reclamaciones/page.tsx` → recuadro de la izquierda
+
+---
+
+## 🟢 9. COSAS QUE DECIDÍ YO
 
 Están todas explicadas en `DECISIONES.md`. Si alguna no te gusta, ahí dice cómo revertirla.
