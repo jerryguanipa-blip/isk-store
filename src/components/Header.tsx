@@ -100,13 +100,9 @@ export function Header() {
               type="button"
               onClick={openCart}
               className="ui-label flex items-center gap-2 text-[11px] transition-opacity hover:opacity-70"
-              aria-label={
-                hydrated && count > 0
-                  ? `Abrir carrito, ${count} artículos`
-                  : "Abrir carrito"
-              }
             >
               <ShoppingBag className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+              <span className="sr-only">Carrito</span>
               <span className="tabular-nums">({hydrated ? count : 0})</span>
             </button>
           </div>
@@ -167,7 +163,7 @@ export function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="eyebrow mt-12 text-white/40"
+                className="eyebrow mt-12 text-white/55"
               >
                 {siteConfig.tagline}
               </motion.p>

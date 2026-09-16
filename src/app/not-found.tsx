@@ -41,7 +41,7 @@ export default function NotFound() {
         </Link>
       </div>
 
-      <p className="eyebrow mt-16 text-white/25">{siteConfig.tagline}</p>
+      <p className="eyebrow mt-16 text-white/55">{siteConfig.tagline}</p>
     </div>
   );
 }

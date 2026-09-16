@@ -54,8 +54,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
       <div className="flex items-start justify-between gap-4 py-5">
         <div>
-          <h3 className="ui-label text-[11px] leading-snug">{product.shortName}</h3>
-          <p className="mt-1.5 text-xs text-white/45">{product.intro}</p>
+          <h2 className="ui-label text-[11px] leading-snug">{product.shortName}</h2>
+          <p className="mt-1.5 text-xs text-white/55">{product.intro}</p>
         </div>
         <p className="shrink-0 text-sm tabular-nums">{formatPrice(product.price)}</p>
       </div>

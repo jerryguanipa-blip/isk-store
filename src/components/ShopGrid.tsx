@@ -37,7 +37,7 @@ export function ShopGrid({ products }: { products: Product[] }) {
             {option}
           </button>
         ))}
-        <p className="ui-label ml-auto text-[10px] text-white/40">
+        <p className="ui-label ml-auto text-[10px] text-white/55">
           {visible.length} {visible.length === 1 ? "MODELO" : "MODELOS"}
         </p>
       </div>

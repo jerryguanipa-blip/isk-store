@@ -176,7 +176,7 @@ export default function HomePage() {
           {siteConfig.benefits.map((benefit, index) => (
             <Reveal key={benefit.title} delay={index * 0.08}>
               <div className="h-full bg-black p-8 lg:p-10">
-                <p className="ui-label text-[10px] text-white/30 tabular-nums">
+                <p className="ui-label text-[10px] text-white/55 tabular-nums">
                   0{index + 1}
                 </p>
                 <h3 className="ui-label mt-6 text-xs leading-relaxed">{benefit.title}</h3>
@@ -204,7 +204,7 @@ export default function HomePage() {
 
           <div className="flex items-center border-t border-white/10 bg-black px-4 py-16 sm:px-6 lg:border-t-0 lg:border-l lg:px-16 lg:py-0">
             <Reveal>
-              <p className="eyebrow text-white/40">{siteConfig.tagline}</p>
+              <p className="eyebrow text-white/55">{siteConfig.tagline}</p>
               <h2 className="display mt-8 text-4xl leading-[0.95] sm:text-5xl lg:text-6xl">
                 DOS COLORES.
                 <br />
@@ -219,7 +219,7 @@ export default function HomePage() {
               </p>
               <p className="mt-10 text-3xl tabular-nums">
                 {formatPrice(siteConfig.price)}
-                <span className="ml-3 align-middle text-xs text-white/40">
+                <span className="ml-3 align-middle text-xs text-white/55">
                   PEN · {priceAmount(siteConfig.price)}
                 </span>
               </p>

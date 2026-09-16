@@ -25,7 +25,7 @@ export function Footer() {
 
           {/* Tienda */}
           <nav aria-label="Tienda">
-            <h2 className="eyebrow text-white/40">TIENDA</h2>
+            <h2 className="eyebrow text-white/55">TIENDA</h2>
             <ul className="mt-6 space-y-3">
               {siteConfig.navLinks.map((link) => (
                 <li key={link.href}>
@@ -39,7 +39,7 @@ export function Footer() {
               ))}
             </ul>
 
-            <h2 className="eyebrow mt-10 text-white/40">SÍGUENOS</h2>
+            <h2 className="eyebrow mt-10 text-white/55">SÍGUENOS</h2>
             <ul className="mt-6 space-y-3">
               {socials.map((social) => (
                 <li key={social.label}>
@@ -58,7 +58,7 @@ export function Footer() {
 
           {/* Legal */}
           <nav aria-label="Información legal">
-            <h2 className="eyebrow text-white/40">INFORMACIÓN</h2>
+            <h2 className="eyebrow text-white/55">INFORMACIÓN</h2>
             <ul className="mt-6 space-y-3">
               {siteConfig.legalLinks.map((link) => (
                 <li key={link.href}>
@@ -83,10 +83,10 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/55">
             © {new Date().getFullYear()} {siteConfig.name}. {siteConfig.domain}
           </p>
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/55">
             Hecho en Perú · Precios en soles (PEN)
           </p>
         </div>

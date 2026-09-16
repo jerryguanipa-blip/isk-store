@@ -21,7 +21,7 @@ export function CartView() {
 
   if (!hydrated) {
     return (
-      <p className="py-20 text-sm text-white/40" role="status">
+      <p className="py-20 text-sm text-white/55" role="status">
         Cargando tu carrito…
       </p>
     );
@@ -106,7 +106,7 @@ export function CartView() {
                   <button
                     type="button"
                     onClick={() => remove(item.id)}
-                    className="ui-label text-[10px] text-white/40 underline-offset-4 transition-colors hover:text-white hover:underline"
+                    className="ui-label text-[10px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
                   >
                     QUITAR
                   </button>
@@ -130,7 +130,7 @@ export function CartView() {
           <button
             type="button"
             onClick={clear}
-            className="ui-label text-[11px] text-white/40 underline-offset-4 transition-colors hover:text-white hover:underline"
+            className="ui-label text-[11px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
           >
             VACIAR CARRITO
           </button>
@@ -167,7 +167,7 @@ export function CartView() {
             {activeProvider.label}
           </a>
 
-          <p className="mt-4 text-xs leading-relaxed text-white/40">
+          <p className="mt-4 text-xs leading-relaxed text-white/55">
             Al tocar el botón se abre WhatsApp con tu pedido ya escrito. Solo tienes que
             completar tu nombre, dirección y distrito, y enviarlo.
           </p>
@@ -180,7 +180,7 @@ export function CartView() {
           )}
         </div>
 
-        <ul className="mt-6 space-y-2 text-xs text-white/40">
+        <ul className="mt-6 space-y-2 text-xs text-white/55">
           {siteConfig.benefits.map((benefit) => (
             <li key={benefit.title}>· {benefit.title}</li>
           ))}

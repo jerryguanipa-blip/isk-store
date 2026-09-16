@@ -14,7 +14,7 @@ export default function ShopPage() {
   return (
     <div className="mx-auto max-w-[1800px] px-4 pt-28 pb-24 sm:px-6 lg:px-10 lg:pt-36">
       <header className="pb-10">
-        <p className="eyebrow text-white/40">TIENDA</p>
+        <p className="eyebrow text-white/55">TIENDA</p>
         <h1 className="display mt-5 text-5xl sm:text-6xl lg:text-7xl">AIR FORCE 1</h1>
         <p className="mt-6 max-w-md text-sm leading-relaxed text-white/55">
           Dos colores, nueve tallas, un solo precio. Todas las tallas disponibles hoy.

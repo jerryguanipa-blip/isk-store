@@ -111,7 +111,7 @@ export function SizeGuideModal({ open, onClose }: SizeGuideModalProps) {
                   4. Busca esa medida en la columna CM. Si estás entre dos tallas, elige
                   la mayor.
                 </p>
-                <p className="pt-2 text-white/40">
+                <p className="pt-2 text-white/55">
                   La Air Force 1 calza fiel a la talla. Si dudas, escríbenos por WhatsApp
                   antes de comprar.
                 </p>

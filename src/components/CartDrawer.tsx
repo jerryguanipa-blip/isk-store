@@ -147,7 +147,7 @@ export function CartDrawer() {
                           <button
                             type="button"
                             onClick={() => remove(item.id)}
-                            className="ui-label text-[10px] text-white/40 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            className="ui-label text-[10px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
                           >
                             QUITAR
                           </button>
@@ -162,7 +162,7 @@ export function CartDrawer() {
                     <span className="ui-label text-xs">SUBTOTAL</span>
                     <span className="text-lg tabular-nums">{formatPrice(subtotal)}</span>
                   </div>
-                  <p className="mt-2 text-xs text-white/40">
+                  <p className="mt-2 text-xs text-white/55">
                     El costo de envío se confirma por WhatsApp según tu distrito.
                   </p>
 

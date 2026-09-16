@@ -34,7 +34,7 @@ export function ProductDetail({ product }: { product: Product }) {
   return (
     <>
       <nav aria-label="Ruta de navegación" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-2 text-[11px] text-white/40">
+        <ol className="flex flex-wrap items-center gap-2 text-[11px] text-white/55">
           <li>
             <Link href="/" className="ui-label hover:text-white">
               INICIO
@@ -55,12 +55,12 @@ export function ProductDetail({ product }: { product: Product }) {
         <ProductGallery images={product.images} productName={product.name} />
 
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <p className="eyebrow text-white/40">NIKE · AIR FORCE 1 &apos;07</p>
+          <p className="eyebrow text-white/55">NIKE · AIR FORCE 1 &apos;07</p>
           <h1 className="display mt-4 text-3xl sm:text-4xl lg:text-5xl">
             {product.colorName}
           </h1>
           <p className="mt-5 text-2xl tabular-nums">{formatPrice(product.price)}</p>
-          <p className="mt-1 text-xs text-white/40">
+          <p className="mt-1 text-xs text-white/55">
             Precio en soles (PEN). IGV incluido.
           </p>
 
@@ -73,7 +73,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <div className="flex items-center justify-between">
               <h2 className="ui-label text-[11px]">
                 TALLA EUR{" "}
-                <span className="text-white/40">
+                <span className="text-white/55">
                   {size ? `· ${size} seleccionada` : "· elige una"}
                 </span>
               </h2>
@@ -156,7 +156,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <ul className="mt-4 space-y-2.5">
               {product.details.map((detail) => (
                 <li key={detail} className="flex gap-3 text-sm text-white/60">
-                  <span aria-hidden="true" className="text-white/30">
+                  <span aria-hidden="true" className="text-white/55">
                     —
                   </span>
                   {detail}

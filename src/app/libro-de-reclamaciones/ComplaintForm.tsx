@@ -46,7 +46,7 @@ const EMPTY: FormState = {
 };
 
 const inputClass =
-  "w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-white";
+  "w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/55 focus:border-white";
 const labelClass = "ui-label block text-[10px] text-white/60";
 
 function generarCodigo() {
@@ -339,7 +339,7 @@ export function ComplaintForm() {
           value={form.tipoReclamo}
           onChange={(v) => update("tipoReclamo", v as ClaimType)}
         />
-        <p className="text-xs leading-relaxed text-white/40">
+        <p className="text-xs leading-relaxed text-white/55">
           <strong className="text-white/70">Reclamo:</strong> no estás conforme con el
           producto o servicio.{" "}
           <strong className="text-white/70">Queja:</strong> tu malestar es por la atención
@@ -393,7 +393,7 @@ export function ComplaintForm() {
         ENVIAR RECLAMO
       </button>
 
-      <p className="text-xs leading-relaxed text-white/35">
+      <p className="text-xs leading-relaxed text-white/55">
         Conforme al Código de Protección y Defensa del Consumidor (Ley N.º 29571), el
         proveedor debe dar respuesta al reclamo en un plazo no mayor a 15 días hábiles.
         Formular un reclamo no impide acudir a otras vías de solución de controversias ni
