@@ -18,7 +18,7 @@ export function Footer() {
             <IskMark className="h-16 w-16" />
             <p className="eyebrow mt-6 text-white/50">{siteConfig.tagline}</p>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
-              Nike Air Force 1 &apos;07 originales en Perú. Dos colores, nueve tallas,
+              Nike Air Force 1 &apos;07 clásicas en Perú. Dos colores, nueve tallas,
               un solo precio.
             </p>
           </div>
@@ -86,7 +86,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/55">
-            © {new Date().getFullYear()} {siteConfig.name}. {siteConfig.domain}
+            ISK OFICIAL · TODOS LOS DERECHOS RESERVADOS 2026
           </p>
           <p className="text-xs text-white/55">
             Hecho en Perú · Precios en soles (PEN)

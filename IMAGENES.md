@@ -1,29 +1,34 @@
 # IMÁGENES — origen
 
-## Fotos de producto (las que eligió el dueño)
+## Fotos de producto (sin fondo, PhotoRoom) — vigentes desde el 16/09/2026
 
-Entregadas por el dueño el 16/09/2026 desde `C:\Users\jerry\Desktop\AIR FORCE 1`.
-Son fotos de catálogo de la **Nike Air Force 1 '07 clásica**, fondo blanco, 2000×2000.
-Se convirtieron a JPG (calidad 90) con nombres claros; Next.js las sirve en AVIF/WebP.
+El dueño entregó 10 PNG con fondo transparente (procesados con PhotoRoom, batch remover).
+Originales guardados en `assets-originales/sin-fondo/`. Convertidos a WebP con alfa
+(calidad 90, 2000×2000) en `public/images/`.
 
-| Archivo | Original | Vista |
+| Archivo web | PNG original | Vista |
 |---|---|---|
-| `af1-white-1.jpg` | `1B.webp` | Lateral (foto principal) |
-| `af1-white-2.jpg` | `4B.webp` | Par en 3/4 (aparece al pasar el mouse en /shop) |
-| `af1-white-3.jpg` | `2B.webp` | Lateral interna |
-| `af1-white-4.jpg` | `5B.webp` | Desde arriba |
-| `af1-white-5.jpg` | `6B.webp` | Trasera |
-| `af1-white-6.jpg` | `3B.webp` | Suela |
-| `af1-black-1.jpg` | `1BLACK.webp` | Lateral (foto principal) |
-| `af1-black-2.jpg` | `4BLACK.webp` | Par en 3/4 (aparece al pasar el mouse en /shop) |
-| `af1-black-3.jpg` | `3BLACK.webp` | Lateral interna |
-| `af1-black-4.jpg` | `5BLACK.webp` | Desde arriba |
-| `af1-black-5.jpg` | `6BLACK.webp` | Trasera |
-| `af1-black-6.jpg` | `2BLACK.webp` | Suela |
+| `af1-white-1-clean.webp` | `1B_sin_fondo.png` | Lateral (principal) |
+| `af1-white-2-clean.webp` | `4B_sin_fondo.png` | Par 3/4 (hover en /shop) |
+| `af1-white-3-clean.webp` | `2B_sin_fondo.png` | Lateral interna |
+| `af1-white-4-clean.webp` | `5B_sin_fondo.png` | Desde arriba |
+| `af1-white-5.jpg` | *(no vino PNG de 6B)* | Trasera — se mantiene la foto con fondo blanco |
+| `af1-white-6-clean.webp` | `3B_sin_fondo.png` | Suela |
+| `af1-black-1-clean.webp` | `1BLACK_sin_fondo.png` | Lateral (principal) |
+| `af1-black-2-clean.webp` | `4BLACK_sin_fondo.png` | Par 3/4 (hover en /shop) |
+| `af1-black-3-clean.webp` | `3BLACK_sin_fondo.png` | Lateral interna |
+| `af1-black-4-clean.webp` | `5BLACK_sin_fondo.png` | Desde arriba |
+| `af1-black-5-cut.webp` | *(no vino PNG de 6BLACK)* | Trasera — se mantiene el recorte casero anterior |
+| `af1-black-6-clean.webp` | `2BLACK_sin_fondo.png` | Suela |
 
-> ⚠ **Sobre la licencia:** por el estilo parecen fotos oficiales de catálogo de Nike. Es muy
-> común que los revendedores las usen, pero no tienen una licencia libre como Unsplash.
-> Si algún día Nike o una plataforma lo pide, habría que reemplazarlas por fotos propias.
+Para compartir en redes (Open Graph) se siguen usando `af1-white-1.jpg` y `af1-black-1.jpg`
+(con fondo blanco): WhatsApp y Facebook no muestran bien imágenes transparentes.
+
+**Pendiente opcional:** pasar por PhotoRoom `6B` y `6BLACK` (vista trasera) y guardarlas como
+`af1-white-5-clean.webp` / `af1-black-5-clean.webp` para completar el set.
+
+> ⚠ Licencia: son fotos de catálogo tipo oficial de Nike. Muy usadas por revendedores, pero sin
+> licencia libre; si alguna plataforma lo reclama, reemplazarlas por fotos propias.
 
 ## Portada (entregada por el dueño)
 

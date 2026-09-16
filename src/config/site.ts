@@ -16,12 +16,12 @@ export const siteConfig = {
   url: "https://iskoficial.com",
 
   // --- SEO ---
-  title: "ISK | Air Force 1 Originales en Perú",
+  title: "ISK | Air Force 1 Clásicas en Perú",
   description:
     "Air Force 1 '07 blancas y negras en Perú. Tallas EUR 36 al 44, S/ 209.90. Pide por WhatsApp.",
   keywords: [
     "Air Force 1 Perú",
-    "Nike Air Force 1 originales",
+    "Nike Air Force 1 clásicas",
     "zapatillas Nike Perú",
     "AF1 Triple White",
     "AF1 Triple Black",

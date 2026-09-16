@@ -6,7 +6,7 @@ import { ShopGrid } from "@/components/ShopGrid";
 
 export const metadata: Metadata = {
   title: "Tienda",
-  description: `Nike Air Force 1 '07 originales en Perú: Triple White y Triple Black, tallas EUR 36 al 44, ${formatPrice(siteConfig.price)}.`,
+  description: `Nike Air Force 1 '07 clásicas en Perú: Triple White y Triple Black, tallas EUR 36 al 44, ${formatPrice(siteConfig.price)}.`,
   alternates: { canonical: "/shop" },
 };
 

@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 import { cartCount, useCart } from "@/store/cart";
 import { useHydrated } from "@/lib/client-hooks";
 import { cn } from "@/lib/format";
+import { buildLandingMessage, whatsappUrl } from "@/lib/checkout";
 
 export function Header() {
   const pathname = usePathname();
@@ -146,13 +147,15 @@ export function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.4 }}
               >
-                <Link
-                  href="/cart"
+                <a
+                  href={whatsappUrl(buildLandingMessage())}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={closeMenu}
-                  className="display block border-b border-white/10 py-6 text-4xl"
+                  className="display block border-b border-white/10 py-6 text-4xl leading-[0.95]"
                 >
-                  CARRITO
-                </Link>
+                  COMPRAR VÍA WHATSAPP
+                </a>
               </motion.div>
 
               <motion.p

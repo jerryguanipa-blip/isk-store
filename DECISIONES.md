@@ -126,3 +126,14 @@ una vez conectado el dominio, redirige con `REDIRECT_VERCEL_TO_DOMAIN=1`.
 Fuera "NIKE · ORIGINALES · PERÚ", "POR QUÉ COMPRAR EN ISK", las tarjetas y listas de
 beneficios (también en la ficha y el carrito), la pared con zapatillas de otros modelos y
 el CTA "IR A LA TIENDA". El lema pasó a "IMAGINA · SUEÑA · KREA".
+
+### 23. Correcciones del 16/09/2026 (tarde)
+- Footer: "ISK OFICIAL · TODOS LOS DERECHOS RESERVADOS 2026".
+- Menú móvil: se quitó CARRITO y se puso **COMPRAR VÍA WHATSAPP** (abre WhatsApp directo con el
+  mensaje de Air Force 1). Se usó "VÍA" para que coincida con todos los botones de la web.
+- "Originales" → "Clásicas" en título, descripción de /shop, footer, palabras clave y detalle del
+  producto. **No** se cambió la garantía de autenticidad de Términos (es legal) ni "caja original"
+  en Cambios (se refiere a la caja, no a la calidad).
+- Fotos sin fondo de PhotoRoom en toda la web. La Triple White sigue sobre marco blanco y la Triple
+  Black sobre negro con foco: se probó la blanca sobre negro (se ve muy bien), pero la vista trasera
+  de la blanca no vino sin fondo y habría quedado como un cuadro blanco en la galería.
