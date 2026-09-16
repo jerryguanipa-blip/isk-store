@@ -71,15 +71,15 @@ export default function HomePage() {
       <section className="relative flex h-dvh min-h-[560px] items-end overflow-hidden">
         <Image
           src="/images/hero-af1.jpg"
-          alt="Nike Air Force 1 '07 Triple White sobre fondo negro"
+          alt="Nike Air Force 1 '07 Triple White clásica sobre fondo negro"
           fill
           priority
           sizes="100vw"
-          className="isk-photo object-cover object-center"
+          className="isk-photo isk-photo-hero object-cover object-center"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60"
+          className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"
         />
 
         <div className="relative mx-auto w-full max-w-[1800px] px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10 lg:pb-28">

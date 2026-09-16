@@ -63,10 +63,10 @@ export const products: Product[] = [
     colorName: "Triple White",
     price: siteConfig.price,
     images: [
-      { src: "/images/af1-white-1.jpg", alt: "Nike Air Force 1 '07 Triple White vista lateral" },
-      { src: "/images/af1-white-2.jpg", alt: "Nike Air Force 1 '07 Triple White sobre fondo negro" },
-      { src: "/images/af1-white-3.jpg", alt: "Par de Nike Air Force 1 '07 Triple White" },
-      { src: "/images/af1-white-4.jpg", alt: "Nike Air Force 1 '07 Triple White puestas" },
+      { src: "/images/af1-white-1.jpg", alt: "Nike Air Force 1 '07 Triple White clásica, vista lateral sobre fondo negro" },
+      { src: "/images/af1-white-2.jpg", alt: "Par de Nike Air Force 1 '07 Triple White clásicas" },
+      { src: "/images/af1-white-3.jpg", alt: "Detalle del logo AIR y el cuero de la Air Force 1 '07 Triple White" },
+      { src: "/images/af1-white-4.jpg", alt: "Par de Nike Air Force 1 '07 Triple White en estudio" },
     ],
     intro: "El blanco que nunca se pasa de moda.",
     description:
@@ -82,10 +82,9 @@ export const products: Product[] = [
     colorName: "Triple Black",
     price: siteConfig.price,
     images: [
-      { src: "/images/af1-black-1.jpg", alt: "Nike Air Force 1 '07 Triple Black vista lateral" },
-      { src: "/images/af1-black-2.jpg", alt: "Nike Air Force 1 '07 Triple Black sobre fondo blanco" },
-      { src: "/images/af1-black-3.jpg", alt: "Nike Air Force 1 '07 Triple Black editorial" },
-      { src: "/images/af1-black-4.jpg", alt: "Detalle del cuero de la Air Force 1 '07 Triple Black" },
+      { src: "/images/af1-black-1.jpg", alt: "Nike Air Force 1 negras clásicas puestas" },
+      { src: "/images/af1-black-2.jpg", alt: "Detalle de la suela AIR de la Nike Air Force 1 negra" },
+      { src: "/images/af1-black-3.jpg", alt: "Detalle del cuero negro, estilo Triple Black" },
     ],
     intro: "Negro total. Cero mantenimiento.",
     description:

@@ -93,14 +93,19 @@ agregarlos en:
 
 ---
 
-## 🟢 7. FOTOS: SON DE UNSPLASH, NO DEL PRODUCTO REAL
+## 🟠 7. FOTO PRINCIPAL DE TRIPLE BLACK (conviene cambiarla pronto)
 
-Las fotos son libres y legales (ver `IMAGENES.md`), y la principal de Triple White **sí es
-una Air Force 1 '07 real**. Pero no son tus zapatillas.
+Todas las fotos son libres y legales (ver `IMAGENES.md`) y **todas son de Air Force 1
+clásicas**. La blanca quedó perfecta: foto de estudio de la AF1 '07 Triple White.
 
-Cuando tengas fotos propias, reemplaza los archivos en `public/images/` con el mismo
-nombre y listo. Para Triple Black las fotos disponibles eran Air Max 90 negras (la
-silueta no es exactamente AF1); esas son las que más conviene cambiar primero.
+Para la negra **no existe en Unsplash ni Pexels una foto libre de la AF1 '07 Triple Black
+clásica de cuerpo entero**. Usé una AF1 negra real "puesta" (tiene el swoosh en tono
+claro) y un detalle de la suela AIR. Se ve bien, pero **lo ideal es que le tomes una foto
+a tu par negro** sobre fondo blanco o negro y la guardes como:
+
+`public/images/af1-black-1.jpg`
+
+Con el celular basta: luz de ventana, fondo liso, foto de costado. Nada más que tocar.
 
 ---
 

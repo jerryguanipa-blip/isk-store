@@ -145,3 +145,8 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* El hero necesita un poco más de luz: la foto original es gris claro sobre negro */
+.isk-photo-hero {
+  filter: grayscale(1) contrast(1.1) brightness(1.15);
+}
