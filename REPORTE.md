@@ -53,7 +53,10 @@
 
 ---
 
-## ✅ QUÉ SE HIZO
+## 📜 HISTORIAL — PRIMERA VERSIÓN (reemplazada por el rediseño final de arriba)
+
+> Lo de esta sección describe la primera versión. La intro con botón ENTRAR, los beneficios,
+> la banda editorial y los paneles blancos ya **no** están en la web: ver "REDISEÑO FINAL".
 
 ### Marca
 - Encontré tus archivos en la carpeta mal nombrada, los copié a `public/brand/`
@@ -121,14 +124,13 @@ del botón del carrito), así que esos números deberían subir un poco más.
 
 ## 🧭 DECISIONES QUE TOMÉ
 
-Todas explicadas en `DECISIONES.md`. Las más importantes:
+Todas explicadas en `DECISIONES.md` (las vigentes son las 16 a 22). Las más importantes:
 
-1. **Fotos de producto: las 12 que entregaste**, enteras sobre marcos blancos (sin recorte ni filtro).
-2. **Hero y banda editorial en blanco y negro**, con fotos libres de AF1 clásica.
-3. **No usé Pinterest**: esas fotos tienen dueño.
-4. **Aviso de WhatsApp oculto** para los clientes mientras el número sigue pendiente.
-5. Tipografías Space Grotesk (títulos) + Inter (textos).
-6. La intro solo sale en el inicio y una vez por visita.
+1. **Sin pantalla de ENTRAR:** se entra directo a la portada; el audio suena solo o con el primer toque.
+2. **WHITE sobre blanco y BLACK sobre negro**, con recortes sin fondo para la negra.
+3. **Una sola URL oficial:** https://iskoficial.com.
+4. **No usé Pinterest**: esas fotos tienen dueño.
+5. **Aviso de WhatsApp oculto** para los clientes mientras el número sigue pendiente.
 
 ---
 
