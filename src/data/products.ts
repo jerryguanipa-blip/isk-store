@@ -63,9 +63,12 @@ export const products: Product[] = [
     colorName: "Triple White",
     price: siteConfig.price,
     images: [
-      { src: "/images/af1-white-1.jpg", alt: "Nike Air Force 1 '07 Triple White clásica, vista lateral sobre fondo negro" },
-      { src: "/images/af1-white-2.jpg", alt: "Par de Nike Air Force 1 '07 Triple White clásicas" },
-      { src: "/images/af1-white-3.jpg", alt: "Detalle del logo AIR y el cuero de la Air Force 1 '07 Triple White" },
+      { src: "/images/af1-white-1.jpg", alt: "Nike Air Force 1 '07 Triple White, vista lateral" },
+      { src: "/images/af1-white-2.jpg", alt: "Nike Air Force 1 '07 Triple White, par en vista 3/4" },
+      { src: "/images/af1-white-3.jpg", alt: "Nike Air Force 1 '07 Triple White, vista lateral interna" },
+      { src: "/images/af1-white-4.jpg", alt: "Nike Air Force 1 '07 Triple White, vista desde arriba" },
+      { src: "/images/af1-white-5.jpg", alt: "Nike Air Force 1 '07 Triple White, vista trasera" },
+      { src: "/images/af1-white-6.jpg", alt: "Nike Air Force 1 '07 Triple White, suela" },
     ],
     intro: "El blanco que nunca se pasa de moda.",
     description:
@@ -81,8 +84,12 @@ export const products: Product[] = [
     colorName: "Triple Black",
     price: siteConfig.price,
     images: [
-      { src: "/images/af1-black-1.jpg", alt: "Nike Air Force 1 '07 Triple Black — foto del producto próximamente" },
-      { src: "/images/af1-black-2.jpg", alt: "Detalle de la suela AIR de la Nike Air Force 1 negra clásica" },
+      { src: "/images/af1-black-1.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista lateral" },
+      { src: "/images/af1-black-2.jpg", alt: "Nike Air Force 1 '07 Triple Black, par en vista 3/4" },
+      { src: "/images/af1-black-3.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista lateral interna" },
+      { src: "/images/af1-black-4.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista desde arriba" },
+      { src: "/images/af1-black-5.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista trasera" },
+      { src: "/images/af1-black-6.jpg", alt: "Nike Air Force 1 '07 Triple Black, suela" },
     ],
     intro: "Negro total. Cero mantenimiento.",
     description:

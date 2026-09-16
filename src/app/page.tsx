@@ -45,7 +45,7 @@ const structuredData = {
     {
       "@type": "Store",
       name: siteConfig.name,
-      image: `${siteConfig.url}/images/af1-white-1.jpg`,
+      image: `${siteConfig.url}/images/af1-white-2.jpg`,
       url: siteConfig.url,
       priceRange: formatPrice(siteConfig.price),
       currenciesAccepted: "PEN",
@@ -121,29 +121,30 @@ export default function HomePage() {
           Elige tu color
         </h2>
 
-        <div className="grid md:grid-cols-2">
+        <div className="grid gap-px bg-black md:grid-cols-2">
           {[white, black].map((product) => (
             <Link
               key={product.slug}
               href={`/product/${product.slug}`}
-              className="isk-photo-hover group relative flex aspect-[4/5] items-end overflow-hidden border-white/10 md:aspect-auto md:h-[85vh] md:border-r md:last:border-r-0"
+              className="group relative flex min-h-[560px] flex-col overflow-hidden bg-white text-black focus-visible:outline-black focus-visible:-outline-offset-8 md:h-[85vh]"
             >
-              <Image
-                src={product.images[0].src}
-                alt={product.images[0].alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="isk-photo object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"
-              />
+              <p className="display relative z-10 p-6 text-6xl sm:p-10 sm:text-7xl lg:text-8xl">
+                {product.color}
+              </p>
+
+              <div className="relative flex-1">
+                <Image
+                  src={product.images[0].src}
+                  alt={product.images[0].alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="isk-product object-contain transition-transform duration-[1200ms] group-hover:scale-105 group-hover:-rotate-2"
+                />
+              </div>
 
               <div className="relative w-full p-6 sm:p-10">
-                <p className="display text-6xl sm:text-7xl lg:text-8xl">{product.color}</p>
-                <p className="mt-3 max-w-xs text-sm text-white/60">{product.intro}</p>
-                <span className="ui-label mt-6 inline-flex items-center gap-3 border-b border-white/40 pb-1 text-[11px] transition-colors group-hover:border-white">
+                <p className="max-w-xs text-sm text-black/60">{product.intro}</p>
+                <span className="ui-label mt-6 inline-flex items-center gap-3 border-b border-black/40 pb-1 text-[11px] transition-colors group-hover:border-black">
                   VER PRODUCTO
                   <ArrowRight
                     className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
@@ -157,7 +158,7 @@ export default function HomePage() {
       </section>
 
       {/* ---------------------------------- MARQUEE ---------------------------------- */}
-      <Marquee text={`${siteConfig.name} · ${siteConfig.tagline} ·`} inverted />
+      <Marquee text={`${siteConfig.name} · ${siteConfig.tagline} ·`} />
 
       {/* ---------------------------------- BENEFICIOS ---------------------------------- */}
       <section

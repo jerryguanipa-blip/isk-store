@@ -6,6 +6,10 @@ Ordenadas por urgencia. Lo demás ya está hecho y funcionando.
 
 ## 🔴 1. PONER EL NÚMERO REAL DE WHATSAPP (bloquea las ventas)
 
+> **Estado:** pendiente por decisión del dueño, pero **todo está listo**: es un solo valor.
+> El aviso para el administrador que se veía en el carrito se quitó para que los clientes
+> no lo vean.
+
 Hoy el número es el placeholder `51XXXXXXXXX`. **Mientras siga así, ningún botón de
 WhatsApp va a abrir un chat real y la tienda no puede recibir pedidos.**
 
@@ -34,8 +38,6 @@ Te pedirá el valor: escribe tu número con código de país y sin `+`, espacios
 vercel --prod --yes
 ```
 
-> Mientras el número sea el placeholder, la web muestra un aviso gris en el carrito.
-> Ese aviso desaparece solo en cuanto pongas un número válido.
 
 ---
 
@@ -76,37 +78,10 @@ Hasta que hagas eso, la web vive en la URL de Vercel (está en `REPORTE.md`).
 
 ---
 
-## 🟠 4. FOTOS REALES DE LA TRIPLE BLACK (la principal es provisional)
+## ✅ 4. FOTOS DEL PRODUCTO — HECHO
 
-Pediste **solo AF1 clásicas blancas y negras**. La blanca quedó con 3 fotos reales de la
-AF1 '07 Triple White clásica. Para la negra **no existe ninguna foto libre** de la AF1 '07
-Triple Black clásica de cuerpo entero, así que la foto principal es una imagen de marca
-("AF1 · TRIPLE BLACK · foto real del producto próximamente").
-
-**Lo que tienes que hacer:** tómale fotos a tu par negro con el celular (luz de ventana,
-fondo liso blanco o negro, de costado y en par) y guárdalas como:
-
-- `public/images/af1-black-1.jpg` ← la principal (de costado)
-- `public/images/af1-black-3.jpg` ← opcional, el par (y agrégala en `src/data/products.ts`)
-
-**No uses fotos de Pinterest** (el pin que mandaste): tienen dueño y en una tienda que vende
-pueden traer reclamos o bajas por derechos de autor. Si quieres una foto profesional sin
-tomarla tú, cómprala en un banco con licencia (Shutterstock, Adobe Stock) o pídele al
-proveedor las fotos oficiales con permiso de uso.
-
-Para publicar el cambio: guarda las fotos y ejecuta en `D:\isk-store`:
-
-```bash
-git add -A
-```
-
-```bash
-git commit -m "Fotos reales Triple Black"
-```
-
-```bash
-vercel --prod --yes
-```
+Se integraron tus 12 fotos (6 Triple White + 6 Triple Black) el 16/09/2026.
+Ver `IMAGENES.md`.
 
 ---
 

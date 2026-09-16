@@ -53,14 +53,14 @@ export function CartView() {
             <li key={item.id} className="flex gap-5 py-6">
               <Link
                 href={`/product/${item.slug}`}
-                className="relative h-36 w-28 shrink-0 overflow-hidden bg-neutral-950 sm:h-44 sm:w-36"
+                className="relative h-28 w-28 shrink-0 overflow-hidden bg-white sm:h-36 sm:w-36"
               >
                 <Image
                   src={item.image}
                   alt={item.name}
                   fill
                   sizes="144px"
-                  className="isk-photo object-cover"
+                  className="isk-product object-contain"
                 />
               </Link>
 
@@ -171,13 +171,6 @@ export function CartView() {
             Al tocar el botón se abre WhatsApp con tu pedido ya escrito. Solo tienes que
             completar tu nombre, dirección y distrito, y enviarlo.
           </p>
-
-          {!siteConfig.whatsappConfigured && (
-            <p className="mt-4 border border-white/20 p-3 text-[11px] leading-relaxed text-white/60">
-              Aviso para el administrador: falta configurar un número real en
-              NEXT_PUBLIC_WHATSAPP.
-            </p>
-          )}
         </div>
 
         <ul className="mt-6 space-y-2 text-xs text-white/55">

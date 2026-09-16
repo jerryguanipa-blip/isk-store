@@ -25,14 +25,14 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-950">
+      <div className="relative aspect-square overflow-hidden bg-white">
         <Image
           src={primary.src}
           alt={primary.alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
           priority={priority}
-          className={`isk-photo object-cover transition-opacity duration-700 ${
+          className={`isk-product object-contain transition-opacity duration-700 ${
             hovered ? "opacity-0" : "opacity-100"
           }`}
         />
@@ -42,12 +42,12 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           aria-hidden="true"
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className={`isk-photo object-cover transition-all duration-700 ${
+          className={`isk-product object-contain transition-all duration-700 ${
             hovered ? "scale-105 opacity-100" : "scale-100 opacity-0"
           }`}
         />
 
-        <span className="ui-label absolute top-4 left-4 border border-white/30 bg-black/40 px-3 py-1.5 text-[10px] backdrop-blur-sm">
+        <span className="ui-label absolute top-4 left-4 bg-black px-3 py-1.5 text-[10px] text-white">
           {product.color}
         </span>
       </div>

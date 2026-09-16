@@ -31,7 +31,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Imagen principal */}
       <div
         ref={frameRef}
-        className="relative aspect-[4/5] w-full flex-1 overflow-hidden bg-neutral-950"
+        className="relative aspect-square w-full flex-1 overflow-hidden bg-white"
         onMouseEnter={() => setZoomed(true)}
         onMouseLeave={() => {
           setZoomed(false);
@@ -47,11 +47,11 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           priority
           sizes="(max-width: 1024px) 100vw, 55vw"
           style={{ transformOrigin: origin }}
-          className={`isk-photo object-cover transition-transform duration-500 ${
+          className={`isk-product object-contain transition-transform duration-500 ${
             zoomed ? "scale-[1.9]" : "scale-100"
           }`}
         />
-        <span className="ui-label pointer-events-none absolute right-4 bottom-4 hidden border border-white/25 bg-black/50 px-3 py-1.5 text-[10px] text-white/70 backdrop-blur-sm lg:block">
+        <span className="ui-label pointer-events-none absolute right-4 bottom-4 hidden bg-black/80 px-3 py-1.5 text-[10px] text-white lg:block">
           PASA EL MOUSE PARA AMPLIAR
         </span>
       </div>
@@ -69,8 +69,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             onClick={() => setActive(index)}
             aria-label={`Ver foto ${index + 1} de ${images.length}`}
             aria-current={index === active}
-            className={`relative aspect-[4/5] w-20 shrink-0 overflow-hidden border bg-neutral-950 transition-colors lg:w-full ${
-              index === active ? "border-white" : "border-transparent hover:border-white/40"
+            className={`relative m-1 aspect-square w-20 shrink-0 overflow-hidden bg-white transition-opacity lg:w-[calc(100%-0.5rem)] ${
+              index === active
+                ? "opacity-100 ring-2 ring-white ring-offset-2 ring-offset-black"
+                : "opacity-50 hover:opacity-100"
             }`}
           >
             <Image
@@ -79,7 +81,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               aria-hidden="true"
               fill
               sizes="96px"
-              className="isk-photo object-cover"
+              className="isk-product object-contain"
             />
           </button>
         ))}

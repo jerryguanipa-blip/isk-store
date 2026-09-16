@@ -73,3 +73,15 @@ detalle real de suela. **No usé Pinterest** (derechos de autor). Ver `IMAGENES.
 ### 13. `.vercel` y `.env.local` fuera de git
 `vercel link` agregó un token temporal (`VERCEL_OIDC_TOKEN`) a `.env.local`. Ese archivo
 nunca se sube a GitHub (está en `.gitignore`), así que el repo público no expone nada.
+
+### 14. Fotos del dueño: marco blanco, sin recorte y sin filtro
+Las fotos que entregaste son de catálogo sobre fondo blanco puro. En vez de recortarlas o
+pasarlas a gris, se muestran enteras en marcos blancos cuadrados sobre la web negra (estilo
+catálogo premium). Los bloques WHITE / BLACK de la home pasaron a paneles blancos con texto
+negro. El hero y la banda editorial siguen con fotos de ambiente en blanco y negro.
+**Cómo revertirlo:** en `ProductCard.tsx` y `ProductGallery.tsx`, `object-contain bg-white` →
+`object-cover`.
+
+### 15. Aviso de WhatsApp oculto para los clientes
+El número sigue pendiente por tu decisión, pero el aviso "falta configurar WhatsApp" ya no
+se muestra en el carrito: lo veían los compradores.

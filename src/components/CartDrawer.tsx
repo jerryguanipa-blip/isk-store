@@ -9,7 +9,6 @@ import { cartCount, cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
 import { activeProvider } from "@/lib/checkout";
 import { useHydrated } from "@/lib/client-hooks";
-import { siteConfig } from "@/config/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -93,14 +92,14 @@ export function CartDrawer() {
                       <Link
                         href={`/product/${item.slug}`}
                         onClick={closeCart}
-                        className="relative h-28 w-24 shrink-0 overflow-hidden bg-neutral-950"
+                        className="relative h-24 w-24 shrink-0 overflow-hidden bg-white"
                       >
                         <Image
                           src={item.image}
                           alt={item.name}
                           fill
                           sizes="96px"
-                          className="isk-photo object-cover"
+                          className="isk-product object-contain"
                         />
                       </Link>
 
@@ -182,13 +181,6 @@ export function CartDrawer() {
                   >
                     VER EL CARRITO COMPLETO
                   </Link>
-
-                  {!siteConfig.whatsappConfigured && (
-                    <p className="mt-4 border border-white/20 p-3 text-[11px] leading-relaxed text-white/60">
-                      Aviso para el administrador: todavía no hay un número de WhatsApp
-                      real configurado (NEXT_PUBLIC_WHATSAPP).
-                    </p>
-                  )}
                 </footer>
               </>
             )}

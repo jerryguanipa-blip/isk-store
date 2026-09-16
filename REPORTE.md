@@ -22,8 +22,7 @@
    Cómo: `PENDIENTES.md`, punto 1.
 2. **Decidir qué pasa con tu tienda de Shopify.** iskoficial.com hoy apunta a Shopify.
    Cuando cambies los DNS, se verá la tienda nueva. Cómo: `DNS_GODADDY.md`.
-3. **Tomarle foto a tu par Triple Black.** La foto principal de la negra es provisional.
-   Cómo: `PENDIENTES.md`, punto 4.
+3. ~~Fotos del producto~~ ✅ **Hecho:** integradas tus 12 fotos (6 blancas + 6 negras).
 
 ---
 
@@ -49,9 +48,9 @@
 ### Páginas
 | Página | Qué tiene |
 |---|---|
-| `/` Inicio | Hero con AF1 blanca clásica, "AIR FORCE 1", botón COMPRAR AHORA, bloques WHITE / BLACK, cinta animada "ISK · IMAGINA · SUEÑA & KREA", 4 beneficios, banda editorial |
+| `/` Inicio | Hero con AF1 blanca clásica, "AIR FORCE 1", botón COMPRAR AHORA, bloques WHITE / BLACK en paneles blancos con tus fotos, cinta animada "ISK · IMAGINA · SUEÑA & KREA", 4 beneficios, banda editorial |
 | `/shop` | Grilla con filtro TODO / WHITE / BLACK y cambio de foto al pasar el mouse |
-| `/product/air-force-1-triple-white` | Galería con miniaturas y zoom, precio, tallas EUR 36–44 (obligatorio elegir), guía de tallas EUR/US/CM, AGREGAR AL CARRITO, COMPRAR POR WHATSAPP |
+| `/product/air-force-1-triple-white` | Galería de 6 fotos con miniaturas y zoom, precio, tallas EUR 36–44 (obligatorio elegir), guía de tallas EUR/US/CM, AGREGAR AL CARRITO, COMPRAR POR WHATSAPP |
 | `/product/air-force-1-triple-black` | Igual |
 | Carrito lateral + `/cart` | Cantidades, subtotal, FINALIZAR PEDIDO POR WHATSAPP |
 | `/envios` `/cambios` `/terminos` `/privacidad` | Textos legales completos, en español de Perú |
@@ -97,10 +96,10 @@ del botón del carrito), así que esos números deberían subir un poco más.
 
 Todas explicadas en `DECISIONES.md`. Las más importantes:
 
-1. **Fotos solo de AF1 clásicas**, como pediste. Las revisé una por una y saqué todo lo demás.
-2. **Todas las fotos en blanco y negro** (filtro), para respetar la paleta de la marca.
-3. **Triple Black con foto provisional**, porque no hay fotos libres de la clásica negra.
-4. **No usé Pinterest** (ni el pin que mandaste): esas fotos tienen dueño.
+1. **Fotos de producto: las 12 que entregaste**, enteras sobre marcos blancos (sin recorte ni filtro).
+2. **Hero y banda editorial en blanco y negro**, con fotos libres de AF1 clásica.
+3. **No usé Pinterest**: esas fotos tienen dueño.
+4. **Aviso de WhatsApp oculto** para los clientes mientras el número sigue pendiente.
 5. Tipografías Space Grotesk (títulos) + Inter (textos).
 6. La intro solo sale en el inicio y una vez por visita.
 
@@ -147,7 +146,7 @@ Es una variable, no está en el código:
 Formato: código de país + número, sin `+`, espacios ni guiones.
 
 ### Las fotos
-- Reemplaza el archivo en `public/images/` **con el mismo nombre** y listo.
+- Reemplaza el archivo en `public/images/` **con el mismo nombre** y listo (`af1-white-1.jpg` … `af1-black-6.jpg`).
 - Para agregar o quitar fotos de un producto: lista `images` en `src/data/products.ts`.
 - Origen y licencia de cada foto: `IMAGENES.md`.
 
@@ -169,7 +168,7 @@ El detalle y los pasos están en **`PENDIENTES.md`**. Resumen:
 | 1 | Poner el número real de WhatsApp | 🔴 Bloquea las ventas |
 | 2 | Conectar GitHub con Vercel para que publique solo al hacer `git push` | 🟠 |
 | 3 | Cambiar los DNS en GoDaddy (**ojo: hoy apuntan a Shopify**) | 🟠 |
-| 4 | Fotos reales de tu Triple Black | 🟠 |
+| 4 | ~~Fotos del producto~~ | ✅ Hecho |
 | 5 | Confirmar tus cuentas de Instagram / TikTok / Facebook | 🟡 |
 | 6 | Crear o cambiar el correo `hola@iskoficial.com` | 🟡 |
 | 7 | Guardar los reclamos en una base de datos (Indecopi) | 🟡 |
