@@ -93,19 +93,37 @@ agregarlos en:
 
 ---
 
-## 🟠 7. FOTO PRINCIPAL DE TRIPLE BLACK (conviene cambiarla pronto)
+## 🟠 7. FOTOS REALES DE LA TRIPLE BLACK (la principal es provisional)
 
-Todas las fotos son libres y legales (ver `IMAGENES.md`) y **todas son de Air Force 1
-clásicas**. La blanca quedó perfecta: foto de estudio de la AF1 '07 Triple White.
+Pediste **solo AF1 clásicas blancas y negras**. La blanca quedó con 3 fotos reales de la
+AF1 '07 Triple White clásica. Para la negra **no existe ninguna foto libre** de la AF1 '07
+Triple Black clásica de cuerpo entero, así que la foto principal es una imagen de marca
+("AF1 · TRIPLE BLACK · foto real del producto próximamente").
 
-Para la negra **no existe en Unsplash ni Pexels una foto libre de la AF1 '07 Triple Black
-clásica de cuerpo entero**. Usé una AF1 negra real "puesta" (tiene el swoosh en tono
-claro) y un detalle de la suela AIR. Se ve bien, pero **lo ideal es que le tomes una foto
-a tu par negro** sobre fondo blanco o negro y la guardes como:
+**Lo que tienes que hacer:** tómale fotos a tu par negro con el celular (luz de ventana,
+fondo liso blanco o negro, de costado y en par) y guárdalas como:
 
-`public/images/af1-black-1.jpg`
+- `public/images/af1-black-1.jpg` ← la principal (de costado)
+- `public/images/af1-black-3.jpg` ← opcional, el par (y agrégala en `src/data/products.ts`)
 
-Con el celular basta: luz de ventana, fondo liso, foto de costado. Nada más que tocar.
+**No uses fotos de Pinterest** (el pin que mandaste): tienen dueño y en una tienda que vende
+pueden traer reclamos o bajas por derechos de autor. Si quieres una foto profesional sin
+tomarla tú, cómprala en un banco con licencia (Shutterstock, Adobe Stock) o pídele al
+proveedor las fotos oficiales con permiso de uso.
+
+Para publicar el cambio: guarda las fotos y ejecuta en `D:\isk-store`:
+
+```bash
+git add -A
+```
+
+```bash
+git commit -m "Fotos reales Triple Black"
+```
+
+```bash
+vercel --prod --yes
+```
 
 ---
 

@@ -62,3 +62,14 @@ base de datos y responder en 15 días hábiles**: anotado en `PENDIENTES.md`.
 ### 11. Precio y moneda en un solo lugar
 `src/config/site.ts` tiene `price: 209.9` y la función de formato `S/ 209.90`. Cambiar el
 precio de toda la tienda = cambiar ese número.
+
+### 12. Solo Air Force 1 clásicas en las fotos
+Pediste expresamente "solo AF1 blancas clásicas y negras clásicas". Revisé cada foto una
+por una y saqué todo lo que no lo era (AF1 Type, Shadow, Sage, Utility, swoosh de color,
+Air Max 90, adidas). Triple White quedó con 3 fotos reales. Para Triple Black no hay fotos
+libres de la clásica de cuerpo entero, así que puse una imagen de marca provisional + un
+detalle real de suela. **No usé Pinterest** (derechos de autor). Ver `IMAGENES.md`.
+
+### 13. `.vercel` y `.env.local` fuera de git
+`vercel link` agregó un token temporal (`VERCEL_OIDC_TOKEN`) a `.env.local`. Ese archivo
+nunca se sube a GitHub (está en `.gitignore`), así que el repo público no expone nada.
