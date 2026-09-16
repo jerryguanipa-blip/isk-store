@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-inter);
   --font-sans: var(--font-inter);
 }
 
+/* ------------------------------------------------------------------
+   Paleta "boutique" (estilo catálogo claro)
+   ------------------------------------------------------------------ */
 @theme {
-  --color-ink: #000000;
+  --color-ink: #111111;
+  --color-muted: #6b6b6b;
+  --color-line: #e6e6e6;
+  --color-surface: #f5f5f3;
   --color-paper: #ffffff;
-  --color-smoke: #0a0a0a;
-  --color-carbon: #141414;
-  --color-graphite: #2a2a2a;
-  --color-ash: #8a8a8a;
-  --color-fog: #d4d4d4;
 
-  --tracking-brand: 0.28em;
-  --tracking-wide-ui: 0.16em;
+  --tracking-ui: 0.08em;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -41,46 +41,106 @@ html {
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
-  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #111111;
+  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-/* Foco visible y consistente para navegación por teclado */
-:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
 }
 
+/* Foco visible y discreto para teclado */
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
 
-/* --------------------------------- Tipografía editorial --------------------------------- */
+footer :focus-visible {
+  outline-color: #ffffff;
+}
+
+/* ------------------------------------------------------------------
+   Tipografía
+   ------------------------------------------------------------------ */
 .display {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  line-height: 0.92;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
 }
 
 .eyebrow {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-brand);
-  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .ui-label {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-wide-ui);
+  letter-spacing: var(--tracking-ui);
   font-weight: 500;
 }
 
-/* --------------------------------- Marquee --------------------------------- */
+/* Enlaces con capitalización normal a partir de textos en mayúsculas */
+.isk-sentence {
+  text-transform: lowercase;
+}
+.isk-sentence::first-letter {
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------
+   Botones: 48px, radio 0, 12px mayúsculas
+   ------------------------------------------------------------------ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0 1.5rem;
+    border: 1px solid #111111;
+    font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: var(--tracking-ui);
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 200ms ease, color 200ms ease, opacity 200ms ease;
+  }
+  .btn-primary {
+    background-color: #111111;
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background-color: #2b2b2b;
+  }
+  .btn-secondary {
+    background-color: #ffffff;
+    color: #111111;
+  }
+  .btn-secondary:hover {
+    background-color: #111111;
+    color: #ffffff;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Marquee discreto (barra de anuncio)
+   ------------------------------------------------------------------ */
 @keyframes isk-marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -93,18 +153,13 @@ body {
 .isk-marquee-track {
   display: flex;
   width: max-content;
-  animation: isk-marquee 42s linear infinite;
+  animation: isk-marquee 60s linear infinite;
   will-change: transform;
 }
 
 .isk-marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-}
-
-.isk-marquee-item {
-  font-size: clamp(2.25rem, 9vw, 5.5rem);
-  line-height: 1;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -113,30 +168,89 @@ body {
   }
 }
 
-/* --------------------------------- Cursor propio (solo desktop) --------------------------------- */
-@media (hover: hover) and (pointer: fine) {
-  body.isk-custom-cursor,
-  body.isk-custom-cursor * {
-    cursor: none !important;
+/* ------------------------------------------------------------------
+   Fotos de producto sobre superficie #F5F5F3
+   ------------------------------------------------------------------ */
+.isk-product {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+}
+
+/* Fotos con fondo blanco (JPG): el blanco se funde con la superficie */
+.isk-blend {
+  mix-blend-mode: multiply;
+}
+
+/* ------------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------------ */
+.isk-hero-title {
+  /* "AIR FORCE 1" en una sola línea y con tamaño contenido */
+  font-size: min(calc((100vw - 2rem) / 7), 5.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.isk-hero-shade {
+  background: linear-gradient(to top, rgb(0 0 0 / 0.62) 0%, rgb(0 0 0 / 0.18) 45%, rgb(0 0 0 / 0.05) 100%);
+}
+
+@keyframes isk-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-/* --------------------------------- Scrollbar --------------------------------- */
+.isk-hero-image {
+  animation: isk-fade-in 400ms ease both;
+}
+
+.isk-statement {
+  /* Cada frase en una línea, tamaño contenido */
+  font-size: min(calc((100vw - 2rem) / 10), 3.25rem);
+  line-height: 1.12;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+   Acordeones finos (details/summary)
+   ------------------------------------------------------------------ */
+.isk-accordion > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.isk-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+.isk-accordion > summary::after {
+  content: "+";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.isk-accordion[open] > summary::after {
+  content: "−";
+}
+
+/* ------------------------------------------------------------------
+   Scrollbar y utilidades
+   ------------------------------------------------------------------ */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #d9d9d9;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a4a4a;
+  background: #bdbdbd;
 }
 
-/* Oculta visualmente pero sigue disponible para lectores de pantalla */
 .sr-only-focusable:not(:focus):not(:focus-within) {
   position: absolute;
   width: 1px;
@@ -147,135 +261,4 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-
-/* Fotos de producto (fondo blanco de catálogo): sin filtro, nítidas */
-.isk-product {
-  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* ------------------------------------------------------------------
-   Sistema tipográfico fluido (sin tamaños arbitrarios sueltos)
-   ------------------------------------------------------------------ */
-.isk-hero-title {
-  /* "AIR FORCE 1" mide ~5.36 veces su tamaño de letra: se calcula desde el ancho
-     disponible para que ocupe ~91% y NUNCA salte de línea (320px → 49px). */
-  font-size: min(calc((100vw - 2rem) / 5.9), 12.5rem);
-  line-height: 0.84;
-  letter-spacing: -0.015em;
-}
-
-@media (min-width: 640px) {
-  .isk-hero-title {
-    font-size: min(calc((100vw - 3rem) / 5.9), 12.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .isk-hero-title {
-    font-size: min(calc((100vw - 5rem) / 5.9), 12.5rem);
-  }
-}
-
-.isk-color-title {
-  /* "WHITE"/"BLACK" miden ~2.9 veces su tamaño y comparten fila con el precio */
-  font-size: min(calc((100vw - 9rem) / 3), 9.5rem);
-  line-height: 0.82;
-  letter-spacing: -0.02em;
-}
-
-@media (min-width: 640px) {
-  .isk-color-title {
-    font-size: min(calc((100vw - 11rem) / 3), 9.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .isk-color-title {
-    font-size: min(calc((50vw - 12rem) / 3), 9.5rem);
-  }
-}
-
-.isk-statement {
-  /* "UN SOLO PRECIO." mide ~8.3 veces su tamaño: cada frase siempre en una línea */
-  font-size: min(calc((100vw - 2rem) / 9), 7.5rem);
-  line-height: 0.95;
-  white-space: nowrap;
-}
-
-@media (min-width: 640px) {
-  @media (min-width: 640px) {
-  .isk-color-title {
-    font-size: min(calc((100vw - 11rem) / 3), 9.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .isk-color-title {
-    font-size: min(calc((50vw - 12rem) / 3), 9.5rem);
-  }
-}
-
-.isk-statement {
-    font-size: min(calc((100vw - 3rem) / 9), 7.5rem);
-  }
-}
-
-.isk-price {
-  font-size: clamp(3rem, 14vw, 8rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-}
-
-/* ------------------------------------------------------------------
-   Hero: la portada se funde con el negro
-   ------------------------------------------------------------------ */
-.isk-hero-shade {
-  background:
-    linear-gradient(to bottom, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0) 20%),
-    linear-gradient(to top, #000 0%, rgb(0 0 0 / 0.86) 24%, rgb(0 0 0 / 0.2) 55%, rgb(0 0 0 / 0) 70%),
-    radial-gradient(120% 90% at 50% 35%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.55) 100%);
-}
-
-@media (min-width: 1024px) {
-  .isk-hero-media {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 42%);
-  }
-  .isk-hero-shade {
-    background:
-      linear-gradient(to bottom, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0) 18%),
-      linear-gradient(to top, #000 0%, rgb(0 0 0 / 0.7) 22%, rgb(0 0 0 / 0) 55%);
-  }
-}
-
-@keyframes isk-hero-in {
-  from {
-    transform: scale(1.06);
-    opacity: 0.4;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.isk-hero-image {
-  animation: isk-hero-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .isk-hero-image {
-    animation: none;
-  }
-}
-
-/* ------------------------------------------------------------------
-   Fondo negro con foco de luz para la AF1 negra (recorte sin fondo)
-   ------------------------------------------------------------------ */
-.isk-spot {
-  background-color: #000;
-  background-image: radial-gradient(70% 55% at 50% 52%, #262626 0%, #0d0d0d 55%, #000 100%);
 }

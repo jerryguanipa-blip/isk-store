@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { IskMark } from "@/components/brand/IskMark";
+import { Marquee } from "@/components/Marquee";
 import { siteConfig } from "@/config/site";
 import { cartCount, useCart } from "@/store/cart";
 import { useHydrated } from "@/lib/client-hooks";
@@ -15,19 +16,11 @@ import { buildLandingMessage, whatsappUrl } from "@/lib/checkout";
 export function Header() {
   const pathname = usePathname();
   const hydrated = useHydrated();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const items = useCart((s) => s.items);
   const openCart = useCart((s) => s.openCart);
   const count = cartCount(items);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -41,62 +34,61 @@ export function Header() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-[90] border-b pt-[env(safe-area-inset-top)] transition-colors duration-500",
-          scrolled || menuOpen
-            ? "border-white/10 bg-black/90 backdrop-blur-md"
-            : "border-transparent bg-gradient-to-b from-black/70 to-transparent",
-        )}
-      >
-        <div className="mx-auto flex h-14 max-w-[1800px] items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-10">
-          {/* Izquierda: navegación en escritorio */}
-          <nav className="hidden flex-1 items-center gap-8 md:flex" aria-label="Principal">
-            {siteConfig.navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
-                className={cn(
-                  "ui-label text-[11px] text-white/70 transition-colors hover:text-white",
-                  pathname === link.href && "text-white",
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+      {/* Barra de anuncio */}
+      <div className="bg-surface pt-[env(safe-area-inset-top)] text-ink">
+        <Marquee text={siteConfig.tagline} className="ui-label py-2 text-xs" />
+      </div>
 
-          <div className="flex flex-1 md:hidden">
+      {/* Barra principal */}
+      <header className="sticky top-0 z-[90] border-b border-line bg-paper">
+        <div className="mx-auto grid h-14 max-w-[1800px] grid-cols-[1fr_auto_1fr] items-center px-4 sm:h-16 sm:px-6 lg:px-10">
+          {/* Izquierda: menú */}
+          <div className="flex items-center">
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
-              className="-ml-2 flex h-11 w-11 items-center justify-center"
+              className="-ml-2 flex h-11 w-11 items-center justify-center md:hidden"
               aria-label="Abrir menú"
               aria-expanded={menuOpen}
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
             </button>
+
+            <nav className="hidden items-center gap-7 md:flex" aria-label="Principal">
+              {siteConfig.navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className={cn(
+                    "ui-label border-b border-transparent py-1 text-[13px] transition-colors hover:border-ink",
+                    pathname === link.href && "border-ink",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
           </div>
 
           {/* Centro: logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 px-2"
+            className="flex items-center gap-2.5 px-2"
             aria-label={`${siteConfig.name} — inicio`}
           >
-            <IskMark className="h-7 w-7 sm:h-8 sm:w-8" />
-            <span className="ui-label hidden text-[13px] tracking-[0.35em] sm:inline">
+            <IskMark tone="dark" className="h-8 w-8 sm:h-9 sm:w-9" />
+            <span className="ui-label hidden text-[13px] tracking-[0.2em] sm:inline">
               {siteConfig.name}
             </span>
           </Link>
 
           {/* Derecha: carrito */}
-          <div className="flex flex-1 items-center justify-end gap-6">
+          <div className="flex items-center justify-end">
             <button
               type="button"
               onClick={openCart}
-              className="ui-label -mr-2 flex h-11 items-center gap-2 px-2 text-[11px] transition-opacity hover:opacity-70"
+              className="ui-label -mr-2 flex h-11 items-center gap-2 px-2 text-[13px] transition-opacity hover:opacity-70"
             >
               <ShoppingBag className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
               <span className="sr-only">Carrito</span>
@@ -114,58 +106,44 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[95] bg-black pt-[env(safe-area-inset-top)] md:hidden"
+            className="fixed inset-0 z-[95] bg-paper pt-[env(safe-area-inset-top)] text-ink md:hidden"
           >
-            <div className="flex h-14 items-center justify-between px-4">
-              <button type="button" onClick={closeMenu} aria-label="Cerrar menú">
+            <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center border-b border-line px-4">
+              <button
+                type="button"
+                onClick={closeMenu}
+                aria-label="Cerrar menú"
+                className="-ml-2 flex h-11 w-11 items-center justify-center"
+              >
                 <X className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
               </button>
-              <IskMark className="h-7 w-7" />
-              <span className="w-5" />
+              <IskMark tone="dark" className="h-8 w-8" />
+              <span />
             </div>
 
-            <nav className="flex flex-col px-6 pt-10" aria-label="Menú móvil">
-              {siteConfig.navLinks.map((link, index) => (
-                <motion.div
+            <nav className="flex flex-col px-4" aria-label="Menú móvil">
+              {siteConfig.navLinks.map((link) => (
+                <Link
                   key={link.href}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * index + 0.1, duration: 0.4 }}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="ui-label block border-b border-line py-5 text-[15px]"
                 >
-                  <Link
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="display block border-b border-white/10 py-6 text-4xl"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                  {link.label}
+                </Link>
               ))}
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+              <a
+                href={whatsappUrl(buildLandingMessage())}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="ui-label block border-b border-line py-5 text-[15px]"
               >
-                <a
-                  href={whatsappUrl(buildLandingMessage())}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className="display block border-b border-white/10 py-6 text-4xl leading-[0.95]"
-                >
-                  COMPRAR VÍA WHATSAPP
-                </a>
-              </motion.div>
+                COMPRAR VÍA WHATSAPP
+              </a>
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="eyebrow mt-12 text-white/55"
-              >
-                {siteConfig.tagline}
-              </motion.p>
+              <p className="eyebrow mt-10 text-muted">{siteConfig.tagline}</p>
             </nav>
           </motion.div>
         )}

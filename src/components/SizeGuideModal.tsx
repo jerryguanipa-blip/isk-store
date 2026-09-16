@@ -35,7 +35,7 @@ export function SizeGuideModal({ open, onClose }: SizeGuideModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[130] flex items-end justify-center bg-black/80 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+          className="fixed inset-0 z-[130] flex items-end justify-center bg-black/40 p-0 sm:items-center sm:p-6"
         >
           <button
             type="button"
@@ -53,9 +53,9 @@ export function SizeGuideModal({ open, onClose }: SizeGuideModalProps) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 40, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-lg border border-white/15 bg-black"
+            className="relative w-full max-w-lg border border-line bg-paper text-ink"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <header className="flex items-center justify-between border-b border-line px-6 py-5">
               <h2 id="guia-tallas-titulo" className="ui-label text-xs">
                 GUÍA DE TALLAS
               </h2>
@@ -76,31 +76,31 @@ export function SizeGuideModal({ open, onClose }: SizeGuideModalProps) {
                   centímetros
                 </caption>
                 <thead>
-                  <tr className="border-b border-white/20">
-                    <th scope="col" className="ui-label py-3 text-left text-[10px]">
+                  <tr className="border-b border-line">
+                    <th scope="col" className="ui-label py-3 text-left text-xs">
                       EUR
                     </th>
-                    <th scope="col" className="ui-label py-3 text-left text-[10px]">
+                    <th scope="col" className="ui-label py-3 text-left text-xs">
                       US
                     </th>
-                    <th scope="col" className="ui-label py-3 text-left text-[10px]">
+                    <th scope="col" className="ui-label py-3 text-left text-xs">
                       CM
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sizeGuide.map((size) => (
-                    <tr key={size.eur} className="border-b border-white/10">
+                    <tr key={size.eur} className="border-b border-line">
                       <td className="py-3 tabular-nums">{size.eur}</td>
-                      <td className="py-3 tabular-nums text-white/70">{size.us}</td>
-                      <td className="py-3 tabular-nums text-white/70">{size.cm}</td>
+                      <td className="py-3 tabular-nums text-muted">{size.us}</td>
+                      <td className="py-3 tabular-nums text-muted">{size.cm}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
 
-              <div className="mt-8 space-y-3 text-xs leading-relaxed text-white/55">
-                <p className="ui-label text-[10px] text-white">CÓMO MEDIR TU PIE</p>
+              <div className="mt-8 space-y-3 text-xs leading-relaxed text-muted">
+                <p className="ui-label text-xs text-ink">CÓMO MEDIR TU PIE</p>
                 <p>
                   1. Pon una hoja en el suelo pegada a la pared y párate encima con el
                   talón tocando la pared.
@@ -111,7 +111,7 @@ export function SizeGuideModal({ open, onClose }: SizeGuideModalProps) {
                   4. Busca esa medida en la columna CM. Si estás entre dos tallas, elige
                   la mayor.
                 </p>
-                <p className="pt-2 text-white/55">
+                <p className="pt-2 text-muted">
                   La Air Force 1 calza fiel a la talla. Si dudas, escríbenos por WhatsApp
                   antes de comprar.
                 </p>

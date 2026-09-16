@@ -10,8 +10,8 @@ type RevealProps = {
   y?: number;
 };
 
-/** Aparición suave al entrar en pantalla al hacer scroll. */
-export function Reveal({ children, className, delay = 0, y = 28 }: RevealProps) {
+/** Aparición suave (fade de 400 ms) al entrar en pantalla al hacer scroll. */
+export function Reveal({ children, className, delay = 0, y = 0 }: RevealProps) {
   const reduce = useReducedMotion();
 
   if (reduce) return <div className={className}>{children}</div>;
@@ -22,7 +22,7 @@ export function Reveal({ children, className, delay = 0, y = 28 }: RevealProps) 
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, delay: Math.min(delay, 0.2), ease: "easeOut" }}
     >
       {children}
     </motion.div>

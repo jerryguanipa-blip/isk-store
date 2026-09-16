@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Ruler } from "lucide-react";
 import type { Product } from "@/data/products";
-import { formatPrice } from "@/lib/format";
+import { cn, formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
 import { buildProductMessage, whatsappUrl } from "@/lib/checkout";
 import { ProductGallery } from "@/components/ProductGallery";
@@ -32,54 +32,48 @@ export function ProductDetail({ product }: { product: Product }) {
 
   return (
     <>
-      <nav aria-label="Ruta de navegación" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-2 text-[11px] text-white/55">
+      <nav aria-label="Ruta de navegación" className="mb-6">
+        <ol className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <li>
-            <Link href="/" className="ui-label hover:text-white">
+            <Link href="/" className="ui-label hover:text-ink">
               INICIO
             </Link>
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href="/shop" className="ui-label hover:text-white">
+            <Link href="/shop" className="ui-label hover:text-ink">
               TIENDA
             </Link>
           </li>
           <li aria-hidden="true">/</li>
-          <li className="ui-label text-white/70">{product.color}</li>
+          <li className="ui-label text-ink">{product.color}</li>
         </ol>
       </nav>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-        <ProductGallery images={product.images} productName={product.name} theme={product.theme} />
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
+        <ProductGallery images={product.images} productName={product.name} />
 
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <p className="eyebrow text-white/55">NIKE · AIR FORCE 1 &apos;07</p>
-          <h1 className="display mt-4 text-3xl sm:text-4xl lg:text-5xl">
-            {product.colorName}
-          </h1>
-          <p className="mt-5 text-2xl tabular-nums">{formatPrice(product.price)}</p>
-          <p className="mt-1 text-xs text-white/55">
-            Precio en soles (PEN). IGV incluido.
-          </p>
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <p className="eyebrow text-muted">NIKE · AIR FORCE 1 &apos;07</p>
+          <h1 className="display mt-2 text-2xl sm:text-3xl">{product.colorName}</h1>
+          <p className="mt-3 text-lg tabular-nums">{formatPrice(product.price)}</p>
+          <p className="mt-1 text-xs text-muted">Precio en soles (PEN). IGV incluido.</p>
 
-          <p className="mt-8 max-w-prose text-sm leading-relaxed text-white/60">
-            {product.description}
-          </p>
+          <p className="mt-6 max-w-prose text-muted">{product.description}</p>
 
           {/* Tallas */}
-          <div className="mt-10">
+          <div className="mt-8">
             <div className="flex items-center justify-between">
-              <h2 className="ui-label text-[11px]">
+              <h2 className="ui-label text-xs">
                 TALLA EUR{" "}
-                <span className="text-white/55">
+                <span className="text-muted">
                   {size ? `· ${size} seleccionada` : "· elige una"}
                 </span>
               </h2>
               <button
                 type="button"
                 onClick={() => setGuideOpen(true)}
-                className="ui-label flex items-center gap-2 text-[10px] text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+                className="ui-label flex min-h-11 items-center gap-2 text-xs underline underline-offset-4 hover:no-underline"
               >
                 <Ruler className="h-3.5 w-3.5" aria-hidden="true" />
                 GUÍA DE TALLAS
@@ -90,7 +84,7 @@ export function ProductDetail({ product }: { product: Product }) {
               role="radiogroup"
               aria-label="Elige tu talla europea"
               aria-required="true"
-              className="mt-4 grid grid-cols-5 gap-2 sm:grid-cols-9"
+              className="mt-3 flex flex-wrap gap-2"
             >
               {product.sizes.map((option) => {
                 const selected = size === option.eur;
@@ -105,11 +99,13 @@ export function ProductDetail({ product }: { product: Product }) {
                       setSize(option.eur);
                       setError(false);
                     }}
-                    className={`border py-3 text-sm tabular-nums transition-colors ${
+                    className={cn(
+                      "grid h-12 w-12 place-items-center border text-sm tabular-nums transition-colors",
                       selected
-                        ? "border-white bg-white text-black"
-                        : "border-white/20 text-white hover:border-white"
-                    } ${!option.available ? "cursor-not-allowed opacity-25 line-through" : ""}`}
+                        ? "border-ink bg-ink text-white"
+                        : "border-line bg-paper text-ink hover:border-ink",
+                      !option.available && "cursor-not-allowed opacity-30 line-through",
+                    )}
                   >
                     {option.eur}
                   </button>
@@ -119,10 +115,11 @@ export function ProductDetail({ product }: { product: Product }) {
 
             {error && (
               <motion.p
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
                 role="alert"
-                className="ui-label mt-3 text-[11px] text-white"
+                className="ui-label mt-3 text-xs text-ink"
               >
                 ⚠ ELIGE UNA TALLA PARA CONTINUAR
               </motion.p>
@@ -130,12 +127,12 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
 
           {/* Acciones */}
-          <div className="mt-8 space-y-3">
+          <div className="mt-6 flex flex-col gap-2">
             <button
               type="button"
               onClick={handleAdd}
               data-cta
-              className="ui-label w-full bg-white px-6 py-4 text-xs text-black transition-opacity hover:opacity-80"
+              className="btn btn-primary w-full"
             >
               AGREGAR AL CARRITO
             </button>
@@ -145,42 +142,47 @@ export function ProductDetail({ product }: { product: Product }) {
               data-cta
               target="_blank"
               rel="noopener noreferrer"
-              className="ui-label flex w-full items-center justify-center border border-white px-6 py-4 text-xs transition-colors hover:bg-white hover:text-black"
+              className="btn btn-secondary w-full"
             >
               COMPRAR VÍA WHATSAPP
             </a>
           </div>
 
-          {/* Detalles */}
-          <div className="mt-12 border-t border-white/10 pt-8">
-            <h2 className="ui-label text-[11px]">DETALLES</h2>
-            <ul className="mt-4 space-y-2.5">
-              {product.details.map((detail) => (
-                <li key={detail} className="flex gap-3 text-sm text-white/60">
-                  <span aria-hidden="true" className="text-white/55">
-                    —
-                  </span>
-                  {detail}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Acordeones */}
+          <div className="mt-8 border-b border-line">
+            <details className="isk-accordion border-t border-line" open>
+              <summary className="ui-label flex min-h-12 items-center justify-between text-xs">
+                DETALLES
+              </summary>
+              <ul className="space-y-2 pb-5">
+                {product.details.map((detail) => (
+                  <li key={detail} className="flex gap-3 text-sm text-muted">
+                    <span aria-hidden="true">—</span>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </details>
 
-          <div className="mt-8 border-t border-white/10 pt-8">
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              <Link
-                href="/envios"
-                className="ui-label text-[10px] text-white/50 underline-offset-4 hover:text-white hover:underline"
-              >
-                VER POLÍTICA DE ENVÍOS
-              </Link>
-              <Link
-                href="/cambios"
-                className="ui-label text-[10px] text-white/50 underline-offset-4 hover:text-white hover:underline"
-              >
-                VER CAMBIOS Y DEVOLUCIONES
-              </Link>
-            </div>
+            <details className="isk-accordion border-t border-line">
+              <summary className="ui-label flex min-h-12 items-center justify-between text-xs">
+                ENVÍOS
+              </summary>
+              <div className="flex flex-col gap-3 pb-5">
+                <Link
+                  href="/envios"
+                  className="ui-label text-xs text-ink underline underline-offset-4 hover:no-underline"
+                >
+                  VER POLÍTICA DE ENVÍOS
+                </Link>
+                <Link
+                  href="/cambios"
+                  className="ui-label text-xs text-ink underline underline-offset-4 hover:no-underline"
+                >
+                  VER CAMBIOS Y DEVOLUCIONES
+                </Link>
+              </div>
+            </details>
           </div>
         </div>
       </div>

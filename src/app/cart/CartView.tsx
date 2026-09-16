@@ -21,7 +21,7 @@ export function CartView() {
 
   if (!hydrated) {
     return (
-      <p className="py-20 text-sm text-white/55" role="status">
+      <p className="py-20 text-sm text-muted" role="status">
         Cargando tu carrito…
       </p>
     );
@@ -29,14 +29,14 @@ export function CartView() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-start gap-6 border-y border-white/10 py-20">
-        <p className="display text-3xl sm:text-4xl">TU CARRITO ESTÁ VACÍO</p>
-        <p className="max-w-sm text-sm leading-relaxed text-white/50">
+      <div className="flex flex-col items-start gap-6 border-y border-line py-20">
+        <p className="display text-2xl sm:text-3xl">TU CARRITO ESTÁ VACÍO</p>
+        <p className="max-w-sm text-sm leading-relaxed text-muted">
           Todavía no agregaste nada. Dos colores, nueve tallas, un solo precio.
         </p>
         <Link
           href="/shop"
-          className="ui-label border border-white px-10 py-4 text-xs transition-colors hover:bg-white hover:text-black"
+          className="btn btn-secondary"
         >
           VER LA TIENDA
         </Link>
@@ -48,14 +48,12 @@ export function CartView() {
     <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
       {/* Líneas del carrito */}
       <div>
-        <ul className="divide-y divide-white/10 border-y border-white/10">
+        <ul className="divide-y divide-line border-y border-line">
           {items.map((item) => (
             <li key={item.id} className="flex gap-5 py-6">
               <Link
                 href={`/product/${item.slug}`}
-                className={`relative h-28 w-28 shrink-0 overflow-hidden sm:h-36 sm:w-36 ${
-                  getProduct(item.slug)?.theme === "dark" ? "isk-spot" : "bg-white"
-                }`}
+                className={`relative h-28 w-28 shrink-0 overflow-hidden sm:h-36 sm:w-36 bg-surface`}
               >
                 <Image
                   src={getProduct(item.slug)?.images[0]?.src ?? item.image}
@@ -70,25 +68,25 @@ export function CartView() {
                 <div>
                   <Link
                     href={`/product/${item.slug}`}
-                    className="ui-label text-[11px] leading-snug hover:underline"
+                    className="ui-label text-xs leading-snug hover:underline"
                   >
                     {item.name}
                   </Link>
-                  <p className="mt-2 text-xs text-white/50">
+                  <p className="mt-2 text-xs text-muted">
                     {item.colorName} · Talla EUR {item.size}
                   </p>
-                  <p className="mt-2 text-sm tabular-nums text-white/70">
+                  <p className="mt-2 text-sm tabular-nums text-muted">
                     {formatPrice(item.price)} c/u
                   </p>
                 </div>
 
                 <div className="mt-4 flex flex-wrap items-center gap-4">
-                  <div className="flex items-center border border-white/20">
+                  <div className="flex items-center border border-line">
                     <button
                       type="button"
                       onClick={() => setQty(item.id, item.qty - 1)}
                       aria-label={`Quitar una unidad de ${item.name} talla ${item.size}`}
-                      className="px-3 py-2 transition-colors hover:bg-white hover:text-black"
+                      className="px-3 py-2 transition-colors hover:bg-ink hover:text-white"
                     >
                       <Minus className="h-3 w-3" aria-hidden="true" />
                     </button>
@@ -99,7 +97,7 @@ export function CartView() {
                       type="button"
                       onClick={() => setQty(item.id, item.qty + 1)}
                       aria-label={`Agregar una unidad de ${item.name} talla ${item.size}`}
-                      className="px-3 py-2 transition-colors hover:bg-white hover:text-black"
+                      className="px-3 py-2 transition-colors hover:bg-ink hover:text-white"
                     >
                       <Plus className="h-3 w-3" aria-hidden="true" />
                     </button>
@@ -108,7 +106,7 @@ export function CartView() {
                   <button
                     type="button"
                     onClick={() => remove(item.id)}
-                    className="ui-label text-[10px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
+                    className="ui-label text-xs text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
                   >
                     QUITAR
                   </button>
@@ -125,14 +123,14 @@ export function CartView() {
         <div className="mt-6 flex flex-wrap gap-6">
           <Link
             href="/shop"
-            className="ui-label text-[11px] text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+            className="ui-label text-xs text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
           >
             ← SEGUIR COMPRANDO
           </Link>
           <button
             type="button"
             onClick={clear}
-            className="ui-label text-[11px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
+            className="ui-label text-xs text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
           >
             VACIAR CARRITO
           </button>
@@ -140,22 +138,22 @@ export function CartView() {
       </div>
 
       {/* Resumen */}
-      <aside className="lg:sticky lg:top-32 lg:self-start">
-        <div className="border border-white/15 p-6 sm:p-8">
+      <aside className="lg:sticky lg:top-24 lg:self-start">
+        <div className="border border-line p-6 sm:p-8">
           <h2 className="ui-label text-xs">RESUMEN DEL PEDIDO</h2>
 
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex items-center justify-between">
-              <dt className="text-white/50">Subtotal</dt>
+              <dt className="text-muted">Subtotal</dt>
               <dd className="tabular-nums">{formatPrice(subtotal)}</dd>
             </div>
             <div className="flex items-center justify-between">
-              <dt className="text-white/50">Envío</dt>
-              <dd className="text-white/50">Se calcula por WhatsApp</dd>
+              <dt className="text-muted">Envío</dt>
+              <dd className="text-muted">Se calcula por WhatsApp</dd>
             </div>
           </dl>
 
-          <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-6">
+          <div className="mt-6 flex items-center justify-between border-t border-line pt-6">
             <span className="ui-label text-xs">TOTAL</span>
             <span className="text-xl tabular-nums">{formatPrice(subtotal)}</span>
           </div>
@@ -165,12 +163,12 @@ export function CartView() {
             data-cta
             target="_blank"
             rel="noopener noreferrer"
-            className="ui-label mt-8 flex w-full items-center justify-center bg-white px-6 py-4 text-center text-xs text-black transition-opacity hover:opacity-80"
+            className="btn btn-primary mt-8 w-full"
           >
             {activeProvider.label}
           </a>
 
-          <p className="mt-4 text-xs leading-relaxed text-white/55">
+          <p className="mt-4 text-xs leading-relaxed text-muted">
             Al tocar el botón se abre WhatsApp con tu pedido ya escrito. Solo tienes que
             completar tu nombre, dirección y distrito, y enviarlo.
           </p>

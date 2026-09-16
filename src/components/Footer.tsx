@@ -10,14 +10,14 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black">
-      <div className="mx-auto max-w-[1800px] px-4 pt-16 pb-28 sm:px-6 lg:px-10 lg:pt-24 lg:pb-24">
-        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="bg-ink text-white">
+      <div className="mx-auto max-w-[1800px] px-4 pt-14 pb-28 sm:px-6 lg:px-10 lg:pt-16 lg:pb-12">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           {/* Marca */}
           <div>
-            <IskMark className="h-16 w-16" />
-            <p className="eyebrow mt-6 text-white/50">{siteConfig.tagline}</p>
-            <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
+            <IskMark className="h-12 w-12" />
+            <p className="eyebrow mt-5 text-white/70">{siteConfig.tagline}</p>
+            <p className="mt-3 max-w-xs text-sm text-white/70">
               Nike Air Force 1 &apos;07 clásicas en Perú. Dos colores, nueve tallas,
               un solo precio.
             </p>
@@ -25,29 +25,31 @@ export function Footer() {
 
           {/* Tienda */}
           <nav aria-label="Tienda">
-            <h2 className="eyebrow text-white/55">TIENDA</h2>
-            <ul className="mt-6 space-y-3">
+            <h2 className="eyebrow text-white/70">TIENDA</h2>
+            <ul className="mt-4 space-y-2.5">
               {siteConfig.navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="ui-label text-[11px] text-white/70 transition-colors hover:text-white"
+                    className="isk-sentence inline-block text-sm text-white/85 transition-colors hover:text-white hover:underline hover:underline-offset-4"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
+          </nav>
 
-            <h2 className="eyebrow mt-10 text-white/55">SÍGUENOS</h2>
-            <ul className="mt-6 space-y-3">
+          <nav aria-label="Redes sociales">
+            <h2 className="eyebrow text-white/70">SÍGUENOS</h2>
+            <ul className="mt-4 space-y-2.5">
               {socials.map((social) => (
                 <li key={social.label}>
                   <a
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ui-label text-[11px] text-white/70 transition-colors hover:text-white"
+                    className="isk-sentence inline-block text-sm text-white/85 transition-colors hover:text-white hover:underline hover:underline-offset-4"
                   >
                     {social.label}
                   </a>
@@ -58,15 +60,15 @@ export function Footer() {
 
           {/* Legal */}
           <nav aria-label="Información legal">
-            <h2 className="eyebrow text-white/55">INFORMACIÓN</h2>
-            <ul className="mt-6 space-y-3">
+            <h2 className="eyebrow text-white/70">INFORMACIÓN</h2>
+            <ul className="mt-4 space-y-2.5">
               {siteConfig.legalLinks
                 .filter((link) => link.href !== "/libro-de-reclamaciones")
                 .map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="ui-label text-[11px] text-white/70 transition-colors hover:text-white"
+                    className="isk-sentence inline-block text-sm text-white/85 transition-colors hover:text-white hover:underline hover:underline-offset-4"
                   >
                     {link.label}
                   </Link>
@@ -76,19 +78,19 @@ export function Footer() {
 
             <Link
               href="/libro-de-reclamaciones"
-              className="mt-8 inline-flex items-center border border-white/25 px-4 py-3 transition-colors hover:border-white"
+              className="mt-5 inline-flex min-h-11 items-center border border-white/40 px-4 text-sm transition-colors hover:border-white"
               aria-label="Libro de Reclamaciones virtual"
             >
-              <span className="ui-label text-[10px]">LIBRO DE RECLAMACIONES</span>
+              <span className="isk-sentence">LIBRO DE RECLAMACIONES</span>
             </Link>
           </nav>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-white/55">
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-white/70">
             ISK OFICIAL · TODOS LOS DERECHOS RESERVADOS 2026
           </p>
-          <p className="text-xs text-white/55">
+          <p className="text-xs text-white/70">
             Hecho en Perú · Precios en soles (PEN)
           </p>
         </div>

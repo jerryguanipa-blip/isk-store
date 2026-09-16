@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { BrandAudio } from "@/components/BrandAudio";
-import { CustomCursor } from "@/components/CustomCursor";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { PageTransition } from "@/components/PageTransition";
 import "./globals.css";
@@ -13,13 +12,6 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -60,8 +52,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -73,17 +65,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es-PE" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="min-h-dvh bg-black text-white">
+    <html lang="es-PE" className={inter.variable}>
+      <body className="min-h-dvh bg-paper text-ink">
         <a
           href="#contenido"
-          className="sr-only-focusable ui-label fixed top-4 left-4 z-[200] bg-white px-4 py-3 text-xs text-black"
+          className="sr-only-focusable ui-label fixed top-4 left-4 z-[200] bg-ink px-4 py-3 text-xs text-white"
         >
           Saltar al contenido
         </a>
 
         <BrandAudio />
-        <CustomCursor />
 
         <div className="flex min-h-dvh flex-col">
           <Header />

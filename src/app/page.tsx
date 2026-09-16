@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { products, type Product } from "@/data/products";
-import { cn, formatPrice } from "@/lib/format";
+import { products } from "@/data/products";
+import { formatPrice } from "@/lib/format";
 import { Reveal } from "@/components/Reveal";
-import { Marquee } from "@/components/Marquee";
+import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
@@ -63,63 +63,77 @@ export default function HomePage() {
       />
 
       {/* ---------------------------------- HERO ---------------------------------- */}
-      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-black">
-        <div className="isk-hero-media absolute inset-0 lg:left-auto lg:w-[64%]">
-          <Image
-            src="/images/portada-hd.jpg"
-            alt="Pared de zapatillas Air Force 1 en blanco y negro"
-            fill
-            priority
-            sizes="(min-width: 1024px) 64vw, 100vw"
-            className="isk-hero-image object-cover object-[46%_28%] lg:object-[50%_35%]"
-          />
-        </div>
+      <section className="relative isolate flex h-[calc(100svh-5.5rem)] min-h-[520px] max-h-[920px] items-end overflow-hidden bg-surface">
+        <Image
+          src="/images/portada-hd.jpg"
+          alt="Pared de zapatillas Air Force 1 en blanco y negro"
+          fill
+          priority
+          sizes="100vw"
+          className="isk-hero-image object-cover object-[46%_30%] lg:object-[50%_40%]"
+        />
         <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
-        <div className="relative z-10 mx-auto w-full max-w-[1800px] px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:px-6 lg:px-10 lg:pb-20">
-          <Reveal y={20}>
+        <div className="relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">
+          <Reveal>
             <h1 className="display isk-hero-title whitespace-nowrap">AIR FORCE 1</h1>
           </Reveal>
 
-          <Reveal delay={0.15} y={16}>
-            <div className="mt-7 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <p className="font-display text-3xl font-medium tabular-nums sm:text-4xl">
-                {formatPrice(siteConfig.price)}
-              </p>
+          <Reveal delay={0.1}>
+            <p className="mt-3 text-lg tabular-nums sm:text-xl">{formatPrice(siteConfig.price)}</p>
+          </Reveal>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <WhatsAppButton tone="light" />
-                <a
-                  href="#modelos"
-                  data-cta
-                  className="ui-label inline-flex min-h-13 items-center justify-center border border-white/40 px-8 text-xs transition-colors hover:border-white"
-                >
-                  VER WHITE / BLACK
-                </a>
-              </div>
-            </div>
+          <Reveal delay={0.15} className="mt-6 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+            <WhatsAppButton
+              tone="light"
+              className="w-full max-w-xs border-white bg-transparent text-white hover:bg-white hover:text-ink sm:w-auto"
+            />
+            <a
+              href="#modelos"
+              data-cta
+              className="ui-label inline-flex min-h-12 items-center px-2 text-xs text-white underline underline-offset-4 hover:no-underline"
+            >
+              VER WHITE / BLACK
+            </a>
           </Reveal>
         </div>
       </section>
 
       {/* ---------------------------------- WHITE / BLACK ---------------------------------- */}
-      <section id="modelos" aria-labelledby="modelos-titulo" className="scroll-mt-14">
+      <section
+        id="modelos"
+        aria-labelledby="modelos-titulo"
+        className="mx-auto max-w-[1800px] scroll-mt-20 px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
+      >
         <h2 id="modelos-titulo" className="sr-only">
           Air Force 1 White y Black
         </h2>
-        <div className="grid lg:grid-cols-2">
-          <ColorPanel product={white} />
-          <ColorPanel product={black} />
+
+        <div className="grid gap-x-4 gap-y-12 md:grid-cols-2">
+          {[white, black].map((product, index) => (
+            <Reveal key={product.slug} delay={index * 0.05}>
+              <ProductCard product={product} priority={index === 0} headingLevel="h3" />
+              <p className="mt-1 text-sm text-muted">{product.intro}</p>
+
+              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <WhatsAppButton colorName={product.colorName} tone="light" />
+                <Link
+                  href={`/product/${product.slug}`}
+                  data-cta
+                  className="ui-label text-xs underline underline-offset-4 hover:no-underline"
+                >
+                  VER TALLAS Y FOTOS
+                </Link>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
-
-      {/* ---------------------------------- MARQUEE ---------------------------------- */}
-      <Marquee text={siteConfig.tagline} />
 
       {/* ---------------------------------- DOS COLORES / PRECIO ---------------------------------- */}
       <section
         aria-labelledby="precio-titulo"
-        className="mx-auto max-w-[1800px] px-4 py-24 text-center sm:px-6 lg:px-10 lg:py-36"
+        className="border-t border-line px-4 py-16 text-center sm:px-6 lg:px-10 lg:py-24"
       >
         <Reveal>
           <h2 id="precio-titulo" className="display isk-statement">
@@ -131,15 +145,15 @@ export default function HomePage() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.08}>
+        <Reveal delay={0.05}>
           <ul
             aria-label="Tallas disponibles (EUR)"
-            className="mx-auto mt-12 flex max-w-[30rem] flex-wrap justify-center gap-2"
+            className="mx-auto mt-10 flex max-w-[34rem] flex-wrap justify-center gap-2"
           >
             {siteConfig.sizes.map((size) => (
               <li
                 key={size}
-                className="grid h-11 w-11 place-items-center border border-white/20 text-sm tabular-nums text-white/80"
+                className="grid h-12 w-12 place-items-center border border-line text-sm tabular-nums"
               >
                 {size}
               </li>
@@ -147,20 +161,22 @@ export default function HomePage() {
           </ul>
         </Reveal>
 
-        <Reveal delay={0.14}>
-          <p className="display isk-price mt-14 tabular-nums">{formatPrice(siteConfig.price)}</p>
-          <p className="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+        <Reveal delay={0.1}>
+          <p className="mt-10 text-3xl font-medium tabular-nums sm:text-4xl">
+            {formatPrice(siteConfig.price)}
+          </p>
+          <p className="mx-auto mt-2 max-w-xs text-sm text-muted">
             Sin catálogos infinitos. Solo el par que todos quieren.
           </p>
         </Reveal>
 
-        <Reveal delay={0.2}>
-          <div className="mt-10 flex flex-col items-center gap-5">
-            <WhatsAppButton tone="light" className="w-full max-w-xs sm:w-auto" />
+        <Reveal delay={0.15}>
+          <div className="mt-8 flex flex-col items-center gap-5">
+            <WhatsAppButton tone="dark" className="w-full max-w-xs sm:w-auto" />
             <Link
               href="/shop"
               data-cta
-              className="ui-label text-[11px] text-white/70 underline-offset-8 transition-colors hover:text-white hover:underline"
+              className="ui-label text-xs underline underline-offset-4 hover:no-underline"
             >
               ELEGIR MI TALLA EN LA WEB
             </Link>
@@ -168,66 +184,5 @@ export default function HomePage() {
         </Reveal>
       </section>
     </>
-  );
-}
-
-/** Bloque WHITE (fondo blanco) o BLACK (fondo negro con foco de luz). */
-function ColorPanel({ product }: { product: Product }) {
-  const light = product.theme === "light";
-  const cover = product.images[0];
-
-  return (
-    <article
-      className={cn(
-        "relative flex min-h-[640px] flex-col overflow-hidden px-5 pt-14 pb-12 sm:px-10 lg:min-h-[92vh] lg:pt-16",
-        light ? "bg-white text-black" : "isk-spot text-white",
-      )}
-    >
-      <div className="relative z-10 flex items-baseline justify-between gap-4">
-        <h3 className="display isk-color-title">{product.color}</h3>
-        <p className="font-display text-lg font-medium tabular-nums sm:text-xl">
-          {formatPrice(product.price)}
-        </p>
-      </div>
-      <p className={cn("relative z-10 mt-3 text-sm", light ? "text-black/60" : "text-white/65")}>
-        {product.intro}
-      </p>
-
-      <Link
-        href={`/product/${product.slug}`}
-        aria-label={`Ver fotos y tallas de ${product.name}`}
-        className={cn(
-          "group relative z-0 my-6 block min-h-[240px] flex-1",
-          light
-            ? "focus-visible:outline-black"
-            : "focus-visible:outline-white",
-        )}
-      >
-        {/* Las fotos de catálogo traen ~40% de margen: se amplían sin recortar la zapatilla */}
-        <div className="absolute inset-0 scale-[1.12] transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-rotate-2 group-hover:scale-[1.17] sm:scale-[1.4] sm:group-hover:scale-[1.46] lg:scale-[1.3] lg:group-hover:scale-[1.36]">
-          <Image
-            src={cover.src}
-            alt={cover.alt}
-            fill
-            sizes="(min-width: 1024px) 60vw, 100vw"
-            className="object-contain"
-          />
-        </div>
-      </Link>
-
-      <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-        <WhatsAppButton colorName={product.colorName} tone={light ? "dark" : "light"} />
-        <Link
-          href={`/product/${product.slug}`}
-          data-cta
-          className={cn(
-            "ui-label self-start text-[11px] underline-offset-8 transition-colors hover:underline sm:self-auto",
-            light ? "text-black/70 hover:text-black" : "text-white/70 hover:text-white",
-          )}
-        >
-          VER TALLAS Y FOTOS
-        </Link>
-      </div>
-    </article>
   );
 }

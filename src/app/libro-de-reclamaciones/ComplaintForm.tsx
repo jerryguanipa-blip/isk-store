@@ -46,8 +46,8 @@ const EMPTY: FormState = {
 };
 
 const inputClass =
-  "w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/55 focus:border-white";
-const labelClass = "ui-label block text-[10px] text-white/60";
+  "w-full border border-line bg-transparent px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-ink";
+const labelClass = "ui-label block text-xs text-muted";
 
 function generarCodigo() {
   const now = new Date();
@@ -150,11 +150,11 @@ export function ComplaintForm() {
       <div
         role="status"
         aria-live="polite"
-        className="border border-white/20 p-8 sm:p-10"
+        className="border border-line p-8 sm:p-10"
       >
         <p className="ui-label text-xs">RECLAMO REGISTRADO</p>
         <p className="display mt-5 text-3xl sm:text-4xl">{codigo}</p>
-        <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/60">
+        <p className="mt-6 max-w-lg text-sm leading-relaxed text-muted">
           Guarda este código. Se abrió WhatsApp con tu reclamo completo: solo tienes que
           enviarlo para que quede registrado. Tenemos un plazo máximo de 15 días hábiles
           para responderte.
@@ -165,7 +165,7 @@ export function ComplaintForm() {
             href={enlace}
             target="_blank"
             rel="noopener noreferrer"
-            className="ui-label bg-white px-8 py-4 text-xs text-black transition-opacity hover:opacity-80"
+            className="btn btn-primary"
           >
             ABRIR WHATSAPP DE NUEVO
           </a>
@@ -176,7 +176,7 @@ export function ComplaintForm() {
               setCodigo(null);
               setEnlace(null);
             }}
-            className="ui-label border border-white/30 px-8 py-4 text-xs transition-colors hover:border-white"
+            className="btn btn-secondary"
           >
             REGISTRAR OTRO
           </button>
@@ -189,7 +189,7 @@ export function ComplaintForm() {
     <form onSubmit={handleSubmit} noValidate className="space-y-12">
       {/* 1. Consumidor */}
       <fieldset className="space-y-5">
-        <legend className="ui-label pb-4 text-xs text-white">
+        <legend className="ui-label pb-4 text-xs text-ink">
           1. IDENTIFICACIÓN DEL CONSUMIDOR
         </legend>
 
@@ -267,12 +267,12 @@ export function ComplaintForm() {
           autoComplete="email"
         />
 
-        <label className="flex items-start gap-3 pt-2 text-sm text-white/60">
+        <label className="flex items-start gap-3 pt-2 text-sm text-muted">
           <input
             type="checkbox"
             checked={form.esMenor}
             onChange={(event) => update("esMenor", event.target.checked)}
-            className="mt-1 h-4 w-4 accent-white"
+            className="mt-1 h-4 w-4 accent-black"
           />
           Soy menor de edad
         </label>
@@ -290,7 +290,7 @@ export function ComplaintForm() {
 
       {/* 2. Bien contratado */}
       <fieldset className="space-y-5">
-        <legend className="ui-label pb-4 text-xs text-white">
+        <legend className="ui-label pb-4 text-xs text-ink">
           2. IDENTIFICACIÓN DEL BIEN CONTRATADO
         </legend>
 
@@ -325,7 +325,7 @@ export function ComplaintForm() {
 
       {/* 3. Detalle */}
       <fieldset className="space-y-5">
-        <legend className="ui-label pb-4 text-xs text-white">
+        <legend className="ui-label pb-4 text-xs text-ink">
           3. DETALLE DE LA RECLAMACIÓN
         </legend>
 
@@ -339,10 +339,10 @@ export function ComplaintForm() {
           value={form.tipoReclamo}
           onChange={(v) => update("tipoReclamo", v as ClaimType)}
         />
-        <p className="text-xs leading-relaxed text-white/55">
-          <strong className="text-white/70">Reclamo:</strong> no estás conforme con el
+        <p className="text-xs leading-relaxed text-muted">
+          <strong className="text-muted">Reclamo:</strong> no estás conforme con el
           producto o servicio.{" "}
-          <strong className="text-white/70">Queja:</strong> tu malestar es por la atención
+          <strong className="text-muted">Queja:</strong> tu malestar es por la atención
           recibida.
         </p>
 
@@ -366,21 +366,21 @@ export function ComplaintForm() {
 
       <div>
         <label
-          className="flex items-start gap-3 text-sm text-white/60"
+          className="flex items-start gap-3 text-sm text-muted"
           data-error={errors.aceptaPolitica ? "true" : undefined}
         >
           <input
             type="checkbox"
             checked={form.aceptaPolitica}
             onChange={(event) => update("aceptaPolitica", event.target.checked)}
-            className="mt-1 h-4 w-4 accent-white"
+            className="mt-1 h-4 w-4 accent-black"
             aria-invalid={Boolean(errors.aceptaPolitica)}
           />
           Acepto que mis datos se usen para atender este reclamo, según la política de
           privacidad. *
         </label>
         {errors.aceptaPolitica && (
-          <p role="alert" className="ui-label mt-2 text-[10px] text-white">
+          <p role="alert" className="ui-label mt-2 text-xs text-ink">
             ⚠ {errors.aceptaPolitica}
           </p>
         )}
@@ -388,12 +388,12 @@ export function ComplaintForm() {
 
       <button
         type="submit"
-        className="ui-label w-full bg-white px-8 py-5 text-xs text-black transition-opacity hover:opacity-80 sm:w-auto sm:px-16"
+        className="btn btn-primary w-full sm:w-auto sm:px-16"
       >
         ENVIAR RECLAMO
       </button>
 
-      <p className="text-xs leading-relaxed text-white/55">
+      <p className="text-xs leading-relaxed text-muted">
         Conforme al Código de Protección y Defensa del Consumidor (Ley N.º 29571), el
         proveedor debe dar respuesta al reclamo en un plazo no mayor a 15 días hábiles.
         Formular un reclamo no impide acudir a otras vías de solución de controversias ni
@@ -444,10 +444,10 @@ function Field({
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
         data-error={error ? "true" : undefined}
-        className={`${inputClass} mt-2 ${error ? "border-white" : ""}`}
+        className={`${inputClass} mt-2 ${error ? "border-ink" : ""}`}
       />
       {error && (
-        <p id={`${id}-error`} role="alert" className="ui-label mt-2 text-[10px] text-white">
+        <p id={`${id}-error`} role="alert" className="ui-label mt-2 text-xs text-ink">
           ⚠ {error}
         </p>
       )}
@@ -483,10 +483,10 @@ function TextArea({
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
         data-error={error ? "true" : undefined}
-        className={`${inputClass} mt-2 resize-y ${error ? "border-white" : ""}`}
+        className={`${inputClass} mt-2 resize-y ${error ? "border-ink" : ""}`}
       />
       {error && (
-        <p id={`${id}-error`} role="alert" className="ui-label mt-2 text-[10px] text-white">
+        <p id={`${id}-error`} role="alert" className="ui-label mt-2 text-xs text-ink">
           ⚠ {error}
         </p>
       )}
@@ -518,10 +518,10 @@ function RadioRow({
             role="radio"
             aria-checked={value === option.value}
             onClick={() => onChange(option.value)}
-            className={`ui-label border px-6 py-3 text-[11px] transition-colors ${
+            className={`ui-label border px-6 py-3 text-xs transition-colors ${
               value === option.value
-                ? "border-white bg-white text-black"
-                : "border-white/20 text-white/70 hover:border-white hover:text-white"
+                ? "border-ink bg-ink text-white"
+                : "border-line text-muted hover:border-ink hover:text-ink"
             }`}
             name={name}
           >

@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: PageProps) {
   };
 
   return (
-    <div className="mx-auto max-w-[1800px] px-4 pt-28 pb-24 sm:px-6 lg:px-10 lg:pt-36">
+    <div className="mx-auto max-w-[1800px] px-4 pt-6 pb-20 sm:px-6 lg:px-10 lg:pt-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

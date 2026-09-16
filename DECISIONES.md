@@ -137,3 +137,17 @@ el CTA "IR A LA TIENDA". El lema pasó a "IMAGINA · SUEÑA · KREA".
 - Fotos sin fondo de PhotoRoom en toda la web. La Triple White sigue sobre marco blanco y la Triple
   Black sobre negro con foco: se probó la blanca sobre negro (se ve muy bien), pero la vista trasera
   de la blanca no vino sin fondo y habría quedado como un cuadro blanco en la galería.
+
+### 24. Theme "kith-style" (solo visual)
+- **Inter** para todo (ya estaba cargada y es una grotesca neutra); se quitó Space Grotesk.
+- El marquee grande se reemplazó por uno pequeño en la barra de anuncio, con el mismo texto
+  ("IMAGINA · SUEÑA · KREA"). No existía un texto de "envíos" para esa barra, así que no se inventó.
+- Hero: el CTA con borde es "COMPRAR VÍA WHATSAPP" (blanco sobre la foto). "VER WHITE / BLACK" pasó
+  a enlace subrayado para no poner un botón negro sobre una foto oscura.
+- Tarjetas WHITE y BLACK sobre la misma superficie `#F5F5F3` (grilla de catálogo uniforme).
+  La vista trasera de la blanca (JPG con fondo blanco) usa `mix-blend-mode: multiply` para
+  fundirse con la superficie sin mostrar un recuadro.
+- Acordeón "ENVÍOS" usa la etiqueta que ya existía en los enlaces legales; dentro están los mismos
+  enlaces "VER POLÍTICA DE ENVÍOS" y "VER CAMBIOS Y DEVOLUCIONES".
+- Footer en capitalización normal mediante CSS (`lowercase` + primera letra en mayúscula).
+- Se eliminó `CustomCursor.tsx` (el brief pide sin cursor personalizado).

@@ -51,7 +51,7 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[110] bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[110] bg-black/40"
           />
 
           <motion.aside
@@ -62,9 +62,9 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.45, ease: EASE }}
-            className="fixed top-0 right-0 z-[120] flex h-dvh w-full max-w-md flex-col border-l border-white/10 bg-black"
+            className="fixed top-0 right-0 z-[120] flex h-dvh w-full max-w-md flex-col border-l border-line bg-paper text-ink"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <header className="flex items-center justify-between border-b border-line px-6 py-5">
               <h2 className="ui-label text-xs">TU CARRITO ({cartCount(items)})</h2>
               <button type="button" onClick={closeCart} aria-label="Cerrar carrito">
                 <X className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
@@ -73,29 +73,27 @@ export function CartDrawer() {
 
             {items.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center gap-6 px-8 text-center">
-                <p className="display text-2xl">TU CARRITO ESTÁ VACÍO</p>
-                <p className="text-sm text-white/50">
+                <p className="display text-xl">TU CARRITO ESTÁ VACÍO</p>
+                <p className="text-sm text-muted">
                   Dos colores. Nueve tallas. Un solo precio.
                 </p>
                 <Link
                   href="/shop"
                   onClick={closeCart}
-                  className="ui-label border border-white px-8 py-4 text-xs transition-colors hover:bg-white hover:text-black"
+                  className="btn btn-secondary"
                 >
                   VER LA TIENDA
                 </Link>
               </div>
             ) : (
               <>
-                <ul className="flex-1 divide-y divide-white/10 overflow-y-auto">
+                <ul className="flex-1 divide-y divide-line overflow-y-auto">
                   {items.map((item) => (
                     <li key={item.id} className="flex gap-4 px-6 py-5">
                       <Link
                         href={`/product/${item.slug}`}
                         onClick={closeCart}
-                        className={`relative h-24 w-24 shrink-0 overflow-hidden ${
-                  getProduct(item.slug)?.theme === "dark" ? "isk-spot" : "bg-white"
-                }`}
+                        className={`relative h-24 w-24 shrink-0 overflow-hidden bg-surface`}
                       >
                         <Image
                           src={getProduct(item.slug)?.images[0]?.src ?? item.image}
@@ -111,25 +109,25 @@ export function CartDrawer() {
                           <Link
                             href={`/product/${item.slug}`}
                             onClick={closeCart}
-                            className="ui-label block text-[11px] leading-snug hover:underline"
+                            className="ui-label block text-xs leading-snug hover:underline"
                           >
                             {item.name}
                           </Link>
-                          <p className="mt-1 text-xs text-white/50">
+                          <p className="mt-1 text-xs text-muted">
                             {item.colorName} · Talla EUR {item.size}
                           </p>
-                          <p className="mt-1 text-xs tabular-nums text-white/70">
+                          <p className="mt-1 text-xs tabular-nums text-muted">
                             {formatPrice(item.price)}
                           </p>
                         </div>
 
                         <div className="mt-3 flex items-center justify-between">
-                          <div className="flex items-center border border-white/20">
+                          <div className="flex items-center border border-line">
                             <button
                               type="button"
                               onClick={() => setQty(item.id, item.qty - 1)}
                               aria-label={`Quitar una unidad de ${item.name} talla ${item.size}`}
-                              className="px-3 py-2 transition-colors hover:bg-white hover:text-black"
+                              className="px-3 py-2 transition-colors hover:bg-ink hover:text-white"
                             >
                               <Minus className="h-3 w-3" aria-hidden="true" />
                             </button>
@@ -140,7 +138,7 @@ export function CartDrawer() {
                               type="button"
                               onClick={() => setQty(item.id, item.qty + 1)}
                               aria-label={`Agregar una unidad de ${item.name} talla ${item.size}`}
-                              className="px-3 py-2 transition-colors hover:bg-white hover:text-black"
+                              className="px-3 py-2 transition-colors hover:bg-ink hover:text-white"
                             >
                               <Plus className="h-3 w-3" aria-hidden="true" />
                             </button>
@@ -149,7 +147,7 @@ export function CartDrawer() {
                           <button
                             type="button"
                             onClick={() => remove(item.id)}
-                            className="ui-label text-[10px] text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            className="ui-label text-xs text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
                           >
                             QUITAR
                           </button>
@@ -159,12 +157,12 @@ export function CartDrawer() {
                   ))}
                 </ul>
 
-                <footer className="border-t border-white/10 px-6 py-6">
+                <footer className="border-t border-line px-6 py-6">
                   <div className="flex items-center justify-between">
                     <span className="ui-label text-xs">SUBTOTAL</span>
                     <span className="text-lg tabular-nums">{formatPrice(subtotal)}</span>
                   </div>
-                  <p className="mt-2 text-xs text-white/55">
+                  <p className="mt-2 text-xs text-muted">
                     El costo de envío se confirma por WhatsApp según tu distrito.
                   </p>
 
@@ -172,7 +170,7 @@ export function CartDrawer() {
                     href={checkoutUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ui-label mt-5 flex w-full items-center justify-center bg-white px-6 py-4 text-xs text-black transition-opacity hover:opacity-80"
+                    className="btn btn-primary mt-5 w-full"
                   >
                     {activeProvider.label}
                   </a>
@@ -180,7 +178,7 @@ export function CartDrawer() {
                   <Link
                     href="/cart"
                     onClick={closeCart}
-                    className="ui-label mt-3 flex w-full items-center justify-center border border-white/25 px-6 py-4 text-xs transition-colors hover:border-white"
+                    className="btn btn-secondary mt-3 w-full"
                   >
                     VER EL CARRITO COMPLETO
                   </Link>

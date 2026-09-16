@@ -4,14 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Product } from "@/data/products";
-import { formatPrice } from "@/lib/format";
+import { cn, formatPrice } from "@/lib/format";
 
 type ProductCardProps = {
   product: Product;
   priority?: boolean;
+  /** Tamaños para next/image según la grilla donde se usa */
+  sizes?: string;
+  /** Nivel del título, para respetar el orden de encabezados de cada página */
+  headingLevel?: "h2" | "h3";
 };
 
-export function ProductCard({ product, priority = false }: ProductCardProps) {
+/** Tarjeta de catálogo: foto sobre #F5F5F3 y nombre, color y precio debajo. */
+export function ProductCard({
+  product,
+  priority = false,
+  sizes = "(max-width: 768px) 100vw, 50vw",
+  headingLevel: Heading = "h2",
+}: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
   const primary = product.images[0];
   const secondary = product.images[1] ?? primary;
@@ -25,45 +35,41 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
     >
-      <div
-        className={`relative aspect-square overflow-hidden ${
-          product.theme === "light" ? "bg-white" : "isk-spot"
-        }`}
-      >
+      <div className="relative aspect-[4/5] overflow-hidden bg-surface">
         <Image
           src={primary.src}
           alt={primary.alt}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          sizes={sizes}
           priority={priority}
-          className={`isk-product object-contain transition-opacity duration-700 ${
-            hovered ? "opacity-0" : "opacity-100"
-          }`}
+          className={cn(
+            "isk-product scale-110 object-contain",
+            primary.src.endsWith(".jpg") && "isk-blend",
+            hovered ? "opacity-0" : "opacity-100",
+          )}
         />
         <Image
           src={secondary.src}
           alt=""
           aria-hidden="true"
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className={`isk-product object-contain transition-all duration-700 ${
-            hovered ? "scale-105 opacity-100" : "scale-100 opacity-0"
-          }`}
+          sizes={sizes}
+          className={cn(
+            "isk-product scale-110 object-contain",
+            secondary.src.endsWith(".jpg") && "isk-blend",
+            hovered ? "opacity-100" : "opacity-0",
+          )}
         />
-
-        <span className={`ui-label absolute top-4 left-4 px-3 py-1.5 text-[10px] ${
-            product.theme === "light" ? "bg-black text-white" : "bg-white text-black"
-          }`}>
-          {product.color}
-        </span>
       </div>
 
-      <div className="flex items-start justify-between gap-4 py-5">
-        <div>
-          <h2 className="ui-label text-[11px] leading-snug">{product.shortName}</h2>
-          <p className="mt-1.5 text-xs text-white/55">{product.intro}</p>
+      <div className="flex items-start justify-between gap-4 pt-3 text-sm">
+        <div className="min-w-0">
+          <Heading className="font-medium text-ink group-hover:underline group-hover:underline-offset-4">
+            {product.shortName}
+          </Heading>
+          <p className="text-muted">{product.color}</p>
         </div>
-        <p className="shrink-0 text-sm tabular-nums">{formatPrice(product.price)}</p>
+        <p className="shrink-0 tabular-nums text-ink">{formatPrice(product.price)}</p>
       </div>
     </Link>
   );

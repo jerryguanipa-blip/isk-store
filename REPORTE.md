@@ -16,6 +16,51 @@
 
 ---
 
+## 🎨 THEME "KITH-STYLE" (16/09/2026) — rediseño solo visual
+
+Inspirado en el **estilo** de kith.com (sin copiar logo, textos, fotos ni código).
+No se tocó: audio y su lógica, imágenes (`/public`), productos, tallas, precio, textos, rutas,
+carrito, WhatsApp, SEO, redirects ni dominio.
+
+**Qué cambió (solo estilos y layout):**
+- Base clara: fondo `#FFFFFF`, superficie de producto `#F5F5F3`, texto `#111111`,
+  secundario `#6B6B6B`, líneas `#E6E6E6`. Negro solo en botones primarios y footer.
+- Header boutique: barra de anuncio fina con "IMAGINA · SUEÑA · KREA" (el marquee pasó ahí,
+  12 px y discreto); logo ISK centrado, menú a la izquierda, carrito a la derecha, 13 px,
+  mayúsculas, tracking 0.08em, blanco con borde de 1 px y sticky.
+- Tipografía: Inter en todo (grotesca neutra), títulos en peso medio, mínimo 12 px, cuerpo 15–16 px.
+- Hero: portada a ancho completo, título centrado abajo, CTA con borde y overlay suave.
+- WHITE / BLACK: tarjetas de catálogo lado a lado (apiladas en móvil), foto sobre `#F5F5F3`,
+  nombre, color y precio debajo en 14 px; al pasar el mouse cambia a la segunda foto.
+- Botones: primario negro sólido; secundario blanco con borde negro; 48 px, radio 0, 12 px.
+- Producto: galería en grilla de 2 columnas (desktop) + info sticky; chips de talla 48×48
+  con borde `#E6E6E6` y seleccionado negro; acordeones finos para Detalles y Envíos.
+- Footer negro con columnas y enlaces de 14 px en capitalización normal (por CSS, el texto
+  original no se modificó).
+- Sin cursor personalizado; animaciones de fade de 400 ms; respeta `prefers-reduced-motion`.
+
+**Verificación:**
+- `eslint`, `tsc` y `next build`: sin errores.
+- QA en Chrome real: **10 anchos × 7 páginas = 70 combinaciones, 0 problemas**
+  (sin scroll horizontal, sin textos cortados, sin botones tapados, sin errores de consola ni 404).
+  Botón flotante: nunca tapa botones ni enlaces. Audio: 1 sola vez, sin loop, no se reinicia.
+- Lighthouse (móvil): **Accesibilidad 100** en inicio, tienda, producto, carrito y libro de
+  reclamaciones; rendimiento 95–99; buenas prácticas 100.
+- `git diff` sin cambios en `/public`, `src/data/products.ts`, `BrandAudio.tsx`,
+  `src/lib/checkout.ts`, `WhatsAppFab.tsx`, `src/config/site.ts`, `next.config.ts` ni SEO.
+  En `WhatsAppButton.tsx` solo cambiaron clases CSS.
+
+### Antes / después
+
+| | Antes | Después |
+|---|---|---|
+| Inicio (móvil) | ![](docs/capturas/antes-home-movil.jpg) | ![](docs/capturas/despues-home-movil.jpg) |
+| Inicio (desktop) | ![](docs/capturas/antes-home-desktop.jpg) | ![](docs/capturas/despues-home-desktop.jpg) |
+| Producto (desktop) | ![](docs/capturas/antes-producto-desktop.jpg) | ![](docs/capturas/despues-producto-desktop.jpg) |
+| Producto (móvil) | ![](docs/capturas/antes-producto-movil.jpg) | ![](docs/capturas/despues-producto-movil.jpg) |
+
+---
+
 ## 🆕 REDISEÑO FINAL (16/09/2026)
 
 **Hecho y publicado:**

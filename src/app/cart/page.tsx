@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="mx-auto max-w-[1800px] px-4 pt-28 pb-24 sm:px-6 lg:px-10 lg:pt-36">
-      <header className="pb-10">
-        <p className="eyebrow text-white/55">CARRITO</p>
-        <h1 className="display mt-5 text-5xl sm:text-6xl">TU PEDIDO</h1>
+    <div className="mx-auto max-w-[1800px] px-4 pt-10 pb-20 sm:px-6 lg:px-10 lg:pt-14">
+      <header className="pb-8">
+        <p className="eyebrow text-muted">CARRITO</p>
+        <h1 className="display mt-3 text-3xl sm:text-4xl">TU PEDIDO</h1>
       </header>
 
       <CartView />
