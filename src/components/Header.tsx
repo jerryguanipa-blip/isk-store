@@ -42,7 +42,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-[90] border-b transition-colors duration-500",
+          "fixed inset-x-0 top-0 z-[90] border-b pt-[env(safe-area-inset-top)] transition-colors duration-500",
           scrolled || menuOpen
             ? "border-white/10 bg-black/90 backdrop-blur-md"
             : "border-transparent bg-gradient-to-b from-black/70 to-transparent",
@@ -66,15 +66,17 @@ export function Header() {
             ))}
           </nav>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            className="flex flex-1 items-center md:hidden"
-            aria-label="Abrir menú"
-            aria-expanded={menuOpen}
-          >
-            <Menu className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
-          </button>
+          <div className="flex flex-1 md:hidden">
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="-ml-2 flex h-11 w-11 items-center justify-center"
+              aria-label="Abrir menú"
+              aria-expanded={menuOpen}
+            >
+              <Menu className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+            </button>
+          </div>
 
           {/* Centro: logo */}
           <Link
@@ -90,16 +92,10 @@ export function Header() {
 
           {/* Derecha: carrito */}
           <div className="flex flex-1 items-center justify-end gap-6">
-            <Link
-              href="/shop"
-              className="ui-label hidden text-[11px] text-white/70 transition-colors hover:text-white lg:inline"
-            >
-              COMPRAR
-            </Link>
             <button
               type="button"
               onClick={openCart}
-              className="ui-label flex items-center gap-2 text-[11px] transition-opacity hover:opacity-70"
+              className="ui-label -mr-2 flex h-11 items-center gap-2 px-2 text-[11px] transition-opacity hover:opacity-70"
             >
               <ShoppingBag className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
               <span className="sr-only">Carrito</span>
@@ -117,7 +113,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[95] bg-black md:hidden"
+            className="fixed inset-0 z-[95] bg-black pt-[env(safe-area-inset-top)] md:hidden"
           >
             <div className="flex h-14 items-center justify-between px-4">
               <button type="button" onClick={closeMenu} aria-label="Cerrar menú">

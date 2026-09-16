@@ -55,20 +55,6 @@ body {
   outline-offset: 3px;
 }
 
-/* ---------------------------------------------------------------
-   Fotografía: toda la web es negro, blanco y grises (ver DECISIONES.md).
-   Las fotos van en escala de grises y recuperan algo de vida al pasar
-   el mouse por encima de su tarjeta.
-   --------------------------------------------------------------- */
-.isk-photo {
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.isk-photo-hover:hover .isk-photo {
-  filter: grayscale(0.55) contrast(1.08);
-}
 
 /* --------------------------------- Tipografía editorial --------------------------------- */
 .display {
@@ -107,7 +93,24 @@ body {
 .isk-marquee-track {
   display: flex;
   width: max-content;
-  animation: isk-marquee 28s linear infinite;
+  animation: isk-marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.isk-marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
+.isk-marquee-item {
+  font-size: clamp(2.25rem, 9vw, 5.5rem);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isk-marquee-track {
+    animation: none;
+  }
 }
 
 /* --------------------------------- Cursor propio (solo desktop) --------------------------------- */
@@ -146,13 +149,133 @@ body {
   border-width: 0;
 }
 
-/* El hero necesita un poco más de luz: la foto original es gris claro sobre negro */
-.isk-photo-hero {
-  filter: grayscale(1) contrast(1.1) brightness(1.15);
-}
 
 /* Fotos de producto (fondo blanco de catálogo): sin filtro, nítidas */
 .isk-product {
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------
+   Sistema tipográfico fluido (sin tamaños arbitrarios sueltos)
+   ------------------------------------------------------------------ */
+.isk-hero-title {
+  /* "AIR FORCE 1" mide ~5.36 veces su tamaño de letra: se calcula desde el ancho
+     disponible para que ocupe ~91% y NUNCA salte de línea (320px → 49px). */
+  font-size: min(calc((100vw - 2rem) / 5.9), 12.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.015em;
+}
+
+@media (min-width: 640px) {
+  .isk-hero-title {
+    font-size: min(calc((100vw - 3rem) / 5.9), 12.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .isk-hero-title {
+    font-size: min(calc((100vw - 5rem) / 5.9), 12.5rem);
+  }
+}
+
+.isk-color-title {
+  /* "WHITE"/"BLACK" miden ~2.9 veces su tamaño y comparten fila con el precio */
+  font-size: min(calc((100vw - 9rem) / 3), 9.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+  .isk-color-title {
+    font-size: min(calc((100vw - 11rem) / 3), 9.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .isk-color-title {
+    font-size: min(calc((50vw - 12rem) / 3), 9.5rem);
+  }
+}
+
+.isk-statement {
+  /* "UN SOLO PRECIO." mide ~8.3 veces su tamaño: cada frase siempre en una línea */
+  font-size: min(calc((100vw - 2rem) / 9), 7.5rem);
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  @media (min-width: 640px) {
+  .isk-color-title {
+    font-size: min(calc((100vw - 11rem) / 3), 9.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .isk-color-title {
+    font-size: min(calc((50vw - 12rem) / 3), 9.5rem);
+  }
+}
+
+.isk-statement {
+    font-size: min(calc((100vw - 3rem) / 9), 7.5rem);
+  }
+}
+
+.isk-price {
+  font-size: clamp(3rem, 14vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------------------
+   Hero: la portada se funde con el negro
+   ------------------------------------------------------------------ */
+.isk-hero-shade {
+  background:
+    linear-gradient(to bottom, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0) 20%),
+    linear-gradient(to top, #000 0%, rgb(0 0 0 / 0.86) 24%, rgb(0 0 0 / 0.2) 55%, rgb(0 0 0 / 0) 70%),
+    radial-gradient(120% 90% at 50% 35%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / 0.55) 100%);
+}
+
+@media (min-width: 1024px) {
+  .isk-hero-media {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 42%);
+  }
+  .isk-hero-shade {
+    background:
+      linear-gradient(to bottom, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0) 18%),
+      linear-gradient(to top, #000 0%, rgb(0 0 0 / 0.7) 22%, rgb(0 0 0 / 0) 55%);
+  }
+}
+
+@keyframes isk-hero-in {
+  from {
+    transform: scale(1.06);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.isk-hero-image {
+  animation: isk-hero-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isk-hero-image {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Fondo negro con foco de luz para la AF1 negra (recorte sin fondo)
+   ------------------------------------------------------------------ */
+.isk-spot {
+  background-color: #000;
+  background-image: radial-gradient(70% 55% at 50% 52%, #262626 0%, #0d0d0d 55%, #000 100%);
 }

@@ -70,6 +70,24 @@ export function buildProductMessage(
   ].join("\n");
 }
 
+/** Mensaje de los botones "COMPRAR VÍA WHATSAPP" de la landing. */
+export function buildLandingMessage(colorName?: string): string {
+  const lines = colorName
+    ? [`Quiero comprar las Air Force 1 '07 ${colorName} (${formatPrice(siteConfig.price)}).`]
+    : [
+        `Quiero comprar unas Air Force 1 '07 (${formatPrice(siteConfig.price)}).`,
+        "Color (White o Black):",
+      ];
+  return [
+    `¡Hola ${siteConfig.name}! 👋`,
+    "",
+    ...lines,
+    "Mi talla EUR es:",
+    "",
+    "¿Tienen disponible?",
+  ].join("\n");
+}
+
 export function whatsappUrl(message: string): string {
   return `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}`;
 }

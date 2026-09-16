@@ -11,7 +11,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black">
-      <div className="mx-auto max-w-[1800px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+      <div className="mx-auto max-w-[1800px] px-4 pt-16 pb-28 sm:px-6 lg:px-10 lg:pt-24 lg:pb-24">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr]">
           {/* Marca */}
           <div>
@@ -60,7 +60,9 @@ export function Footer() {
           <nav aria-label="Información legal">
             <h2 className="eyebrow text-white/55">INFORMACIÓN</h2>
             <ul className="mt-6 space-y-3">
-              {siteConfig.legalLinks.map((link) => (
+              {siteConfig.legalLinks
+                .filter((link) => link.href !== "/libro-de-reclamaciones")
+                .map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -77,7 +79,7 @@ export function Footer() {
               className="mt-8 inline-flex items-center border border-white/25 px-4 py-3 transition-colors hover:border-white"
               aria-label="Libro de Reclamaciones virtual"
             >
-              <span className="ui-label text-[10px]">📗 LIBRO DE RECLAMACIONES</span>
+              <span className="ui-label text-[10px]">LIBRO DE RECLAMACIONES</span>
             </Link>
           </nav>
         </div>

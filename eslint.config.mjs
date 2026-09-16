@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Carpetas locales de trabajo (caché de npm, QA temporal, originales)
+    ".tmp/**",
+    ".npm-cache/**",
+    "assets-originales/**",
   ]),
 ]);
 

@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import type { ProductImage } from "@/data/products";
+import type { ProductImage, ProductTheme } from "@/data/products";
 
 type ProductGalleryProps = {
   images: ProductImage[];
   productName: string;
+  theme: ProductTheme;
 };
 
-export function ProductGallery({ images, productName }: ProductGalleryProps) {
+export function ProductGallery({ images, productName, theme }: ProductGalleryProps) {
+  const frame = theme === "light" ? "bg-white" : "isk-spot";
   const [active, setActive] = useState(0);
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState("50% 50%");
@@ -27,11 +29,11 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   };
 
   return (
-    <div className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6">
+    <div className="flex min-w-0 flex-col gap-4">
       {/* Imagen principal */}
       <div
         ref={frameRef}
-        className="relative aspect-square w-full flex-1 overflow-hidden bg-white"
+        className={`relative aspect-square w-full flex-1 overflow-hidden ${frame}`}
         onMouseEnter={() => setZoomed(true)}
         onMouseLeave={() => {
           setZoomed(false);
@@ -58,7 +60,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
       {/* Miniaturas */}
       <div
-        className="flex gap-3 overflow-x-auto lg:w-24 lg:flex-col lg:overflow-visible"
+        className="-m-1 flex gap-2 overflow-x-auto p-1 sm:gap-3"
         role="group"
         aria-label={`Fotos de ${productName}`}
       >
@@ -69,9 +71,9 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             onClick={() => setActive(index)}
             aria-label={`Ver foto ${index + 1} de ${images.length}`}
             aria-current={index === active}
-            className={`relative m-1 aspect-square w-20 shrink-0 overflow-hidden bg-white transition-opacity lg:w-[calc(100%-0.5rem)] ${
+            className={`relative aspect-square w-16 shrink-0 overflow-hidden ${frame} transition-opacity sm:w-20 lg:w-24 ${
               index === active
-                ? "opacity-100 ring-2 ring-white ring-offset-2 ring-offset-black"
+                ? "opacity-100 ring-2 ring-white/80 ring-offset-2 ring-offset-black"
                 : "opacity-50 hover:opacity-100"
             }`}
           >

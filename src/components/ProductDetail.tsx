@@ -10,7 +10,6 @@ import { useCart } from "@/store/cart";
 import { buildProductMessage, whatsappUrl } from "@/lib/checkout";
 import { ProductGallery } from "@/components/ProductGallery";
 import { SizeGuideModal } from "@/components/SizeGuideModal";
-import { siteConfig } from "@/config/site";
 
 export function ProductDetail({ product }: { product: Product }) {
   const [size, setSize] = useState<number | null>(null);
@@ -51,8 +50,8 @@ export function ProductDetail({ product }: { product: Product }) {
         </ol>
       </nav>
 
-      <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-        <ProductGallery images={product.images} productName={product.name} />
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+        <ProductGallery images={product.images} productName={product.name} theme={product.theme} />
 
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="eyebrow text-white/55">NIKE · AIR FORCE 1 &apos;07</p>
@@ -135,6 +134,7 @@ export function ProductDetail({ product }: { product: Product }) {
             <button
               type="button"
               onClick={handleAdd}
+              data-cta
               className="ui-label w-full bg-white px-6 py-4 text-xs text-black transition-opacity hover:opacity-80"
             >
               AGREGAR AL CARRITO
@@ -142,11 +142,12 @@ export function ProductDetail({ product }: { product: Product }) {
 
             <a
               href={whatsappHref}
+              data-cta
               target="_blank"
               rel="noopener noreferrer"
               className="ui-label flex w-full items-center justify-center border border-white px-6 py-4 text-xs transition-colors hover:bg-white hover:text-black"
             >
-              COMPRAR POR WHATSAPP
+              COMPRAR VÍA WHATSAPP
             </a>
           </div>
 
@@ -166,17 +167,7 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
 
           <div className="mt-8 border-t border-white/10 pt-8">
-            <h2 className="ui-label text-[11px]">ENVÍOS Y CAMBIOS</h2>
-            <ul className="mt-4 space-y-2.5">
-              {siteConfig.benefits.map((benefit) => (
-                <li key={benefit.title} className="text-sm text-white/60">
-                  <span className="ui-label text-[10px] text-white">{benefit.title}</span>
-                  {" · "}
-                  {benefit.detail}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
               <Link
                 href="/envios"
                 className="ui-label text-[10px] text-white/50 underline-offset-4 hover:text-white hover:underline"

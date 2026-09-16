@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { IskMark } from "@/components/brand/IskMark";
 import { siteConfig } from "@/config/site";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Página no encontrada",
@@ -27,15 +28,10 @@ export default function NotFound() {
       </p>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <Link
-          href="/shop"
-          className="ui-label bg-white px-10 py-4 text-xs text-black transition-opacity hover:opacity-80"
-        >
-          IR A LA TIENDA
-        </Link>
+        <WhatsAppButton tone="light" />
         <Link
           href="/"
-          className="ui-label border border-white/30 px-10 py-4 text-xs transition-colors hover:border-white"
+          className="ui-label inline-flex min-h-13 items-center border border-white/30 px-10 text-xs transition-colors hover:border-white"
         >
           VOLVER AL INICIO
         </Link>

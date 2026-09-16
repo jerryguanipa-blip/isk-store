@@ -19,13 +19,17 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="isk-photo-hover group block"
+      className="group block"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden bg-white">
+      <div
+        className={`relative aspect-square overflow-hidden ${
+          product.theme === "light" ? "bg-white" : "isk-spot"
+        }`}
+      >
         <Image
           src={primary.src}
           alt={primary.alt}
@@ -47,7 +51,9 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           }`}
         />
 
-        <span className="ui-label absolute top-4 left-4 bg-black px-3 py-1.5 text-[10px] text-white">
+        <span className={`ui-label absolute top-4 left-4 px-3 py-1.5 text-[10px] ${
+            product.theme === "light" ? "bg-black text-white" : "bg-white text-black"
+          }`}>
           {product.color}
         </span>
       </div>

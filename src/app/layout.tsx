@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
-import { Intro } from "@/components/Intro";
+import { BrandAudio } from "@/components/BrandAudio";
 import { CustomCursor } from "@/components/CustomCursor";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { PageTransition } from "@/components/PageTransition";
@@ -64,6 +64,7 @@ export const viewport: Viewport = {
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -81,7 +82,7 @@ export default function RootLayout({
           Saltar al contenido
         </a>
 
-        <Intro />
+        <BrandAudio />
         <CustomCursor />
 
         <div className="flex min-h-dvh flex-col">

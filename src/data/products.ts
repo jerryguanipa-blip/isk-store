@@ -2,6 +2,9 @@ import { siteConfig } from "@/config/site";
 
 export type ColorKey = "WHITE" | "BLACK";
 
+/** Fondo sobre el que se ve bien la foto: blanco para la blanca, negro para la negra. */
+export type ProductTheme = "light" | "dark";
+
 export type ProductImage = {
   src: string;
   alt: string;
@@ -25,7 +28,10 @@ export type Product = {
   shortName: string;
   color: ColorKey;
   colorName: string;
+  theme: ProductTheme;
   price: number;
+  /** Foto con fondo blanco (JPG) para compartir en redes y Google. */
+  ogImage: string;
   images: ProductImage[];
   intro: string;
   description: string;
@@ -61,7 +67,9 @@ export const products: Product[] = [
     shortName: "Air Force 1 '07 Triple White",
     color: "WHITE",
     colorName: "Triple White",
+    theme: "light",
     price: siteConfig.price,
+    ogImage: "/images/af1-white-1.jpg",
     images: [
       { src: "/images/af1-white-1.jpg", alt: "Nike Air Force 1 '07 Triple White, vista lateral" },
       { src: "/images/af1-white-2.jpg", alt: "Nike Air Force 1 '07 Triple White, par en vista 3/4" },
@@ -82,14 +90,16 @@ export const products: Product[] = [
     shortName: "Air Force 1 '07 Triple Black",
     color: "BLACK",
     colorName: "Triple Black",
+    theme: "dark",
     price: siteConfig.price,
+    ogImage: "/images/af1-black-1.jpg",
     images: [
-      { src: "/images/af1-black-1.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista lateral" },
-      { src: "/images/af1-black-2.jpg", alt: "Nike Air Force 1 '07 Triple Black, par en vista 3/4" },
-      { src: "/images/af1-black-3.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista lateral interna" },
-      { src: "/images/af1-black-4.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista desde arriba" },
-      { src: "/images/af1-black-5.jpg", alt: "Nike Air Force 1 '07 Triple Black, vista trasera" },
-      { src: "/images/af1-black-6.jpg", alt: "Nike Air Force 1 '07 Triple Black, suela" },
+      { src: "/images/af1-black-1-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, vista lateral" },
+      { src: "/images/af1-black-2-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, par en vista 3/4" },
+      { src: "/images/af1-black-3-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, vista lateral interna" },
+      { src: "/images/af1-black-4-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, vista desde arriba" },
+      { src: "/images/af1-black-5-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, vista trasera" },
+      { src: "/images/af1-black-6-cut.webp", alt: "Nike Air Force 1 '07 Triple Black, suela" },
     ],
     intro: "Negro total. Cero mantenimiento.",
     description:

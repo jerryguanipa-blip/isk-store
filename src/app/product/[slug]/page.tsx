@@ -35,13 +35,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: product.name,
       description: product.description,
       url: `${siteConfig.url}/product/${product.slug}`,
-      images: [{ url: product.images[0].src, alt: product.images[0].alt }],
+      images: [{ url: product.ogImage, width: 2000, height: 2000, alt: product.name }],
     },
     twitter: {
       card: "summary_large_image",
       title: product.name,
       description: product.description,
-      images: [product.images[0].src],
+      images: [product.ogImage],
     },
   };
 }
@@ -61,7 +61,9 @@ export default async function ProductPage({ params }: PageProps) {
     brand: { "@type": "Brand", name: "Nike" },
     color: product.colorName,
     category: "Zapatillas",
-    image: product.images.map((image) => `${siteConfig.url}${image.src}`),
+    image: [product.ogImage, ...product.images.map((image) => image.src)].map(
+      (src) => `${siteConfig.url}${src}`,
+    ),
     offers: {
       "@type": "Offer",
       url: `${siteConfig.url}/product/${product.slug}`,

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
 import { cartCount, cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
+import { getProduct } from "@/data/products";
 import { activeProvider } from "@/lib/checkout";
 import { useHydrated } from "@/lib/client-hooks";
 
@@ -92,10 +93,12 @@ export function CartDrawer() {
                       <Link
                         href={`/product/${item.slug}`}
                         onClick={closeCart}
-                        className="relative h-24 w-24 shrink-0 overflow-hidden bg-white"
+                        className={`relative h-24 w-24 shrink-0 overflow-hidden ${
+                  getProduct(item.slug)?.theme === "dark" ? "isk-spot" : "bg-white"
+                }`}
                       >
                         <Image
-                          src={item.image}
+                          src={getProduct(item.slug)?.images[0]?.src ?? item.image}
                           alt={item.name}
                           fill
                           sizes="96px"

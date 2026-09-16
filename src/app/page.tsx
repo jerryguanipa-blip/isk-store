@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { products } from "@/data/products";
-import { formatPrice, priceAmount } from "@/lib/format";
+import { products, type Product } from "@/data/products";
+import { cn, formatPrice } from "@/lib/format";
 import { Reveal } from "@/components/Reveal";
 import { Marquee } from "@/components/Marquee";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
+  title: { absolute: siteConfig.title },
   description: siteConfig.description,
   alternates: { canonical: "/" },
 };
@@ -45,16 +45,11 @@ const structuredData = {
     {
       "@type": "Store",
       name: siteConfig.name,
-      image: `${siteConfig.url}/images/af1-white-2.jpg`,
+      image: `${siteConfig.url}${white.ogImage}`,
       url: siteConfig.url,
       priceRange: formatPrice(siteConfig.price),
       currenciesAccepted: "PEN",
-      paymentAccepted: "Efectivo, Yape, Plin, Transferencia, Contra entrega",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "PE",
-        addressLocality: "Lima",
-      },
+      address: { "@type": "PostalAddress", addressCountry: "PE", addressLocality: "Lima" },
     },
   ],
 };
@@ -68,176 +63,171 @@ export default function HomePage() {
       />
 
       {/* ---------------------------------- HERO ---------------------------------- */}
-      <section className="relative flex h-dvh min-h-[560px] items-end overflow-hidden">
-        <Image
-          src="/images/hero-af1.jpg"
-          alt="Nike Air Force 1 '07 Triple White clásica sobre fondo negro"
-          fill
-          priority
-          sizes="100vw"
-          className="isk-photo isk-photo-hero object-cover object-center"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"
-        />
+      <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-black">
+        <div className="isk-hero-media absolute inset-0 lg:left-auto lg:w-[64%]">
+          <Image
+            src="/images/portada-hd.jpg"
+            alt="Pared de zapatillas Air Force 1 en blanco y negro"
+            fill
+            priority
+            sizes="(min-width: 1024px) 64vw, 100vw"
+            className="isk-hero-image object-cover object-[46%_28%] lg:object-[50%_35%]"
+          />
+        </div>
+        <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
-        <div className="relative mx-auto w-full max-w-[1800px] px-4 pb-16 sm:px-6 sm:pb-20 lg:px-10 lg:pb-28">
-          <Reveal>
-            <p className="eyebrow text-white/60">NIKE · ORIGINALES · PERÚ</p>
+        <div className="relative z-10 mx-auto w-full max-w-[1800px] px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:px-6 lg:px-10 lg:pb-20">
+          <Reveal y={20}>
+            <h1 className="display isk-hero-title whitespace-nowrap">AIR FORCE 1</h1>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <h1 className="display mt-6 text-[17vw] leading-[0.82] sm:text-[13vw] lg:text-[11vw]">
-              AIR FORCE 1
-            </h1>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <p className="max-w-md text-sm leading-relaxed text-white/60">
-                Triple White y Triple Black. Tallas EUR 36 al 44. Un solo precio:{" "}
-                {formatPrice(siteConfig.price)}.
+          <Reveal delay={0.15} y={16}>
+            <div className="mt-7 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <p className="font-display text-3xl font-medium tabular-nums sm:text-4xl">
+                {formatPrice(siteConfig.price)}
               </p>
 
-              <Link
-                href="/shop"
-                className="ui-label group inline-flex items-center gap-4 self-start border border-white px-10 py-4 text-xs transition-colors hover:bg-white hover:text-black sm:self-auto"
-              >
-                COMPRAR AHORA
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <WhatsAppButton tone="light" />
+                <a
+                  href="#modelos"
+                  data-cta
+                  className="ui-label inline-flex min-h-13 items-center justify-center border border-white/40 px-8 text-xs transition-colors hover:border-white"
+                >
+                  VER WHITE / BLACK
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ---------------------------------- SPLIT WHITE / BLACK ---------------------------------- */}
-      <section aria-labelledby="colores-titulo" className="border-t border-white/10">
-        <h2 id="colores-titulo" className="sr-only">
-          Elige tu color
+      {/* ---------------------------------- WHITE / BLACK ---------------------------------- */}
+      <section id="modelos" aria-labelledby="modelos-titulo" className="scroll-mt-14">
+        <h2 id="modelos-titulo" className="sr-only">
+          Air Force 1 White y Black
         </h2>
-
-        <div className="grid gap-px bg-black md:grid-cols-2">
-          {[white, black].map((product) => (
-            <Link
-              key={product.slug}
-              href={`/product/${product.slug}`}
-              className="group relative flex min-h-[560px] flex-col overflow-hidden bg-white text-black focus-visible:outline-black focus-visible:-outline-offset-8 md:h-[85vh]"
-            >
-              <p className="display relative z-10 p-6 text-6xl sm:p-10 sm:text-7xl lg:text-8xl">
-                {product.color}
-              </p>
-
-              <div className="relative flex-1">
-                <Image
-                  src={product.images[0].src}
-                  alt={product.images[0].alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="isk-product object-contain transition-transform duration-[1200ms] group-hover:scale-105 group-hover:-rotate-2"
-                />
-              </div>
-
-              <div className="relative w-full p-6 sm:p-10">
-                <p className="max-w-xs text-sm text-black/60">{product.intro}</p>
-                <span className="ui-label mt-6 inline-flex items-center gap-3 border-b border-black/40 pb-1 text-[11px] transition-colors group-hover:border-black">
-                  VER PRODUCTO
-                  <ArrowRight
-                    className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
-                </span>
-              </div>
-            </Link>
-          ))}
+        <div className="grid lg:grid-cols-2">
+          <ColorPanel product={white} />
+          <ColorPanel product={black} />
         </div>
       </section>
 
       {/* ---------------------------------- MARQUEE ---------------------------------- */}
-      <Marquee text={`${siteConfig.name} · ${siteConfig.tagline} ·`} />
+      <Marquee text={siteConfig.tagline} />
 
-      {/* ---------------------------------- BENEFICIOS ---------------------------------- */}
+      {/* ---------------------------------- DOS COLORES / PRECIO ---------------------------------- */}
       <section
-        aria-labelledby="beneficios-titulo"
-        className="mx-auto max-w-[1800px] px-4 py-20 sm:px-6 lg:px-10 lg:py-32"
+        aria-labelledby="precio-titulo"
+        className="mx-auto max-w-[1800px] px-4 py-24 text-center sm:px-6 lg:px-10 lg:py-36"
       >
         <Reveal>
-          <h2 id="beneficios-titulo" className="display text-4xl sm:text-5xl lg:text-6xl">
-            POR QUÉ COMPRAR
+          <h2 id="precio-titulo" className="display isk-statement">
+            DOS COLORES.
             <br />
-            EN {siteConfig.name}
+            NUEVE TALLAS.
+            <br />
+            UN SOLO PRECIO.
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-          {siteConfig.benefits.map((benefit, index) => (
-            <Reveal key={benefit.title} delay={index * 0.08}>
-              <div className="h-full bg-black p-8 lg:p-10">
-                <p className="ui-label text-[10px] text-white/55 tabular-nums">
-                  0{index + 1}
-                </p>
-                <h3 className="ui-label mt-6 text-xs leading-relaxed">{benefit.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/50">
-                  {benefit.detail}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------------------------------- EDITORIAL ---------------------------------- */}
-      <section className="relative">
-        <div className="grid items-stretch lg:grid-cols-2">
-          <div className="relative aspect-[4/5] lg:aspect-auto lg:min-h-[80vh]">
-            <Image
-              src="/images/editorial-wall.jpg"
-              alt="Pared de zapatillas fotografiada en blanco y negro"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="isk-photo object-cover"
-            />
-          </div>
-
-          <div className="flex items-center border-t border-white/10 bg-black px-4 py-16 sm:px-6 lg:border-t-0 lg:border-l lg:px-16 lg:py-0">
-            <Reveal>
-              <p className="eyebrow text-white/55">{siteConfig.tagline}</p>
-              <h2 className="display mt-8 text-4xl leading-[0.95] sm:text-5xl lg:text-6xl">
-                DOS COLORES.
-                <br />
-                NUEVE TALLAS.
-                <br />
-                UN SOLO PRECIO.
-              </h2>
-              <p className="mt-8 max-w-md text-sm leading-relaxed text-white/55">
-                No vendemos catálogos infinitos. Vendemos el par que todo el mundo quiere:
-                original, al precio justo, con envío a todo el Perú y pago contra entrega
-                en Lima.
-              </p>
-              <p className="mt-10 text-3xl tabular-nums">
-                {formatPrice(siteConfig.price)}
-                <span className="ml-3 align-middle text-xs text-white/55">
-                  PEN · {priceAmount(siteConfig.price)}
-                </span>
-              </p>
-              <Link
-                href="/shop"
-                className="ui-label group mt-10 inline-flex items-center gap-4 bg-white px-10 py-4 text-xs text-black transition-opacity hover:opacity-80"
+        <Reveal delay={0.08}>
+          <ul
+            aria-label="Tallas disponibles (EUR)"
+            className="mx-auto mt-12 flex max-w-[30rem] flex-wrap justify-center gap-2"
+          >
+            {siteConfig.sizes.map((size) => (
+              <li
+                key={size}
+                className="grid h-11 w-11 place-items-center border border-white/20 text-sm tabular-nums text-white/80"
               >
-                IR A LA TIENDA
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
-            </Reveal>
+                {size}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <p className="display isk-price mt-14 tabular-nums">{formatPrice(siteConfig.price)}</p>
+          <p className="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+            Sin catálogos infinitos. Solo el par que todos quieren.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <div className="mt-10 flex flex-col items-center gap-5">
+            <WhatsAppButton tone="light" className="w-full max-w-xs sm:w-auto" />
+            <Link
+              href="/shop"
+              data-cta
+              className="ui-label text-[11px] text-white/70 underline-offset-8 transition-colors hover:text-white hover:underline"
+            >
+              ELEGIR MI TALLA EN LA WEB
+            </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
+  );
+}
+
+/** Bloque WHITE (fondo blanco) o BLACK (fondo negro con foco de luz). */
+function ColorPanel({ product }: { product: Product }) {
+  const light = product.theme === "light";
+  const cover = product.images[0];
+
+  return (
+    <article
+      className={cn(
+        "relative flex min-h-[640px] flex-col overflow-hidden px-5 pt-14 pb-12 sm:px-10 lg:min-h-[92vh] lg:pt-16",
+        light ? "bg-white text-black" : "isk-spot text-white",
+      )}
+    >
+      <div className="relative z-10 flex items-baseline justify-between gap-4">
+        <h3 className="display isk-color-title">{product.color}</h3>
+        <p className="font-display text-lg font-medium tabular-nums sm:text-xl">
+          {formatPrice(product.price)}
+        </p>
+      </div>
+      <p className={cn("relative z-10 mt-3 text-sm", light ? "text-black/60" : "text-white/65")}>
+        {product.intro}
+      </p>
+
+      <Link
+        href={`/product/${product.slug}`}
+        aria-label={`Ver fotos y tallas de ${product.name}`}
+        className={cn(
+          "group relative z-0 my-6 block min-h-[240px] flex-1",
+          light
+            ? "focus-visible:outline-black"
+            : "focus-visible:outline-white",
+        )}
+      >
+        {/* Las fotos de catálogo traen ~40% de margen: se amplían sin recortar la zapatilla */}
+        <div className="absolute inset-0 scale-[1.12] transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-rotate-2 group-hover:scale-[1.17] sm:scale-[1.4] sm:group-hover:scale-[1.46] lg:scale-[1.3] lg:group-hover:scale-[1.36]">
+          <Image
+            src={cover.src}
+            alt={cover.alt}
+            fill
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            className="object-contain"
+          />
+        </div>
+      </Link>
+
+      <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+        <WhatsAppButton colorName={product.colorName} tone={light ? "dark" : "light"} />
+        <Link
+          href={`/product/${product.slug}`}
+          data-cta
+          className={cn(
+            "ui-label self-start text-[11px] underline-offset-8 transition-colors hover:underline sm:self-auto",
+            light ? "text-black/70 hover:text-black" : "text-white/70 hover:text-white",
+          )}
+        >
+          VER TALLAS Y FOTOS
+        </Link>
+      </div>
+    </article>
   );
 }

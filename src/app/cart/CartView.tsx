@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Minus, Plus } from "lucide-react";
 import { cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
+import { getProduct } from "@/data/products";
 import { activeProvider } from "@/lib/checkout";
 import { useHydrated } from "@/lib/client-hooks";
-import { siteConfig } from "@/config/site";
 
 export function CartView() {
   const hydrated = useHydrated();
@@ -53,10 +53,12 @@ export function CartView() {
             <li key={item.id} className="flex gap-5 py-6">
               <Link
                 href={`/product/${item.slug}`}
-                className="relative h-28 w-28 shrink-0 overflow-hidden bg-white sm:h-36 sm:w-36"
+                className={`relative h-28 w-28 shrink-0 overflow-hidden sm:h-36 sm:w-36 ${
+                  getProduct(item.slug)?.theme === "dark" ? "isk-spot" : "bg-white"
+                }`}
               >
                 <Image
-                  src={item.image}
+                  src={getProduct(item.slug)?.images[0]?.src ?? item.image}
                   alt={item.name}
                   fill
                   sizes="144px"
@@ -160,6 +162,7 @@ export function CartView() {
 
           <a
             href={checkoutUrl}
+            data-cta
             target="_blank"
             rel="noopener noreferrer"
             className="ui-label mt-8 flex w-full items-center justify-center bg-white px-6 py-4 text-center text-xs text-black transition-opacity hover:opacity-80"
@@ -172,12 +175,6 @@ export function CartView() {
             completar tu nombre, dirección y distrito, y enviarlo.
           </p>
         </div>
-
-        <ul className="mt-6 space-y-2 text-xs text-white/55">
-          {siteConfig.benefits.map((benefit) => (
-            <li key={benefit.title}>· {benefit.title}</li>
-          ))}
-        </ul>
       </aside>
     </div>
   );

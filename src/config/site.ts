@@ -8,9 +8,8 @@ const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "51XXXXXXXXX";
 export const siteConfig = {
   // --- Marca ---
   name: "ISK",
-  fullName: "ISK — Imagina, Sueña & Krea",
-  tagline: "IMAGINA · SUEÑA & KREA",
-  shortTagline: "IMAGINA · SUEÑA & KREA",
+  fullName: "ISK — Imagina, Sueña, Krea",
+  tagline: "IMAGINA · SUEÑA · KREA",
 
   // --- Dominio ---
   domain: "iskoficial.com",
@@ -19,7 +18,7 @@ export const siteConfig = {
   // --- SEO ---
   title: "ISK | Air Force 1 Originales en Perú",
   description:
-    "Nike Air Force 1 '07 originales en Perú. Triple White y Triple Black, tallas EUR 36 al 44, S/ 209.90. Envío a todo el Perú y pago contra entrega en Lima.",
+    "Air Force 1 '07 blancas y negras en Perú. Tallas EUR 36 al 44, S/ 209.90. Pide por WhatsApp.",
   keywords: [
     "Air Force 1 Perú",
     "Nike Air Force 1 originales",
@@ -51,13 +50,6 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/iskoficial",
   },
 
-  // --- Promesas de la tienda ---
-  benefits: [
-    { title: "ENVÍO A TODO EL PERÚ", detail: "Olva y Shalom. 24 a 72 horas." },
-    { title: "100% ORIGINALES", detail: "Si no es original, te devolvemos tu dinero." },
-    { title: "CAMBIO DE TALLA", detail: "Tienes 7 días para cambiar la talla." },
-    { title: "PAGO CONTRA ENTREGA", detail: "Disponible en Lima Metropolitana." },
-  ],
 
   legalLinks: [
     { href: "/envios", label: "ENVÍOS" },
