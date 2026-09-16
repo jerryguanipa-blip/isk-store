@@ -67,14 +67,18 @@ vercel --prod --yes
 
 ---
 
-## 🟠 3. APUNTAR EL DOMINIO iskoficial.com EN GODADDY
+## 🔴 3. CONECTAR iskoficial.com (única acción humana bloqueada)
 
-⚠️ **Hoy iskoficial.com apunta a una tienda de Shopify.** Al cambiar los DNS, se deja de ver
-Shopify y se ve la tienda nueva. Si pagas un plan de Shopify, decide antes qué hacer con él.
+La web está terminada y publicada. Falta cambiar **2 registros DNS** en GoDaddy, pero
+**iskoficial.com está en otra cuenta de GoDaddy**, no en la que estaba abierta en Chrome
+(esa tiene jagofy.com, jeryale.com, mrairforce1.com, nibosi1985.com y valleydreams.pe).
+Además, ver cuentas delegadas pedía un código de verificación (2FA).
 
-Los registros exactos están en `DNS_GODADDY.md`, explicados paso a paso:
-`A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`.
-Hasta que hagas eso, la web vive en la URL de Vercel (está en `REPORTE.md`).
+**Qué hacer:** entrar a la cuenta de GoDaddy dueña de iskoficial.com y cambiar
+`A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`. Todo explicado, con los valores
+actuales revisados, en `DNS_GODADDY.md`.
+
+⚠️ Hoy el dominio apunta a **Shopify**: al cambiarlo, se deja de ver esa tienda.
 
 ---
 

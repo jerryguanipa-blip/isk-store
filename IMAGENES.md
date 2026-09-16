@@ -25,14 +25,22 @@ Se convirtieron a JPG (calidad 90) con nombres claros; Next.js las sirve en AVIF
 > común que los revendedores las usen, pero no tienen una licencia libre como Unsplash.
 > Si algún día Nike o una plataforma lo pide, habría que reemplazarlas por fotos propias.
 
-## Fotos editoriales (ambiente, licencia libre Unsplash)
+## Portada (entregada por el dueño)
 
-| Archivo | ID Unsplash | Qué muestra | Dónde |
-|---|---|---|---|
-| `hero-af1.jpg` | `photo-1617659512089-6fdec6c54406` | AF1 '07 blanca clásica sobre negro | Hero de la home |
-| `editorial-wall.jpg` | `photo-1708088588197-bd7d8088019a` | Pared de zapatillas en B/N | Banda editorial de la home |
+| Archivo | Original | Uso |
+|---|---|---|
+| `portada-hd.jpg` | `PORTADA HD.jpg` (Escritorio) | Hero de la home, en blanco y negro |
 
-Licencia Unsplash: uso comercial libre, sin atribución obligatoria.
+El original a color se guarda en `assets-originales/PORTADA HD.jpg`.
+
+## Recortes sin fondo (generados para ISK)
+
+`af1-black-1-cut.webp` … `af1-black-6-cut.webp`: las mismas fotos de la Triple Black con el
+fondo blanco quitado, para mostrarlas sobre negro. Los JPG con fondo blanco se usan para
+compartir en redes.
+
+Se retiraron las fotos editoriales de Unsplash (`hero-af1.jpg`, `editorial-wall.jpg`): la
+pared mostraba zapatillas de otros modelos.
 
 ## Cómo cambiar las fotos
 

@@ -1,119 +1,110 @@
-# Cómo conectar iskoficial.com a la nueva web (GoDaddy)
+# Conectar iskoficial.com a la web (GoDaddy → Vercel)
 
-Tiempo: 10 minutos. No hace falta saber de programación.
-
----
-
-## ⚠️ ANTES DE EMPEZAR — LÉELO
-
-Revisé tu dominio hoy (16/09/2026) y **iskoficial.com ahora apunta a una tienda de Shopify**:
-
-| Registro | Valor actual | Qué es |
-|---|---|---|
-| `A` de `@` | `23.227.38.32` | Servidor de **Shopify** |
-| `CNAME` de `www` | `shops.myshopify.com` | **Shopify** |
-
-**Cuando hagas los cambios de abajo, iskoficial.com dejará de mostrar Shopify y mostrará
-la web nueva.** Si todavía vendes por Shopify o tienes un plan pagado ahí, decide primero
-qué hacer con esa tienda (pausarla o cancelarla) para no pagar por algo que ya no se ve.
-
-Si prefieres probar la web nueva antes de cambiar nada, ya está en vivo aquí:
-**https://isk-store.vercel.app**
+**Estado al 16/09/2026:** la web está terminada y publicada. Solo falta este paso, que
+requiere entrar a la cuenta de GoDaddy **dueña de iskoficial.com**.
 
 ---
 
-## Paso 1 — Entrar a los DNS
+## ⚠️ 1. La cuenta correcta de GoDaddy
 
-1. Entra a **https://dcc.godaddy.com/control/portfolio** con tu cuenta de GoDaddy.
-2. Haz clic en **iskoficial.com**.
-3. Ve a la pestaña **DNS** (o botón **"Administrar DNS"**).
+- iskoficial.com está registrado en **GoDaddy** (desde el 03/09/2025, vence el 03/09/2027).
+- **No está en la cuenta que estaba abierta en Chrome** (la de "JERRY ALEXANDER", que tiene
+  jagofy.com, jeryale.com, mrairforce1.com, nibosi1985.com y valleydreams.pe).
+- Está en **otra cuenta de GoDaddy**, probablemente la creada con el correo de ISK
+  (la cuenta de Vercel de la tienda se llama `iskoficial5`).
 
-Verás una tabla con registros. Solo vamos a tocar **dos filas**.
+Entra a GoDaddy con esa otra cuenta. Si no recuerdas cuál es, en https://sso.godaddy.com
+usa "¿Olvidaste tu usuario?" con los correos que uses para ISK.
 
----
-
-## Paso 2 — Cambiar el registro `A` (el dominio sin www)
-
-1. Busca la fila con **Tipo `A`** y **Nombre `@`**. Hoy dice `23.227.38.32`.
-2. Haz clic en el lápiz ✏️ (editar).
-3. Deja así:
-
-   | Campo | Valor |
-   |---|---|
-   | Tipo | `A` |
-   | Nombre | `@` |
-   | Valor | `76.76.21.21` |
-   | TTL | `600 segundos` (o "Personalizado: 600") |
-
-4. **Guardar**.
-
-> Si hay **más de una** fila `A` con nombre `@`, borra las otras. Tiene que quedar
-> **solo una**, la de `76.76.21.21`.
+> No se tocó nada en la cuenta de JERRY ALEXANDER. Tampoco se usó mrairforce1.com: no hay
+> confirmación de que ese sea el dominio de esta tienda.
 
 ---
 
-## Paso 3 — Cambiar el registro `CNAME` de `www`
+## 2. Qué hay hoy en los DNS de iskoficial.com (revisado)
 
-1. Busca la fila con **Tipo `CNAME`** y **Nombre `www`**. Hoy dice `shops.myshopify.com`.
-2. Haz clic en el lápiz ✏️.
-3. Deja así:
+| Tipo | Nombre | Valor actual | Qué es | ¿Se toca? |
+|---|---|---|---|---|
+| `A` | `@` | `23.227.38.32` | Tienda de **Shopify** | ✅ **Sí, se cambia** |
+| `CNAME` | `www` | `shops.myshopify.com` | Tienda de **Shopify** | ✅ **Sí, se cambia** |
+| `TXT` | `_dmarc` | `v=DMARC1; p=quarantine; …` | Protección de correo | ❌ **No tocar** |
+| `NS` | `@` | `ns01` / `ns02.domaincontrol.com` | Servidores de GoDaddy | ❌ **No tocar** |
+| `MX` | `@` | *(no hay)* | Hoy no hay correo en el dominio | — |
 
-   | Campo | Valor |
-   |---|---|
-   | Tipo | `CNAME` |
-   | Nombre | `www` |
-   | Valor | `cname.vercel-dns.com` |
-   | TTL | `600 segundos` |
-
-4. **Guardar**.
+Al cambiar las dos primeras filas, iskoficial.com deja de mostrar Shopify y muestra la
+tienda nueva. No afecta ningún correo (no hay MX).
 
 ---
 
-## Paso 4 — NO toques lo demás
+## 3. Los 2 cambios exactos
 
-- **No cambies los "Nameservers"** (deben seguir siendo los de GoDaddy: `ns01/ns02.domaincontrol.com`).
-- **No borres** registros `MX` ni `TXT`: son los del correo y verificaciones.
-- **No actives** "Reenvío de dominio" (Forwarding) en GoDaddy.
+En GoDaddy → **Dominios → iskoficial.com → DNS → Registros DNS**:
+
+**Cambio 1 — editar el registro `A` de `@`**
+
+| Campo | Valor |
+|---|---|
+| Tipo | `A` |
+| Nombre | `@` |
+| Valor | `76.76.21.21` |
+| TTL | `600 segundos` |
+
+Si hubiera **otro** registro `A` con nombre `@`, bórralo: debe quedar solo `76.76.21.21`.
+
+**Cambio 2 — editar el registro `CNAME` de `www`**
+
+| Campo | Valor |
+|---|---|
+| Tipo | `CNAME` |
+| Nombre | `www` |
+| Valor | `cname.vercel-dns.com` |
+| TTL | `600 segundos` |
+
+**No toques:** nameservers, `_dmarc` ni ningún otro registro. No actives "Reenvío" (Forwarding).
 
 ---
 
-## Paso 5 — Esperar y comprobar
+## 4. Lo que ya está listo del lado de la web
 
-- Normalmente funciona en **10 a 30 minutos**. A veces tarda hasta **48 horas**.
-- Vercel crea el candado 🔒 (HTTPS) solo, apenas detecta el cambio.
-- Vercel te manda un correo cuando el dominio queda verificado.
+- `iskoficial.com` y `www.iskoficial.com` **ya están agregados** al proyecto en Vercel.
+- **Una sola URL oficial:** `https://iskoficial.com`. `www.iskoficial.com` redirige (301)
+  al dominio sin www (configurado en el código).
+- Canonical, Open Graph y sitemap ya apuntan a `https://iskoficial.com`.
+- Las URLs `*.vercel.app` ya envían `noindex`, para que Google no las muestre.
+- HTTPS: Vercel crea el certificado **solo**, minutos después de que los DNS apunten.
 
-Para comprobar, abre en el navegador:
+---
 
-- https://iskoficial.com
-- https://www.iskoficial.com
+## 5. Después de cambiar los DNS (10–30 min, a veces hasta 48 h)
 
-Si ves el logo ISK y la intro, **listo** ✅.
+Comprueba en el navegador:
 
-Desde la terminal también puedes revisarlo (en `D:\isk-store`):
+- https://iskoficial.com → debe verse la tienda con el candado 🔒
+- https://www.iskoficial.com → debe saltar a https://iskoficial.com
+
+O desde la terminal, en `D:\isk-store`:
 
 ```bash
 vercel domains inspect iskoficial.com
 ```
 
-Cuando esté bien, ya no aparecerá el mensaje "WARNING! This Domain is not configured properly".
+Cuando ya no diga "WARNING! This Domain is not configured properly", **activa el paso final**
+para que la dirección `isk-store.vercel.app` también mande a los clientes al dominio propio:
+
+```bash
+vercel env add REDIRECT_VERCEL_TO_DOMAIN production
+```
+
+Cuando pida el valor, escribe `1`. Luego:
+
+```bash
+vercel --prod --yes
+```
+
+> ⚠️ No actives ese paso antes de que iskoficial.com funcione: dejaría la web inaccesible.
 
 ---
 
-## Resumen en una línea
+### Para volver atrás (a Shopify)
 
-| Tipo | Nombre | Valor |
-|---|---|---|
-| `A` | `@` | `76.76.21.21` |
-| `CNAME` | `www` | `cname.vercel-dns.com` |
-
----
-
-### ¿Algo salió mal?
-
-- **"Sitio no seguro" o error de certificado:** espera 30 minutos más; Vercel todavía está
-  generando el certificado.
-- **Sigue apareciendo Shopify:** el cambio aún no se propagó, o quedó otro registro `A`
-  viejo. Revisa el Paso 2.
-- **Para volver atrás** (a Shopify): pon de nuevo `A @ → 23.227.38.32` y
-  `CNAME www → shops.myshopify.com`.
+`A @ → 23.227.38.32` y `CNAME www → shops.myshopify.com`.

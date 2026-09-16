@@ -12,17 +12,45 @@
 | Código en GitHub | https://github.com/jerryguanipa-blip/isk-store |
 | Panel de Vercel | https://vercel.com/isk-offcial/isk-store |
 | Carpeta en tu PC | `D:\isk-store` |
-| Dominio iskoficial.com | **Agregado en Vercel, falta cambiar los DNS en GoDaddy** → `DNS_GODADDY.md` |
+| Dominio iskoficial.com | **Agregado en Vercel. Falta cambiar 2 DNS en la cuenta de GoDaddy dueña del dominio** → `DNS_GODADDY.md` |
 
 ---
 
-## ⚡ LO URGENTE (5 minutos)
+## 🆕 REDISEÑO FINAL (16/09/2026)
 
-1. **Poner tu número real de WhatsApp.** Hoy es `51XXXXXXXXX`. Sin eso no entran pedidos.
+**Hecho y publicado:**
+- Portada con tu `PORTADA HD` en blanco y negro, fundida con el negro; "AIR FORCE 1" en una sola línea en todos los tamaños.
+- WHITE sobre blanco y BLACK sobre negro con las zapatillas **sin fondos pegados** (recortes con transparencia).
+- CTA **COMPRAR VÍA WHATSAPP** con mensaje según el color, más botón flotante que nunca tapa botones.
+- Marquee **IMAGINA · SUEÑA · KREA** suave, con bordes difuminados.
+- Audio ISK: autoplay si el navegador deja; si no, con el primer toque. Una vez por visita, completo, sin loop.
+- Fuera: "NIKE · ORIGINALES · PERÚ", "POR QUÉ COMPRAR EN ISK", beneficios, pared de otros modelos, "IR A LA TIENDA".
+
+**Pruebas automáticas (Chrome real):**
+- 10 anchos (320 → 1440 px) × 7 páginas: **0 desbordes, 0 textos cortados, 0 botones tapados, 0 errores de consola, 0 archivos 404**.
+- Audio probado con autoplay bloqueado y permitido: suena 1 vez, no se reinicia con scroll, al abrir producto ni al recargar.
+- Ninguna ruta `C:\Users\...` en la web publicada.
+
+**Lighthouse en producción (móvil):**
+
+| Página | Rendimiento | Accesibilidad | Buenas prácticas |
+|---|---|---|---|
+| Inicio | **100** | **100** | **100** |
+| Producto | **97** | **100** | **100** |
+
+> SEO aparece en 69 **solo** en `isk-store.vercel.app` porque esa URL lleva `noindex` a propósito
+> (para que Google use iskoficial.com). En el dominio propio no lleva `noindex`.
+
+---
+
+## ⚡ LO URGENTE
+
+1. **Conectar iskoficial.com:** entrar a la cuenta de GoDaddy **dueña** del dominio (no es la
+   de JERRY ALEXANDER) y cambiar 2 registros. Pasos exactos: `DNS_GODADDY.md`.
+   Ojo: hoy el dominio muestra una tienda de **Shopify**.
+2. **Poner tu número real de WhatsApp** cuando lo decidas (hoy `51XXXXXXXXX`).
    Cómo: `PENDIENTES.md`, punto 1.
-2. **Decidir qué pasa con tu tienda de Shopify.** iskoficial.com hoy apunta a Shopify.
-   Cuando cambies los DNS, se verá la tienda nueva. Cómo: `DNS_GODADDY.md`.
-3. ~~Fotos del producto~~ ✅ **Hecho:** integradas tus 12 fotos (6 blancas + 6 negras).
+3. ~~Fotos del producto~~ ✅ **Hecho.**
 
 ---
 

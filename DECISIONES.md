@@ -85,3 +85,44 @@ negro. El hero y la banda editorial siguen con fotos de ambiente en blanco y neg
 ### 15. Aviso de WhatsApp oculto para los clientes
 El número sigue pendiente por tu decisión, pero el aviso "falta configurar WhatsApp" ya no
 se muestra en el carrito: lo veían los compradores.
+
+---
+
+## Rediseño final (16/09/2026)
+
+### 16. Se quitó la pantalla negra de entrada con botón ENTRAR
+El brief final pide entrar y ver directamente ISK, la portada y AIR FORCE 1, con el audio
+sonando solo. Una pantalla que obliga a tocar "ENTRAR" frena la compra en móvil. El audio
+ahora vive en `src/components/BrandAudio.tsx`: intenta autoplay y, si el navegador lo
+bloquea, suena con el primer toque, clic o tecla. Suena una sola vez por visita, sin loop,
+y no se reinicia al navegar. Mientras suena aparece un botón pequeño "SILENCIAR" abajo a la
+izquierda. El código anterior de la intro sigue guardado en git.
+
+### 17. Portada en blanco y negro, fundida con el negro
+`PORTADA HD.jpg` se convirtió a monocromo (`public/images/portada-hd.jpg`); el original a
+color queda en `assets-originales/`. En móvil ocupa toda la pantalla; en escritorio ocupa
+el 64% derecho y se desvanece hacia la izquierda. La foto mide 1199 px de ancho, así que
+de esta forma no pierde nitidez en pantallas grandes.
+
+### 18. AF1 negras recortadas (sin fondo) para el bloque BLACK
+Las fotos de la negra venían con fondo blanco. Se generaron versiones con transparencia
+(`public/images/af1-black-N-cut.webp`) para ponerlas sobre negro con un foco de luz, sin
+bordes visibles. La blanca va sobre blanco puro (el fondo coincide exacto). Los JPG
+originales se conservan y se usan para compartir en redes (Open Graph).
+
+### 19. Títulos calculados desde el ancho de pantalla
+"AIR FORCE 1", "WHITE/BLACK" y "DOS COLORES…" calculan su tamaño para ocupar casi todo el
+ancho sin saltar nunca de línea (probado de 320 px a 1440 px).
+
+### 20. Botón flotante de WhatsApp
+Aparece después del hero y se oculta solo si debajo hay un botón, enlace o talla, para no
+tapar nada. Es negro con borde para verse sobre fondos blancos y negros.
+
+### 21. Una sola URL oficial
+`https://iskoficial.com`. `www` redirige al dominio raíz; `*.vercel.app` lleva `noindex` y,
+una vez conectado el dominio, redirige con `REDIRECT_VERCEL_TO_DOMAIN=1`.
+
+### 22. Se retiraron textos de relleno
+Fuera "NIKE · ORIGINALES · PERÚ", "POR QUÉ COMPRAR EN ISK", las tarjetas y listas de
+beneficios (también en la ficha y el carrito), la pared con zapatillas de otros modelos y
+el CTA "IR A LA TIENDA". El lema pasó a "IMAGINA · SUEÑA · KREA".
