@@ -1,7 +1,10 @@
 # Conectar iskoficial.com a la web (GoDaddy → Vercel)
 
-**Estado al 16/09/2026:** la web está terminada y publicada. Solo falta este paso, que
-requiere entrar a la cuenta de GoDaddy **dueña de iskoficial.com**.
+## ✅ HECHO el 16/09/2026
+
+Los 2 cambios de abajo ya se aplicaron desde la cuenta ISK de GoDaddy, el certificado HTTPS
+está activo y la redirección de `isk-store.vercel.app` está encendida
+(`REDIRECT_VERCEL_TO_DOMAIN=1`). Esta guía queda como referencia.
 
 ---
 

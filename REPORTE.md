@@ -4,15 +4,15 @@
 
 ## 🟢 LA WEB ESTÁ EN VIVO
 
-### 👉 https://isk-store.vercel.app
+### 👉 https://iskoficial.com
 
 | Qué | Dónde |
 |---|---|
-| Web publicada | https://isk-store.vercel.app |
+| Web publicada | **https://iskoficial.com** (HTTPS activo) |
 | Código en GitHub | https://github.com/jerryguanipa-blip/isk-store |
 | Panel de Vercel | https://vercel.com/isk-offcial/isk-store |
 | Carpeta en tu PC | `D:\isk-store` |
-| Dominio iskoficial.com | **Agregado en Vercel. Falta cambiar 2 DNS en la cuenta de GoDaddy dueña del dominio** → `DNS_GODADDY.md` |
+| Dominio iskoficial.com | ✅ **Conectado el 16/09/2026.** `www` y `isk-store.vercel.app` redirigen a https://iskoficial.com |
 
 ---
 
@@ -38,19 +38,18 @@
 | Inicio | **100** | **100** | **100** |
 | Producto | **97** | **100** | **100** |
 
-> SEO aparece en 69 **solo** en `isk-store.vercel.app` porque esa URL lleva `noindex` a propósito
-> (para que Google use iskoficial.com). En el dominio propio no lleva `noindex`.
+> En el dominio propio SEO da **100**. `isk-store.vercel.app` lleva `noindex` y redirige a iskoficial.com.
 
 ---
 
 ## ⚡ LO URGENTE
 
-1. **Conectar iskoficial.com:** entrar a la cuenta de GoDaddy **dueña** del dominio (no es la
-   de JERRY ALEXANDER) y cambiar 2 registros. Pasos exactos: `DNS_GODADDY.md`.
-   Ojo: hoy el dominio muestra una tienda de **Shopify**.
+1. ~~Conectar iskoficial.com~~ ✅ **Hecho:** DNS cambiados en GoDaddy, HTTPS activo
+   (Let's Encrypt, se renueva solo), `www` y `isk-store.vercel.app` redirigen al dominio.
+   Lighthouse en https://iskoficial.com: **97 / 100 / 100 / 100** (rendimiento, accesibilidad,
+   buenas prácticas, SEO).
 2. **Poner tu número real de WhatsApp** cuando lo decidas (hoy `51XXXXXXXXX`).
    Cómo: `PENDIENTES.md`, punto 1.
-3. ~~Fotos del producto~~ ✅ **Hecho.**
 
 ---
 

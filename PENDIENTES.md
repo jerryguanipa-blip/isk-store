@@ -67,18 +67,13 @@ vercel --prod --yes
 
 ---
 
-## 🔴 3. CONECTAR iskoficial.com (única acción humana bloqueada)
+## ✅ 3. DOMINIO iskoficial.com — HECHO (16/09/2026)
 
-La web está terminada y publicada. Falta cambiar **2 registros DNS** en GoDaddy, pero
-**iskoficial.com está en otra cuenta de GoDaddy**, no en la que estaba abierta en Chrome
-(esa tiene jagofy.com, jeryale.com, mrairforce1.com, nibosi1985.com y valleydreams.pe).
-Además, ver cuentas delegadas pedía un código de verificación (2FA).
-
-**Qué hacer:** entrar a la cuenta de GoDaddy dueña de iskoficial.com y cambiar
-`A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`. Todo explicado, con los valores
-actuales revisados, en `DNS_GODADDY.md`.
-
-⚠️ Hoy el dominio apunta a **Shopify**: al cambiarlo, se deja de ver esa tienda.
+- GoDaddy (cuenta ISK): `A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`.
+  Los demás registros (`_dmarc`, NS, `_domainconnect`, verificación de Shopify) quedaron igual.
+- Certificado HTTPS emitido por Vercel (Let's Encrypt), renovación automática.
+- `www.iskoficial.com` y `isk-store.vercel.app` redirigen a https://iskoficial.com.
+- La tienda de Shopify ya no se muestra en este dominio.
 
 ---
 
