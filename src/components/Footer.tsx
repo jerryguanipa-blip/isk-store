@@ -13,7 +13,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="bg-ink text-white">
-      <div className="mx-auto max-w-[1800px] px-4 pt-14 pb-28 sm:px-6 lg:px-10 lg:pt-16 lg:pb-12">
+      <div className="mx-auto max-w-[1800px] px-4 pt-14 pb-24 sm:px-6 lg:px-10 lg:pt-16 lg:pb-10">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           {/* Marca */}
           <div>
@@ -88,12 +88,9 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 border-t border-white/15 pt-6">
           <p className="text-xs text-white/70">
             © 2026 ISK Oficial. Todos los derechos reservados.
-          </p>
-          <p className="text-xs text-white/70">
-            Hecho en Perú · Precios en soles (PEN)
           </p>
         </div>
       </div>

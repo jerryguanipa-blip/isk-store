@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    // 90 solo se usa en la portada del hero (prioridad: calidad visual)
+    qualities: [75, 90],
   },
   async redirects() {
     return [

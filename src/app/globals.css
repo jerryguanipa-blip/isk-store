@@ -190,31 +190,13 @@ footer :focus-visible {
   letter-spacing: 0.02em;
 }
 
+/* Legibilidad del texto blanco sobre la portada clara, sin oscurecer la foto */
+.isk-hero-text {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.28), 0 2px 18px rgb(0 0 0 / 0.35);
+}
+
 .isk-hero-shade {
   background: linear-gradient(to top, rgb(0 0 0 / 0.62) 0%, rgb(0 0 0 / 0.18) 45%, rgb(0 0 0 / 0.05) 100%);
-}
-
-/* Fondo del hero en escritorio: degradado con los colores reales del borde de fondo.jpg */
-.isk-fondo-desktop {
-  background: linear-gradient(
-    to bottom,
-    rgb(35 59 69) 0%,
-    rgb(32 57 67) 20%,
-    rgb(30 55 63) 40%,
-    rgb(27 52 59) 50%,
-    rgb(24 44 53) 60%,
-    rgb(22 42 49) 70%,
-    rgb(23 43 50) 78%,
-    rgb(115 134 149) 82%,
-    rgb(193 205 214) 86%,
-    rgb(206 216 225) 90%,
-    rgb(193 201 212) 100%
-  );
-}
-
-.isk-fondo-foto {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 90%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 22%, #000 90%, transparent 100%);
 }
 
 @keyframes isk-fade-in {

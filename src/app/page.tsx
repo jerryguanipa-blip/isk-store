@@ -63,33 +63,20 @@ export default function HomePage() {
 
       {/* ---------------------------------- HERO ---------------------------------- */}
       <section className="relative isolate flex h-[calc(100svh-5.5rem)] min-h-[520px] max-h-[920px] items-end overflow-hidden bg-surface">
-        {/* Móvil y tablet: la foto (vertical) cubre todo el fondo */}
+        {/* Portada HD (4320×5400). Móvil: encuadre 1.3× anclado abajo para que las
+            zapatillas queden enteras sobre el texto; escritorio: cover a ancho completo. */}
         <Image
-          src="/images/fondo.jpg"
-          alt="Zapatilla Nike Air Force 1 blanca clásica"
+          src="/images/portada-hd-af1.jpg"
+          alt="Zapatillas Nike Air Force 1 blancas clásicas"
           fill
           priority
-          sizes="(min-width: 1024px) 1px, 100vw"
-          className="isk-hero-image object-cover object-[62%_42%] lg:hidden"
+          quality={90}
+          sizes="(min-width: 1024px) 100vw, 130vw"
+          className="isk-hero-image origin-[35%_100%] scale-[1.3] object-cover object-[35%_100%] lg:origin-center lg:scale-100 lg:object-[50%_88%]"
         />
-        {/* Escritorio: la foto es pequeña (474×842). En vez de estirarla, se muestra
-            nítida y completa al centro, con sus bordes fundidos en un degradado
-            tomado del propio color de fondo de la imagen. */}
-        <div aria-hidden="true" className="isk-fondo-desktop absolute inset-0 hidden lg:block">
-          <div className="isk-fondo-foto absolute inset-y-0 left-1/2 aspect-[474/842] h-full -translate-x-1/2">
-            <Image
-              src="/images/fondo.jpg"
-              alt=""
-              fill
-              loading="eager"
-              sizes="(min-width: 1024px) 40vw, 1px"
-              className="isk-hero-image object-cover"
-            />
-          </div>
-        </div>
         <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">
+        <div className="isk-hero-text relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">
           <Reveal>
             <h1 className="display isk-hero-title whitespace-nowrap">AIR FORCE 1</h1>
           </Reveal>
