@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Yellowtail } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -12,6 +12,14 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+/** Lettering editorial solo para "AIR FORCE 1" del hero */
+const yellowtail = Yellowtail({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -65,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es-PE" className={inter.variable}>
+    <html lang="es-PE" className={`${inter.variable} ${yellowtail.variable}`}>
       <body className="min-h-dvh bg-paper text-ink">
         <a
           href="#contenido"

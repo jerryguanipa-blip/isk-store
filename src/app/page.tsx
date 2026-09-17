@@ -77,15 +77,13 @@ export default function HomePage() {
         <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
         <div className="isk-hero-text relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">
-          <Reveal>
-            <h1 className="display isk-hero-title whitespace-nowrap">AIR FORCE 1</h1>
-          </Reveal>
+          <h1 className="isk-script-title isk-write whitespace-nowrap">AIR FORCE 1</h1>
 
-          <Reveal delay={0.1}>
-            <p className="mt-3 text-lg tabular-nums sm:text-xl">{formatPrice(siteConfig.price)}</p>
-          </Reveal>
+          <p className="isk-hero-price isk-rise mt-2 tabular-nums">
+            {formatPrice(siteConfig.price)}
+          </p>
 
-          <Reveal delay={0.15} className="mt-6 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+          <div className="isk-rise isk-rise-late mt-6 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
             <WhatsAppButton
               tone="light"
               className="w-full max-w-xs border-white bg-transparent text-white hover:bg-white hover:text-ink sm:w-auto"
@@ -97,7 +95,7 @@ export default function HomePage() {
             >
               VER WHITE / BLACK
             </a>
-          </Reveal>
+          </div>
         </div>
       </section>
 
