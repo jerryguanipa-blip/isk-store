@@ -77,7 +77,7 @@ export default function HomePage() {
         <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
         <div className="isk-hero-text relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">
-          <h1 className="isk-script-title isk-write whitespace-nowrap">AIR FORCE 1</h1>
+          <h1 className="isk-script-title isk-write whitespace-nowrap">Air Force 1</h1>
 
           <p className="isk-hero-price isk-rise mt-2 tabular-nums">
             {formatPrice(siteConfig.price)}

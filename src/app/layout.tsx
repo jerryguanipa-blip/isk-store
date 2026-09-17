@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Yellowtail } from "next/font/google";
+import { Inter, Mr_Dafoe } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 /** Lettering editorial solo para "AIR FORCE 1" del hero */
-const yellowtail = Yellowtail({
+const script = Mr_Dafoe({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
@@ -73,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es-PE" className={`${inter.variable} ${yellowtail.variable}`}>
+    <html lang="es-PE" className={`${inter.variable} ${script.variable}`}>
       <body className="min-h-dvh bg-paper text-ink">
         <a
           href="#contenido"

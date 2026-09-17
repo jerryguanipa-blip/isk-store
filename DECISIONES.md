@@ -151,3 +151,8 @@ el CTA "IR A LA TIENDA". El lema pasó a "IMAGINA · SUEÑA · KREA".
   enlaces "VER POLÍTICA DE ENVÍOS" y "VER CAMBIOS Y DEVOLUCIONES".
 - Footer en capitalización normal mediante CSS (`lowercase` + primera letra en mayúscula).
 - Se eliminó `CustomCursor.tsx` (el brief pide sin cursor personalizado).
+
+### 26. Hero: lettering "Air Force 1" según referencia OPCIÓN 03
+- Con la imagen de referencia (03 · ESCRITURA) se cambió Yellowtail por **Mr Dafoe** (Google Fonts):
+  pincel seco, inclinado y ascendente. Texto en "Air Force 1" como en la referencia, rotado -6°.
+- Se mantiene la misma animación de escritura (máscara, 1500 ms, una vez), precio Inter 300 y secuencia.
