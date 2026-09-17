@@ -45,9 +45,8 @@ export const siteConfig = {
 
   // --- Redes ---
   social: {
-    instagram: "https://www.instagram.com/iskoficial",
-    tiktok: "https://www.tiktok.com/@iskoficial",
-    facebook: "https://www.facebook.com/iskoficial",
+    instagram: "https://www.instagram.com/iskoficial_?stkn=bzQzN3JsdTlrN3lu",
+    tiktok: "https://www.tiktok.com/@iskofficiality?_r=1&_t=ZS-99msCYvBZZA",
   },
 
 

@@ -31,7 +31,6 @@ const structuredData = {
       sameAs: [
         siteConfig.social.instagram,
         siteConfig.social.tiktok,
-        siteConfig.social.facebook,
       ],
     },
     {
@@ -64,14 +63,30 @@ export default function HomePage() {
 
       {/* ---------------------------------- HERO ---------------------------------- */}
       <section className="relative isolate flex h-[calc(100svh-5.5rem)] min-h-[520px] max-h-[920px] items-end overflow-hidden bg-surface">
+        {/* Móvil y tablet: la foto (vertical) cubre todo el fondo */}
         <Image
-          src="/images/portada-hd.jpg"
-          alt="Pared de zapatillas Air Force 1 en blanco y negro"
+          src="/images/fondo.jpg"
+          alt="Zapatilla Nike Air Force 1 blanca clásica"
           fill
           priority
-          sizes="100vw"
-          className="isk-hero-image object-cover object-[46%_30%] lg:object-[50%_40%]"
+          sizes="(min-width: 1024px) 1px, 100vw"
+          className="isk-hero-image object-cover object-[62%_42%] lg:hidden"
         />
+        {/* Escritorio: la foto es pequeña (474×842). En vez de estirarla, se muestra
+            nítida y completa al centro, con sus bordes fundidos en un degradado
+            tomado del propio color de fondo de la imagen. */}
+        <div aria-hidden="true" className="isk-fondo-desktop absolute inset-0 hidden lg:block">
+          <div className="isk-fondo-foto absolute inset-y-0 left-1/2 aspect-[474/842] h-full -translate-x-1/2">
+            <Image
+              src="/images/fondo.jpg"
+              alt=""
+              fill
+              loading="eager"
+              sizes="(min-width: 1024px) 40vw, 1px"
+              className="isk-hero-image object-cover"
+            />
+          </div>
+        </div>
         <div aria-hidden="true" className="isk-hero-shade absolute inset-0" />
 
         <div className="relative z-10 mx-auto flex w-full max-w-[1800px] flex-col items-center px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center text-white sm:px-6 sm:pb-16 lg:px-10">

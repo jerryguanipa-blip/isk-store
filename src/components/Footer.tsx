@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { IskMark } from "@/components/brand/IskMark";
 import { siteConfig } from "@/config/site";
+import { buildLandingMessage, whatsappUrl } from "@/lib/checkout";
 
 const socials = [
   { href: siteConfig.social.instagram, label: "INSTAGRAM" },
   { href: siteConfig.social.tiktok, label: "TIKTOK" },
-  { href: siteConfig.social.facebook, label: "FACEBOOK" },
+  // "Facebook" abre directamente el WhatsApp oficial de la tienda
+  { href: whatsappUrl(buildLandingMessage()), label: "FACEBOOK" },
 ];
 
 export function Footer() {
@@ -88,7 +90,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/70">
-            ISK OFICIAL · TODOS LOS DERECHOS RESERVADOS 2026
+            © 2026 ISK Oficial. Todos los derechos reservados.
           </p>
           <p className="text-xs text-white/70">
             Hecho en Perú · Precios en soles (PEN)
