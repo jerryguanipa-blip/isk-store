@@ -51,13 +51,16 @@ async function writeToFile(raw: string): Promise<void> {
   await writeFile(path, raw, "utf8");
 }
 
+/**
+ * El almacén es PRIVADO: dentro van nombres, celulares y DNI de los clientes,
+ * así que solo se lee con el token del servidor, nunca por una URL pública.
+ */
 async function readFromBlob(): Promise<string | null> {
-  const { head } = await import("@vercel/blob");
+  const { get } = await import("@vercel/blob");
   try {
-    const info = await head(BLOB_PATH);
-    const res = await fetch(info.url, { cache: "no-store" });
-    if (!res.ok) return null;
-    return await res.text();
+    const result = await get(BLOB_PATH, { access: "private", useCache: false });
+    if (!result || !result.stream) return null;
+    return await new Response(result.stream).text();
   } catch {
     return null;
   }
@@ -66,7 +69,7 @@ async function readFromBlob(): Promise<string | null> {
 async function writeToBlob(raw: string): Promise<void> {
   const { put } = await import("@vercel/blob");
   await put(BLOB_PATH, raw, {
-    access: "public",
+    access: "private",
     contentType: "application/json",
     allowOverwrite: true,
     addRandomSuffix: false,
