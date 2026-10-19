@@ -3,6 +3,7 @@ import { Inter, Mr_Dafoe } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { HideOnAdmin } from "@/components/HideOnAdmin";
 import { CartDrawer } from "@/components/CartDrawer";
 import { BrandAudio } from "@/components/BrandAudio";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
@@ -82,18 +83,26 @@ export default function RootLayout({
           Saltar al contenido
         </a>
 
-        <BrandAudio />
+        <HideOnAdmin>
+          <BrandAudio />
+        </HideOnAdmin>
 
         <div className="flex min-h-dvh flex-col">
-          <Header />
+          <HideOnAdmin>
+            <Header />
+          </HideOnAdmin>
           <main id="contenido" className="flex-1">
             <PageTransition>{children}</PageTransition>
           </main>
-          <Footer />
+          <HideOnAdmin>
+            <Footer />
+          </HideOnAdmin>
         </div>
 
-        <CartDrawer />
-        <WhatsAppFab />
+        <HideOnAdmin>
+          <CartDrawer />
+          <WhatsAppFab />
+        </HideOnAdmin>
       </body>
     </html>
   );

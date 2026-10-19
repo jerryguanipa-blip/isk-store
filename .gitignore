@@ -44,3 +44,6 @@ next-env.d.ts
 /.npm-cache
 /.tmp
 !.env.example
+
+# datos locales del panel
+/.data

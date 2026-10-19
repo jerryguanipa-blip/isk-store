@@ -4,7 +4,62 @@ Ordenadas por urgencia. Lo demás ya está hecho y funcionando.
 
 ---
 
-## 🔴 1. PONER EL NÚMERO REAL DE WHATSAPP (bloquea las ventas)
+## 🔴 1. CONTRASEÑA DEL PANEL `/admin` (sin esto el panel no abre)
+
+El panel de la tienda está en **https://iskoficial.com/admin**. Para que abra hay que poner una
+contraseña tuya (mínimo 6 caracteres). Se hace una sola vez:
+
+```bash
+vercel env add ADMIN_PASSWORD production
+```
+
+Te va a pedir el valor: escribe la contraseña que quieras (no la escribas en el chat ni en
+ningún archivo del proyecto). Después, para que tome efecto:
+
+```bash
+vercel --prod --yes
+```
+
+En tu PC, para probar en local, el archivo `D:\isk-store\.env.local` ya tiene una de prueba
+(`ADMIN_PASSWORD`). Cámbiala cuando quieras: ese archivo no se sube a GitHub.
+
+---
+
+## 🔴 2. GUARDAR LOS PEDIDOS DE VERDAD (Vercel Blob, es gratis para este tamaño)
+
+Hoy, en la web publicada, los pedidos se guardan en memoria temporal del servidor: funcionan,
+pero se borran cuando Vercel reinicia la función. Para que queden guardados:
+
+1. Entra a **vercel.com → proyecto `isk-store` → pestaña Storage**.
+2. Crea un store de tipo **Blob** y conéctalo al proyecto `isk-store`.
+   Vercel agrega solo la variable `BLOB_READ_WRITE_TOKEN`; no hay que copiar nada a mano.
+3. Vuelve a desplegar: `vercel --prod --yes`.
+
+El código ya detecta esa variable: si existe, guarda ahí; si no, avisa en el panel con un aviso
+naranja. (Yo no puedo crear el store: pide tu cuenta y es un servicio que tienes que aceptar tú.)
+
+---
+
+## 🔴 3. NÚMERO DE YAPE / PLIM (se pone desde el panel, sin tocar código)
+
+El número de pago quedó **pendiente a propósito**, como pediste. Cuando lo tengas:
+entra a `/admin` → sección **AJUSTES** → escribe el número de Yape y/o Plim y el titular →
+**GUARDAR AJUSTES**. Desde ese momento les aparece a los clientes en la pantalla de pago.
+
+Mientras esté vacío, al cliente le sale: «Todavía no publicamos el número de Yape/Plim.
+Escríbenos por WhatsApp y te lo pasamos al instante».
+
+---
+
+## 🔴 4. INVENTARIO FINAL
+
+Dijiste que me pasarías el inventario final. Mientras tanto, todas las tallas están sin control
+de stock (se pueden vender). En `/admin` → **INVENTARIO** pones los pares que tienes de cada
+talla: en 0 la talla sale tachada en la web, y vacío significa «sin control».
+
+---
+
+## 🔴 5. PONER EL NÚMERO REAL DE WHATSAPP (bloquea las ventas)
 
 > **Estado:** pendiente por decisión del dueño, pero **todo está listo**: es un solo valor.
 > El aviso para el administrador que se veía en el carrito se quitó para que los clientes
@@ -41,7 +96,7 @@ vercel --prod --yes
 
 ---
 
-## 🟠 2. CONECTAR GITHUB CON VERCEL (para publicar con un solo `git push`)
+## 🟠 6. CONECTAR GITHUB CON VERCEL (para publicar con un solo `git push`)
 
 La web ya está publicada, pero Vercel **no pudo enlazarse con tu repositorio de GitHub**
 (lo intenté 3 veces). El error fue:
@@ -67,7 +122,7 @@ vercel --prod --yes
 
 ---
 
-## ✅ 3. DOMINIO iskoficial.com — HECHO (16/09/2026)
+## ✅ 7. DOMINIO iskoficial.com — HECHO (16/09/2026)
 
 - GoDaddy (cuenta ISK): `A @ → 76.76.21.21` y `CNAME www → cname.vercel-dns.com`.
   Los demás registros (`_dmarc`, NS, `_domainconnect`, verificación de Shopify) quedaron igual.
@@ -77,14 +132,14 @@ vercel --prod --yes
 
 ---
 
-## ✅ 4. FOTOS DEL PRODUCTO — HECHO
+## ✅ 8. FOTOS DEL PRODUCTO — HECHO
 
 Se integraron tus 12 fotos (6 Triple White + 6 Triple Black) el 16/09/2026.
 Ver `IMAGENES.md`.
 
 ---
 
-## 🟡 5. REDES SOCIALES: LAS CUENTAS SON UNA SUPOSICIÓN
+## 🟡 9. REDES SOCIALES: LAS CUENTAS SON UNA SUPOSICIÓN
 
 En `src/config/site.ts` puse:
 
@@ -97,7 +152,7 @@ Si alguna red no la usas, bórrala de ahí y desaparece del footer.
 
 ---
 
-## 🟡 6. CORREO DE CONTACTO
+## 🟡 10. CORREO DE CONTACTO
 
 Puse `hola@iskoficial.com` en `src/config/site.ts`. Aparece en las páginas legales
 (privacidad, cambios, términos). **Si ese buzón no existe, créalo o cámbialo**, porque
@@ -105,7 +160,7 @@ legalmente es el canal de contacto que estás publicando.
 
 ---
 
-## 🟡 7. LIBRO DE RECLAMACIONES: FALTA GUARDARLO EN ALGÚN LADO
+## 🟡 11. LIBRO DE RECLAMACIONES: FALTA GUARDARLO EN ALGÚN LADO
 
 Hoy el formulario valida los datos, genera un código de reclamo y lo envía por WhatsApp.
 Funciona y cumple con mostrar el libro, **pero la normativa de Indecopi pide además:**
@@ -120,7 +175,7 @@ La estructura del formulario ya está lista para enchufarlo.
 
 ---
 
-## 🟡 8. DATOS DE LA EMPRESA EN LAS PÁGINAS LEGALES
+## 🟡 12. DATOS DE LA EMPRESA EN LAS PÁGINAS LEGALES
 
 Las páginas legales están escritas y son correctas, pero **les falta la razón social y el
 RUC**, que es lo que exige Indecopi. Cuando me los pases (o los pongas tú) hay que
@@ -131,6 +186,6 @@ agregarlos en:
 
 ---
 
-## 🟢 9. COSAS QUE DECIDÍ YO
+## 🟢 13. COSAS QUE DECIDÍ YO
 
 Están todas explicadas en `DECISIONES.md`. Si alguna no te gusta, ahí dice cómo revertirla.

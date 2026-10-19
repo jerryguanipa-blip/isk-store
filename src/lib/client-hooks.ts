@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 const noopSubscribe = () => () => {};
 
@@ -34,4 +34,38 @@ export function useMediaQuery(query: string): boolean {
     () => window.matchMedia(query).matches,
     () => false,
   );
+}
+
+export type StockResponse = {
+  inventory: Record<string, Record<string, number | null>>;
+  checkoutEnabled: boolean;
+};
+
+/**
+ * Tallas agotadas según el inventario del panel. Mientras carga (o si el
+ * servidor no responde) no bloquea nada: se asume que hay stock.
+ */
+export function useSoldOutSizes(slug: string): number[] {
+  const [soldOut, setSoldOut] = useState<number[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/stock", { cache: "no-store" })
+      .then((res) => (res.ok ? (res.json() as Promise<StockResponse>) : null))
+      .then((data) => {
+        if (!active || !data) return;
+        const sizes = data.inventory?.[slug] ?? {};
+        setSoldOut(
+          Object.entries(sizes)
+            .filter(([, stock]) => typeof stock === "number" && stock <= 0)
+            .map(([size]) => Number(size)),
+        );
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  return soldOut;
 }

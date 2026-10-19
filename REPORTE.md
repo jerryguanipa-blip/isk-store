@@ -16,6 +16,47 @@
 
 ---
 
+## 🧾 PANEL DE TIENDA + PAGO CON YAPE/PLIM (18/10/2026)
+
+**Qué se agregó**
+
+- **Panel privado en `/admin`** (no sale en Google ni tiene enlaces desde la web): entra con
+  contraseña y muestra pedidos, inventario y ajustes. Sin header, footer ni audio.
+- **Pedidos**: cada pedido tiene código corto (ej. `ISK-4KQ9`), estado, items, datos del cliente,
+  envío, código de operación y seguimiento. Botones: confirmar pago, marcar enviado, cancelar,
+  guardar código de seguimiento y abrir el WhatsApp del cliente.
+- **Inventario por talla y color**: en 0 la talla sale tachada en la web y no se puede pedir;
+  vacío = sin control de stock. Al crear un pedido el stock se reserva y, si el pedido expira o
+  se cancela, se devuelve solo.
+- **Ajustes**: número de Yape y de Plim, titular, minutos de la ventana de pago, activar o
+  desactivar Shalom / InDriver y apagar el cobro por la web.
+- **Compra con ventana de 15 minutos**: "PAGAR AHORA · YAPE O PLIM" en la ficha, el carrito y el
+  cajón del carrito crea el pedido y lleva a `/pedido/[id]`, con contador, el número de pago y el
+  formulario para el código de operación, los datos del cliente y el envío.
+- **Al enviar el código** se abre WhatsApp con todo el pedido escrito (modelo, talla, total,
+  código de operación, datos y envío) y el pedido pasa a "Por validar" en el panel.
+- **Envíos**: solo Shalom (agencia en todo el Perú) o InDriver (Lima, en el momento). La página
+  `/envios` se reescribió con eso y con el paso a paso del pago.
+- **Precio único S/ 200.00** en toda la web.
+
+**Probado en local (Chrome real)**
+
+- Crear pedido desde la ficha → página de pago → código → WhatsApp armado → "Por validar". ✅
+- Reserva de stock (2 → 1), talla en 0 bloqueada ("Se acaba de agotar esa talla") y tallas
+  agotadas tachadas en la ficha. ✅
+- Expiración: pedido vencido pasa a "Expirado" solo y devuelve el stock. ✅
+- Panel: contraseña incorrecta rechazada, login correcto, guardar inventario, guardar ajustes,
+  confirmar pago (→ "Pagado"). ✅
+- Validaciones del formulario: nombre corto, celular inválido y código de operación inválido
+  se rechazan con mensaje claro. ✅
+- `eslint`, `tsc` y `next build`: sin errores.
+
+**Lo que queda pendiente (está en PENDIENTES.md):** contraseña del panel en Vercel, crear el
+store de Vercel Blob para que los pedidos no se borren, número de Yape/Plim, inventario final y
+el número real de WhatsApp.
+
+---
+
 ## 🎨 THEME "KITH-STYLE" (16/09/2026) — rediseño solo visual
 
 Inspirado en el **estilo** de kith.com (sin copiar logo, textos, fotos ni código).

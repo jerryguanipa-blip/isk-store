@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/format";
 import { getProduct } from "@/data/products";
 import { activeProvider } from "@/lib/checkout";
 import { useHydrated } from "@/lib/client-hooks";
+import { BuyNowButton } from "@/components/BuyNowButton";
 
 export function CartView() {
   const hydrated = useHydrated();
@@ -149,7 +150,7 @@ export function CartView() {
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted">Envío</dt>
-              <dd className="text-muted">Se calcula por WhatsApp</dd>
+              <dd className="text-muted">Shalom o InDriver</dd>
             </div>
           </dl>
 
@@ -158,19 +159,26 @@ export function CartView() {
             <span className="text-xl tabular-nums">{formatPrice(subtotal)}</span>
           </div>
 
-          <a
-            href={checkoutUrl}
-            data-cta
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary mt-8 w-full"
-          >
-            {activeProvider.label}
-          </a>
+          <div className="mt-8 flex flex-col gap-2">
+            <BuyNowButton
+              getItems={() => items.map((item) => ({ slug: item.slug, size: item.size, qty: item.qty }))}
+            />
+
+            <a
+              href={checkoutUrl}
+              data-cta
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary w-full"
+            >
+              {activeProvider.label}
+            </a>
+          </div>
 
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Al tocar el botón se abre WhatsApp con tu pedido ya escrito. Solo tienes que
-            completar tu nombre, dirección y distrito, y enviarlo.
+            Con “Pagar ahora” reservamos tus tallas 15 minutos: yapeas o plimeas, pones el código
+            de operación y te confirmamos por WhatsApp. El envío (Shalom o InDriver) se coordina
+            al momento.
           </p>
         </div>
       </aside>

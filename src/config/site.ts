@@ -18,7 +18,7 @@ export const siteConfig = {
   // --- SEO ---
   title: "ISK | Air Force 1 Clásicas en Perú",
   description:
-    "Air Force 1 '07 blancas y negras en Perú. Tallas EUR 36 al 44, S/ 209.90. Pide por WhatsApp.",
+    "Air Force 1 '07 blancas y negras en Perú. Tallas EUR 36 al 44, S/ 200.00. Pide por WhatsApp.",
   keywords: [
     "Air Force 1 Perú",
     "Nike Air Force 1 clásicas",
@@ -36,7 +36,7 @@ export const siteConfig = {
   email: "hola@iskoficial.com",
 
   // --- Producto ---
-  price: 209.9,
+  price: 200,
   currency: "PEN",
   currencySymbol: "S/",
   locale: "es-PE",

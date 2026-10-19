@@ -9,6 +9,7 @@ import { cartCount, cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
 import { getProduct } from "@/data/products";
 import { activeProvider } from "@/lib/checkout";
+import { BuyNowButton } from "@/components/BuyNowButton";
 import { useHydrated } from "@/lib/client-hooks";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -163,14 +164,22 @@ export function CartDrawer() {
                     <span className="text-lg tabular-nums">{formatPrice(subtotal)}</span>
                   </div>
                   <p className="mt-2 text-xs text-muted">
-                    El costo de envío se confirma por WhatsApp según tu distrito.
+                    El envío se coordina por Shalom o InDriver al confirmar.
                   </p>
+
+                  <div className="mt-5">
+                    <BuyNowButton
+                      getItems={() =>
+                        items.map((item) => ({ slug: item.slug, size: item.size, qty: item.qty }))
+                      }
+                    />
+                  </div>
 
                   <a
                     href={checkoutUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-primary mt-5 w-full"
+                    className="btn btn-secondary mt-3 w-full"
                   >
                     {activeProvider.label}
                   </a>

@@ -7,7 +7,9 @@ import { Ruler } from "lucide-react";
 import type { Product } from "@/data/products";
 import { cn, formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
+import { useSoldOutSizes } from "@/lib/client-hooks";
 import { buildProductMessage, whatsappUrl } from "@/lib/checkout";
+import { BuyNowButton } from "@/components/BuyNowButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { SizeGuideModal } from "@/components/SizeGuideModal";
 
@@ -16,6 +18,7 @@ export function ProductDetail({ product }: { product: Product }) {
   const [error, setError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const add = useCart((s) => s.add);
+  const soldOut = useSoldOutSizes(product.slug);
 
   const handleAdd = () => {
     if (size === null) {
@@ -94,7 +97,7 @@ export function ProductDetail({ product }: { product: Product }) {
                     type="button"
                     role="radio"
                     aria-checked={selected}
-                    disabled={!option.available}
+                    disabled={!option.available || soldOut.includes(option.eur)}
                     onClick={() => {
                       setSize(option.eur);
                       setError(false);
@@ -104,7 +107,8 @@ export function ProductDetail({ product }: { product: Product }) {
                       selected
                         ? "border-ink bg-ink text-white"
                         : "border-line bg-paper text-ink hover:border-ink",
-                      !option.available && "cursor-not-allowed opacity-30 line-through",
+                      (!option.available || soldOut.includes(option.eur)) &&
+                        "cursor-not-allowed opacity-30 line-through",
                     )}
                   >
                     {option.eur}
@@ -128,11 +132,16 @@ export function ProductDetail({ product }: { product: Product }) {
 
           {/* Acciones */}
           <div className="mt-6 flex flex-col gap-2">
+            <BuyNowButton
+              getItems={() => (size === null ? null : [{ slug: product.slug, size, qty: 1 }])}
+              onMissing={() => setError(true)}
+            />
+
             <button
               type="button"
               onClick={handleAdd}
               data-cta
-              className="btn btn-primary w-full"
+              className="btn btn-secondary w-full"
             >
               AGREGAR AL CARRITO
             </button>
