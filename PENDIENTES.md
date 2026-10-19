@@ -35,16 +35,14 @@ con el token del servidor, nunca por una URL pública.
 
 ---
 
-## ✅ 3. NÚMERO DE PAGO — HECHO (19/10/2026)
+## ✅ 3. NÚMERO DE PAGO — YA NO VIVE EN LA WEB (19/10/2026)
 
-El cliente paga a la billetera **Dale**: **983501670**, a nombre de **Jerimy G.**
+Por seguridad, **la web no muestra ningún número de pago**. Si alguien lograra tocar la página,
+no hay número que cambiar: no podrían desviar ni un sol.
 
-En la pantalla de pago le sale el número con botón de copiar y el paso a paso: desde Yape o Plin,
-opción «otras billeteras / otros bancos» → Dale → número → monto → copiar el código de operación.
-Luego pega ese código en la web y se abre WhatsApp con todo el pedido para que tú lo valides.
-
-Si cambias de número: `/admin` → **AJUSTES** → «Número de la billetera Dale» → GUARDAR. Ahí
-mismo puedes agregar un Yape o Plin propio si algún día quieres cobrar también directo.
+Cómo funciona ahora: el cliente elige color y tallas, toca **ENVIAR PEDIDO POR WHATSAPP** y te
+llega el pedido escrito con su código (ej. `ISK-4KQ9`). Tú le respondes por el chat con los datos
+de pago, él te manda la captura y tú cierras la venta en `/admin` con **CONFIRMAR VENTA**.
 
 ---
 

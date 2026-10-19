@@ -8,8 +8,7 @@ import { Minus, Plus, X } from "lucide-react";
 import { cartCount, cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
 import { getProduct } from "@/data/products";
-import { activeProvider } from "@/lib/checkout";
-import { BuyNowButton } from "@/components/BuyNowButton";
+import { WhatsAppOrderButton } from "@/components/WhatsAppOrderButton";
 import { useHydrated } from "@/lib/client-hooks";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -36,7 +35,6 @@ export function CartDrawer() {
   }, [isOpen, closeCart]);
 
   const subtotal = cartSubtotal(items);
-  const checkoutUrl = activeProvider.createCheckoutUrl({ items, total: subtotal });
 
   if (!hydrated) return null;
 
@@ -164,25 +162,16 @@ export function CartDrawer() {
                     <span className="text-lg tabular-nums">{formatPrice(subtotal)}</span>
                   </div>
                   <p className="mt-2 text-xs text-muted">
-                    El envío se coordina por Shalom o InDriver al confirmar.
+                    Te abrimos WhatsApp con el pedido escrito para pagar y coordinar el envío.
                   </p>
 
                   <div className="mt-5">
-                    <BuyNowButton
+                    <WhatsAppOrderButton
                       getItems={() =>
                         items.map((item) => ({ slug: item.slug, size: item.size, qty: item.qty }))
                       }
                     />
                   </div>
-
-                  <a
-                    href={checkoutUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary mt-3 w-full"
-                  >
-                    {activeProvider.label}
-                  </a>
 
                   <Link
                     href="/cart"

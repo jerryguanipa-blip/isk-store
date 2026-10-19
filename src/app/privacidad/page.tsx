@@ -32,8 +32,8 @@ export default function PrivacidadPage() {
       />
       <p>
         No pedimos ni guardamos números de tarjeta, claves ni datos bancarios. Los pagos
-        se hacen a la billetera Dale fuera de la web: nosotros solo guardamos el código de operación
-        que tú nos escribes.
+        se coordinan y se hacen por WhatsApp, fuera de la web. La web no te pide nombre, teléfono
+        ni dirección: solo guarda qué tallas pediste para reservártelas.
       </p>
 
       <LegalHeading>PARA QUÉ LOS USAMOS</LegalHeading>

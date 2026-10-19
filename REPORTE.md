@@ -16,6 +16,30 @@
 
 ---
 
+## 💬 TODO EL PAGO POR WHATSAPP (19/10/2026)
+
+**Por qué**: si el número de pago vive en la web, alguien que entre a la página podría cambiarlo
+y desviar los pagos. Ahora la web no publica ningún número: el pago se coordina en el chat.
+
+**Cómo quedó**
+
+- **Portada directa**: debajo del hero salen la blanca y la negra, cada una con sus nueve tallas
+  y un botón grande **ENVIAR PEDIDO POR WHATSAPP**. Tocar talla → mandar pedido. Sin formularios.
+- Lo mismo en la ficha de producto, el carrito y el cajón del carrito.
+- **No se le pide nada al cliente**: ni nombre, ni teléfono, ni dirección, ni código de operación.
+  Eso se habla por WhatsApp.
+- El mensaje llega con el modelo, las tallas, los pares, el total y un **código de pedido**
+  (ej. `ISK-PUQQ`) para que lo ubiques en el panel.
+- **El stock sigue siendo automático**: al mandar el pedido se reservan las tallas; si la venta no
+  se cierra, vuelven solas al stock. En 0 la talla sale tachada.
+- **Panel**: los pedidos entran como «Esperando WhatsApp» y se cierran con **CONFIRMAR VENTA**,
+  **MARCAR ENVIADO** o **CANCELAR**. Ya no hay campos de números de pago en Ajustes.
+
+**Se eliminó**: la pantalla de pago en la web, el formulario de datos del cliente, el campo de
+código de operación y los números de Yape/Plin/Dale del código.
+
+---
+
 ## 🚀 TIENDA EN VIVO Y PUBLICÁNDOSE SOLA (19/10/2026)
 
 - **Publicación automática**: cada cambio subido a GitHub se publica solo en iskoficial.com

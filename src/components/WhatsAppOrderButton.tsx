@@ -1,26 +1,29 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { cn } from "@/lib/format";
 
-export type BuyNowItem = { slug: string; size: number; qty: number };
+export type OrderItem = { slug: string; size: number; qty: number };
 
 type Props = {
-  /** Qué se va a comprar. Si devuelve null, se muestra el aviso (ej. falta talla). */
-  getItems: () => BuyNowItem[] | null;
+  /** Qué se va a pedir. Si devuelve null, se avisa que falta elegir talla. */
+  getItems: () => OrderItem[] | null;
   label?: string;
   className?: string;
   onMissing?: () => void;
 };
 
 /**
- * Crea el pedido en el servidor (abre la ventana de 15 minutos) y lleva al
- * cliente a la página de pago con Yape/Plin.
+ * Apunta el pedido en el panel (y reserva las tallas) y abre WhatsApp con
+ * el detalle ya escrito. El pago se coordina en el chat.
  */
-export function BuyNowButton({ getItems, label = "PAGAR AHORA · YAPE O PLIN", className, onMissing }: Props) {
-  const router = useRouter();
+export function WhatsAppOrderButton({
+  getItems,
+  label = "ENVIAR PEDIDO POR WHATSAPP",
+  className,
+  onMissing,
+}: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -39,13 +42,13 @@ export function BuyNowButton({ getItems, label = "PAGAR AHORA · YAPE O PLIN", c
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
       });
-      const data = (await res.json()) as { id?: string; error?: string };
-      if (!res.ok || !data.id) {
-        setError(data.error ?? "No pudimos crear tu pedido.");
+      const data = (await res.json()) as { whatsapp?: string; error?: string };
+      if (!res.ok || !data.whatsapp) {
+        setError(data.error ?? "No pudimos abrir WhatsApp. Inténtalo de nuevo.");
         setLoading(false);
         return;
       }
-      router.push(`/pedido/${data.id}`);
+      window.location.href = data.whatsapp;
     } catch {
       setError("No pudimos conectar. Revisa tu internet e inténtalo de nuevo.");
       setLoading(false);
@@ -61,7 +64,7 @@ export function BuyNowButton({ getItems, label = "PAGAR AHORA · YAPE O PLIN", c
         data-cta
         className={cn("btn btn-primary w-full disabled:opacity-60", className)}
       >
-        {loading ? "ABRIENDO PAGO…" : label}
+        {loading ? "ABRIENDO WHATSAPP…" : label}
       </button>
       {error ? (
         <p role="alert" className="text-xs text-ink">

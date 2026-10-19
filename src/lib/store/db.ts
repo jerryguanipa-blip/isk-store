@@ -8,10 +8,6 @@ import type { Order, StoreData, StoreSettings } from "@/lib/store/types";
 export { driverKind, isEphemeral };
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  dale: "983501670",
-  yape: "",
-  plin: "",
-  holder: "Jerimy G.",
   windowMinutes: 15,
   price: siteConfig.price,
   shalom: true,

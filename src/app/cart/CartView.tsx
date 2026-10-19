@@ -6,9 +6,8 @@ import { Minus, Plus } from "lucide-react";
 import { cartSubtotal, useCart } from "@/store/cart";
 import { formatPrice } from "@/lib/format";
 import { getProduct } from "@/data/products";
-import { activeProvider } from "@/lib/checkout";
 import { useHydrated } from "@/lib/client-hooks";
-import { BuyNowButton } from "@/components/BuyNowButton";
+import { WhatsAppOrderButton } from "@/components/WhatsAppOrderButton";
 
 export function CartView() {
   const hydrated = useHydrated();
@@ -18,7 +17,6 @@ export function CartView() {
   const clear = useCart((s) => s.clear);
 
   const subtotal = cartSubtotal(items);
-  const checkoutUrl = activeProvider.createCheckoutUrl({ items, total: subtotal });
 
   if (!hydrated) {
     return (
@@ -159,26 +157,15 @@ export function CartView() {
             <span className="text-xl tabular-nums">{formatPrice(subtotal)}</span>
           </div>
 
-          <div className="mt-8 flex flex-col gap-2">
-            <BuyNowButton
+          <div className="mt-8">
+            <WhatsAppOrderButton
               getItems={() => items.map((item) => ({ slug: item.slug, size: item.size, qty: item.qty }))}
             />
-
-            <a
-              href={checkoutUrl}
-              data-cta
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary w-full"
-            >
-              {activeProvider.label}
-            </a>
           </div>
 
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Con “Pagar ahora” reservamos tus tallas 15 minutos: yapeas o plineas, pones el código
-            de operación y te confirmamos por WhatsApp. El envío (Shalom o InDriver) se coordina
-            al momento.
+            Se abre WhatsApp con tu pedido ya escrito. Ahí te pasamos los datos para pagar y
+            coordinamos el envío (Shalom a todo el Perú o InDriver en Lima).
           </p>
         </div>
       </aside>

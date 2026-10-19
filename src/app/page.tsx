@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { Reveal } from "@/components/Reveal";
-import { ProductCard } from "@/components/ProductCard";
+import { QuickOrder } from "@/components/QuickOrder";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
@@ -89,42 +89,37 @@ export default function HomePage() {
               className="w-full max-w-xs border-white bg-transparent text-white hover:bg-white hover:text-ink sm:w-auto"
             />
             <a
-              href="#modelos"
+              href="#pedido"
               data-cta
               className="ui-label inline-flex min-h-12 items-center px-2 text-xs text-white underline underline-offset-4 hover:no-underline"
             >
-              VER WHITE / BLACK
+              ELEGIR TALLA Y PEDIR
             </a>
           </div>
         </div>
       </section>
 
-      {/* ---------------------------------- WHITE / BLACK ---------------------------------- */}
+      {/* ---------------------------------- ELIGE Y PIDE ---------------------------------- */}
       <section
-        id="modelos"
-        aria-labelledby="modelos-titulo"
+        id="pedido"
+        aria-labelledby="pedido-titulo"
         className="mx-auto max-w-[1800px] scroll-mt-20 px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
       >
-        <h2 id="modelos-titulo" className="sr-only">
-          Air Force 1 White y Black
-        </h2>
+        <div className="text-center">
+          <p className="eyebrow text-muted">PÍDELAS EN 30 SEGUNDOS</p>
+          <h2 id="pedido-titulo" className="display mt-2 text-3xl sm:text-4xl">
+            ELIGE TU PAR Y TU TALLA
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-muted">
+            Toca tu talla y mándanos el pedido por WhatsApp. Ahí te pasamos los datos para pagar y
+            coordinamos el envío: Shalom a todo el Perú o InDriver en Lima.
+          </p>
+        </div>
 
-        <div className="grid gap-x-4 gap-y-12 md:grid-cols-2">
+        <div className="mt-10 grid gap-x-10 gap-y-14 md:grid-cols-2">
           {[white, black].map((product, index) => (
             <Reveal key={product.slug} delay={index * 0.05}>
-              <ProductCard product={product} priority={index === 0} headingLevel="h3" />
-              <p className="mt-1 text-sm text-muted">{product.intro}</p>
-
-              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-                <WhatsAppButton colorName={product.colorName} tone="light" />
-                <Link
-                  href={`/product/${product.slug}`}
-                  data-cta
-                  className="ui-label text-xs underline underline-offset-4 hover:no-underline"
-                >
-                  VER TALLAS Y FOTOS
-                </Link>
-              </div>
+              <QuickOrder product={product} priority={index === 0} />
             </Reveal>
           ))}
         </div>

@@ -19,9 +19,9 @@ export type OrderStatus =
   | "cancelado";
 
 export const ORDER_STATUS_LABEL: Record<OrderStatus, string> = {
-  pendiente_pago: "Esperando pago",
+  pendiente_pago: "Esperando WhatsApp",
   en_validacion: "Por validar",
-  pagado: "Pagado",
+  pagado: "Pagado / vendido",
   enviado: "Enviado",
   expirado: "Expirado",
   cancelado: "Cancelado",
@@ -100,15 +100,10 @@ export type Order = {
 };
 
 export type StoreSettings = {
-  /** Número de la billetera Dale: ahí paga el cliente. Vacío = pendiente. */
-  dale: string;
-  /** Número Yape, si algún día se cobra también por ahí. Vacío = no se muestra. */
-  yape: string;
-  /** Número Plin, si algún día se cobra también por ahí. Vacío = no se muestra. */
-  plin: string;
-  /** Titular que le aparece al cliente al pagar */
-  holder: string;
-  /** Minutos que dura la ventana de pago */
+  /**
+   * Minutos que las tallas quedan reservadas desde que el cliente manda el
+   * pedido por WhatsApp. Si no se confirma, vuelven al stock solas.
+   */
   windowMinutes: number;
   /** Precio único */
   price: number;

@@ -6,17 +6,7 @@ import { siteConfig } from "@/config/site";
 import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { holdStock, readStore, releaseStock, updateStore } from "@/lib/store/db";
-import type {
-  Order,
-  OrderCustomer,
-  OrderItem,
-  OrderShipping,
-  OrderStatus,
-  PaymentMethod,
-  ShippingMethod,
-  StoreData,
-} from "@/lib/store/types";
-import { PAYMENT_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
+import type { Order, OrderItem, OrderStatus, StoreData } from "@/lib/store/types";
 
 export type NewOrderItem = { slug: string; size: number; qty: number };
 
@@ -95,68 +85,6 @@ export function minutesLeft(order: Order): number {
   return Math.max(0, new Date(order.expiresAt).getTime() - Date.now());
 }
 
-/** Métodos aceptados al confirmar el pago. */
-const PAYMENT_METHODS: PaymentMethod[] = ["yape", "plin", "dale", "otro"];
-
-/** Un código de operación: números (a veces con letras), de 4 a 20 caracteres. */
-export function isValidPaymentCode(code: string): boolean {
-  const clean = code.trim().toUpperCase();
-  if (!/^[A-Z0-9-]{4,20}$/.test(clean)) return false;
-  return (clean.match(/\d/g)?.length ?? 0) >= 4;
-}
-
-export type ConfirmInput = {
-  customer: OrderCustomer;
-  shipping: OrderShipping;
-  method: PaymentMethod;
-  code: string;
-};
-
-/** El cliente manda su código: el pedido pasa a "por validar". */
-export async function confirmOrder(id: string, input: ConfirmInput): Promise<Order> {
-  return updateStore((data) => {
-    const order = data.orders.find((o) => o.id === id);
-    if (!order) throw new OrderError("No encontramos ese pedido.");
-    if (order.status === "expirado") throw new OrderError("Se acabó el tiempo para pagar este pedido.");
-    if (order.status !== "pendiente_pago" && order.status !== "en_validacion") {
-      throw new OrderError("Este pedido ya fue procesado.");
-    }
-
-    const name = input.customer.name.trim();
-    const phone = input.customer.phone.replace(/\D/g, "");
-    if (name.length < 3) throw new OrderError("Escribe tu nombre completo.");
-    if (phone.length < 9) throw new OrderError("Escribe un celular válido (9 dígitos).");
-    if (!isValidPaymentCode(input.code)) {
-      throw new OrderError("El código de operación no parece válido. Revísalo en tu app de pago.");
-    }
-    const method: ShippingMethod = input.shipping.method === "indriver" ? "indriver" : "shalom";
-    if (method === "shalom" && !data.settings.shalom) throw new OrderError("Shalom no está disponible ahora.");
-    if (method === "indriver" && !data.settings.indriver) throw new OrderError("InDriver no está disponible ahora.");
-    if (input.shipping.city.trim().length < 3) {
-      throw new OrderError(method === "shalom" ? "Escribe la ciudad de destino." : "Escribe tu distrito.");
-    }
-    if (input.shipping.address.trim().length < 3) {
-      throw new OrderError(method === "shalom" ? "Escribe la agencia Shalom." : "Escribe tu dirección.");
-    }
-
-    order.customer = { name, phone, dni: input.customer.dni.replace(/\D/g, "").slice(0, 12) };
-    order.shipping = {
-      method,
-      city: input.shipping.city.trim().slice(0, 80),
-      address: input.shipping.address.trim().slice(0, 160),
-      notes: input.shipping.notes.trim().slice(0, 200),
-    };
-    order.payment = {
-      method: PAYMENT_METHODS.includes(input.method) ? input.method : "yape",
-      code: input.code.trim().toUpperCase(),
-      submittedAt: new Date().toISOString(),
-    };
-    order.status = "en_validacion";
-    order.history.push({ at: new Date().toISOString(), status: "en_validacion", note: "El cliente mandó su código" });
-    return order;
-  });
-}
-
 /** Cambia el estado desde el panel. */
 export async function setOrderStatus(id: string, status: OrderStatus, note?: string): Promise<Order> {
   return updateStore((data) => {
@@ -179,34 +107,23 @@ export async function setTracking(id: string, tracking: string): Promise<Order> 
   });
 }
 
-/** Texto que se manda al WhatsApp de la tienda cuando el cliente paga. */
-export function buildPaymentMessage(order: Order): string {
+/**
+ * Texto que el cliente manda a la tienda por WhatsApp. No pide datos
+ * personales ni muestra ningún número de pago: eso se coordina en el chat.
+ */
+export function buildOrderWhatsAppMessage(order: Order): string {
   const lines = order.items.map(
-    (item) => `• ${item.name} · Talla ${item.size} · x${item.qty} · ${formatPrice(item.price * item.qty)}`,
+    (item) => `• ${item.name} · Talla EUR ${item.size} · ${item.qty} par${item.qty > 1 ? "es" : ""}`,
   );
-  const shipping = order.shipping;
+  const pares = order.items.reduce((sum, item) => sum + item.qty, 0);
   return [
-    `¡Hola ${siteConfig.name}! 👋 Ya pagué mi pedido.`,
+    `¡Hola ${siteConfig.name}! 👋 Quiero este pedido:`,
     "",
-    `Pedido: ${order.ref}`,
     ...lines,
-    `TOTAL: ${formatPrice(order.total)}`,
     "",
-    `Pagué desde: ${order.payment ? PAYMENT_LABEL[order.payment.method] : ""}`,
-    `Código de operación: ${order.payment?.code ?? ""}`,
+    `TOTAL: ${pares} par${pares > 1 ? "es" : ""} · ${formatPrice(order.total)}`,
+    `Código del pedido: ${order.ref}`,
     "",
-    `Nombre: ${order.customer?.name ?? ""}`,
-    `Celular: ${order.customer?.phone ?? ""}`,
-    order.customer?.dni ? `DNI: ${order.customer.dni}` : null,
-    "",
-    `Envío: ${shipping ? SHIPPING_LABEL[shipping.method] : ""}`,
-    shipping?.method === "shalom"
-      ? `Agencia Shalom: ${shipping.address} (${shipping.city})`
-      : `Dirección: ${shipping?.address ?? ""} (${shipping?.city ?? ""})`,
-    shipping?.notes ? `Referencia: ${shipping.notes}` : null,
-    "",
-    "Les mando la captura del pago por aquí. ¿Me confirman?",
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
+    "¿Me pasan los datos para pagar y coordinamos el envío?",
+  ].join("\n");
 }

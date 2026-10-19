@@ -63,8 +63,14 @@ export default async function AdminPage() {
     return b.createdAt.localeCompare(a.createdAt);
   });
 
-  const porValidar = orders.filter((o) => o.status === "en_validacion").length;
-  const esperando = orders.filter((o) => o.status === "pendiente_pago").length;
+  const porValidar = orders.filter(
+    (o) => o.status === "pendiente_pago" || o.status === "en_validacion",
+  ).length;
+  const paresEnStock = Object.values(inventory).reduce(
+    (total, tallas) =>
+      total + Object.values(tallas).reduce((suma: number, v) => suma + (v ?? 0), 0),
+    0,
+  );
   const pagados = orders.filter((o) => o.status === "pagado" || o.status === "enviado");
   const vendido = pagados.reduce((sum, order) => sum + order.total, 0);
 
@@ -90,17 +96,10 @@ export default async function AdminPage() {
         </p>
       ) : null}
 
-      {!settings.dale ? (
-        <p className="mt-4 border border-line bg-surface p-4 text-sm">
-          Falta poner el <strong>número de la billetera Dale</strong> en Ajustes. Mientras tanto, a
-          los clientes les sale el aviso de pedirlo por WhatsApp.
-        </p>
-      ) : null}
-
       <section className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
-          { label: "POR VALIDAR", value: String(porValidar) },
-          { label: "ESPERANDO PAGO", value: String(esperando) },
+          { label: "PEDIDOS ABIERTOS", value: String(porValidar) },
+          { label: "PARES EN STOCK", value: String(paresEnStock) },
           { label: "PAGADOS", value: String(pagados.length) },
           { label: "VENDIDO", value: formatPrice(vendido) },
         ].map((item) => (
@@ -152,48 +151,8 @@ export default async function AdminPage() {
         <h2 className="ui-label text-xs">AJUSTES</h2>
         <form action={settingsAction} className="mt-4 border border-line p-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="block sm:col-span-2">
-              <span className="text-xs text-muted">
-                Número de la billetera Dale (ahí paga el cliente)
-              </span>
-              <input
-                name="dale"
-                defaultValue={settings.dale}
-                inputMode="numeric"
-                placeholder="9XXXXXXXX"
-                className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
-              />
-            </label>
             <label className="block">
-              <span className="text-xs text-muted">Número de Yape (opcional)</span>
-              <input
-                name="yape"
-                defaultValue={settings.yape}
-                inputMode="numeric"
-                placeholder="9XXXXXXXX"
-                className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
-              />
-            </label>
-            <label className="block">
-              <span className="text-xs text-muted">Número de Plin (opcional)</span>
-              <input
-                name="plin"
-                defaultValue={settings.plin}
-                inputMode="numeric"
-                placeholder="9XXXXXXXX"
-                className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
-              />
-            </label>
-            <label className="block sm:col-span-2">
-              <span className="text-xs text-muted">Titular que ve el cliente</span>
-              <input
-                name="holder"
-                defaultValue={settings.holder}
-                className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
-              />
-            </label>
-            <label className="block">
-              <span className="text-xs text-muted">Minutos para pagar</span>
+              <span className="text-xs text-muted">Minutos que se reserva la talla</span>
               <input
                 name="windowMinutes"
                 defaultValue={String(settings.windowMinutes)}
@@ -217,13 +176,14 @@ export default async function AdminPage() {
                   defaultChecked={settings.checkoutEnabled}
                   className="h-4 w-4"
                 />
-                Cobro por la web activo
+                Pedidos por la web activos
               </label>
             </div>
           </div>
           <p className="mt-4 text-xs text-muted">
             Precio único: {formatPrice(settings.price)} (se cambia en el código, para que la web y
-            los pedidos siempre digan lo mismo).
+            los pedidos siempre digan lo mismo). El número al que paga el cliente no vive en la
+            web: se lo pasas tú por WhatsApp, así nadie puede cambiarlo tocando la página.
           </p>
           <button type="submit" className="btn btn-primary mt-6 px-8">
             GUARDAR AJUSTES

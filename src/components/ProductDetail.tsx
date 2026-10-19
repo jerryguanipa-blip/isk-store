@@ -9,7 +9,7 @@ import { cn, formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
 import { useSizeStock } from "@/lib/client-hooks";
 import { buildLandingMessage, buildSizePickMessage, whatsappUrl } from "@/lib/checkout";
-import { BuyNowButton } from "@/components/BuyNowButton";
+import { WhatsAppOrderButton } from "@/components/WhatsAppOrderButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { SizeGuideModal } from "@/components/SizeGuideModal";
 
@@ -227,7 +227,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
           {/* Acciones */}
           <div className="mt-6 flex flex-col gap-2">
-            <BuyNowButton
+            <WhatsAppOrderButton
               getItems={() =>
                 picks.length === 0
                   ? null
@@ -250,9 +250,9 @@ export function ProductDetail({ product }: { product: Product }) {
               data-cta
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-secondary w-full"
+              className="ui-label mt-1 text-center text-xs text-muted underline underline-offset-4 hover:text-ink hover:no-underline"
             >
-              COMPRAR VÍA WHATSAPP
+              O ESCRÍBENOS PARA PREGUNTAR
             </a>
           </div>
 

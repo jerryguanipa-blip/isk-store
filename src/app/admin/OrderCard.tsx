@@ -1,7 +1,7 @@
 import { orderStatusAction, trackingAction } from "@/app/admin/actions";
 import { formatPrice } from "@/lib/format";
 import type { Order, OrderStatus } from "@/lib/store/types";
-import { ORDER_STATUS_LABEL, PAYMENT_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
+import { ORDER_STATUS_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
 
 function when(iso: string): string {
   return new Date(iso).toLocaleString("es-PE", {
@@ -26,7 +26,7 @@ function StatusButton({ id, status, label }: { id: string; status: OrderStatus; 
 }
 
 export function OrderCard({ order }: { order: Order }) {
-  const highlight = order.status === "en_validacion";
+  const highlight = order.status === "pendiente_pago" || order.status === "en_validacion";
   const phone = order.customer?.phone ? order.customer.phone.replace(/\D/g, "") : "";
   const waNumber = phone.length === 9 ? `51${phone}` : phone;
 
@@ -46,17 +46,12 @@ export function OrderCard({ order }: { order: Order }) {
       </p>
       <p className="mt-1 text-sm tabular-nums">{formatPrice(order.total)}</p>
 
-      {order.payment ? (
-        <p className="mt-3 text-sm">
-          <span className="text-muted">{PAYMENT_LABEL[order.payment.method]} · código: </span>
-          <strong className="tabular-nums">{order.payment.code}</strong>
-          <span className="text-muted"> ({when(order.payment.submittedAt)})</span>
-        </p>
-      ) : (
+      {order.status === "pendiente_pago" ? (
         <p className="mt-3 text-sm text-muted">
-          Sin código todavía. Vence {when(order.expiresAt)}.
+          Tallas reservadas hasta {when(order.expiresAt)}. Si no cierras la venta antes, vuelven
+          al stock solas.
         </p>
-      )}
+      ) : null}
 
       {order.customer ? (
         <p className="mt-2 text-sm text-muted">
@@ -73,10 +68,10 @@ export function OrderCard({ order }: { order: Order }) {
       ) : null}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {order.status === "en_validacion" ? (
-          <StatusButton id={order.id} status="pagado" label="CONFIRMAR PAGO" />
+        {order.status === "pendiente_pago" || order.status === "en_validacion" ? (
+          <StatusButton id={order.id} status="pagado" label="CONFIRMAR VENTA" />
         ) : null}
-        {(order.status === "pagado" || order.status === "en_validacion") ? (
+        {order.status === "pagado" || order.status === "en_validacion" ? (
           <StatusButton id={order.id} status="enviado" label="MARCAR ENVIADO" />
         ) : null}
         {order.status !== "cancelado" && order.status !== "expirado" ? (

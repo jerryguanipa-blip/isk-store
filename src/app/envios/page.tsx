@@ -14,9 +14,9 @@ export default function EnviosPage() {
   return (
     <LegalPage eyebrow="INFORMACIÓN" title="ENVÍOS" updated="18 de octubre de 2026">
       <p>
-        El pago se hace a la billetera <strong>Dale</strong> (983501670, Jerimy G.): desde Yape,
-        Plin o tu banco eliges «otras billeteras / otros bancos» y mandas el monto. Enviamos
-        únicamente por <strong>Shalom</strong> (agencias en todo el Perú) o por{" "}
+        El pedido y el pago se coordinan por <strong>WhatsApp</strong>: eliges tus tallas en la
+        web, nos mandas el pedido y ahí te pasamos los datos para pagar. Por seguridad, la web no
+        muestra ningún número de pago. Enviamos únicamente por <strong>Shalom</strong> (agencias en todo el Perú) o por{" "}
         <strong>InDriver</strong> (dentro de Lima, en el momento). El costo del envío se coordina
         contigo por WhatsApp al confirmar tu pedido; el precio del producto es{" "}
         {formatPrice(siteConfig.price)}.
@@ -46,20 +46,18 @@ export default function EnviosPage() {
       <LegalHeading>CÓMO SE HACE UN PEDIDO</LegalHeading>
       <LegalList
         items={[
-          "Eliges color y talla en la web y tocas «Pagar ahora».",
-          "Tienes 15 minutos para pagar a la billetera Dale: en ese rato tu talla queda reservada.",
-          "Desde Yape o Plin eliges «otras billeteras / otros bancos» y marcas Dale.",
-          "Pones el código de operación en la misma página.",
-          "Se abre WhatsApp con tu pedido escrito; nos mandas también la captura del pago.",
-          "Validamos el pago y coordinamos el envío por Shalom o InDriver.",
+          "Eliges color y tallas en la web y tocas «Enviar pedido por WhatsApp».",
+          "Se abre el chat con tu pedido ya escrito y su código (ej. ISK-4KQ9).",
+          "Te pasamos los datos para pagar y nos mandas la captura.",
+          "Confirmamos el pago y coordinamos el envío por Shalom o InDriver.",
         ]}
       />
 
-      <LegalHeading>SI SE ACABAN LOS 15 MINUTOS</LegalHeading>
+      <LegalHeading>CUÁNTO TE GUARDAMOS LA TALLA</LegalHeading>
       <p>
-        El pedido se cancela solo y la talla vuelve a quedar disponible para otros clientes. No
-        pasa nada: puedes volver a pedirla desde la tienda. Si ya pagaste y se te pasó el tiempo,
-        escríbenos con tu código de operación y lo resolvemos.
+        Al mandarnos el pedido te reservamos las tallas unos minutos. Si no cerramos la compra por
+        WhatsApp, vuelven a quedar disponibles para otros clientes. No pasa nada: puedes pedirlas
+        de nuevo cuando quieras.
       </p>
 
       <LegalHeading>COSTOS</LegalHeading>
