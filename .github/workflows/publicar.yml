@@ -1,0 +1,40 @@
+# Publica la tienda en Vercel cada vez que algo entra a la rama main.
+# Necesita un secreto llamado VERCEL_TOKEN (Settings -> Secrets -> Actions).
+name: Publicar en Vercel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: produccion
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    name: Construir y publicar
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_E65xgP1GnzwaGyyhBwRjojlE
+      VERCEL_PROJECT_ID: prj_IaPKRsA7iVaq372bsQJCd8a6yQeV
+    steps:
+      - name: Bajar el código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Traer la configuración de producción
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Construir
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Publicar en producción
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
