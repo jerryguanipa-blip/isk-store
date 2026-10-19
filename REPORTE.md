@@ -28,7 +28,7 @@
 - **Inventario por talla y color**: en 0 la talla sale tachada en la web y no se puede pedir;
   vacío = sin control de stock. Al crear un pedido el stock se reserva y, si el pedido expira o
   se cancela, se devuelve solo.
-- **Ajustes**: número de Yape y de Plim, titular, minutos de la ventana de pago, activar o
+- **Ajustes**: número de Yape y de Plin, titular, minutos de la ventana de pago, activar o
   desactivar Shalom / InDriver y apagar el cobro por la web.
 - **Compra con ventana de 15 minutos**: "PAGAR AHORA · YAPE O PLIM" en la ficha, el carrito y el
   cajón del carrito crea el pedido y lleva a `/pedido/[id]`, con contador, el número de pago y el
@@ -52,7 +52,7 @@
 - `eslint`, `tsc` y `next build`: sin errores.
 
 **Lo que queda pendiente (está en PENDIENTES.md):** contraseña del panel en Vercel, crear el
-store de Vercel Blob para que los pedidos no se borren, número de Yape/Plim, inventario final y
+store de Vercel Blob para que los pedidos no se borren, número de Yape/Plin, inventario final y
 el número real de WhatsApp.
 
 ---

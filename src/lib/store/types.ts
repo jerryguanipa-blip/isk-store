@@ -7,7 +7,7 @@
 export type OrderStatus =
   /** El cliente tiene 15 minutos para pagar y mandar su código */
   | "pendiente_pago"
-  /** Mandó el código de Yape/Plim; falta que el dueño lo confirme */
+  /** Mandó el código de Yape/Plin; falta que el dueño lo confirme */
   | "en_validacion"
   /** Pago confirmado */
   | "pagado"
@@ -34,7 +34,7 @@ export const SHIPPING_LABEL: Record<ShippingMethod, string> = {
   indriver: "InDriver (en el momento)",
 };
 
-export type PaymentMethod = "yape" | "plim";
+export type PaymentMethod = "yape" | "plin";
 
 export type OrderItem = {
   slug: string;
@@ -62,7 +62,7 @@ export type OrderShipping = {
 
 export type OrderPayment = {
   method: PaymentMethod;
-  /** Código de operación de Yape o Plim que escribe el cliente */
+  /** Código de operación de Yape o Plin que escribe el cliente */
   code: string;
   submittedAt: string;
 };
@@ -94,8 +94,8 @@ export type Order = {
 export type StoreSettings = {
   /** Número Yape (solo dígitos). Vacío = pendiente. */
   yape: string;
-  /** Número Plim (solo dígitos). Vacío = pendiente. */
-  plim: string;
+  /** Número Plin (solo dígitos). Vacío = pendiente. */
+  plin: string;
   /** Titular que le aparece al cliente al yapear */
   holder: string;
   /** Minutos que dura la ventana de pago */

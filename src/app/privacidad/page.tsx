@@ -32,7 +32,8 @@ export default function PrivacidadPage() {
       />
       <p>
         No pedimos ni guardamos números de tarjeta, claves ni datos bancarios. Los pagos
-        se hacen fuera de la web (Yape, Plin, transferencia o efectivo).
+        se hacen con Yape o Plin fuera de la web: nosotros solo guardamos el código de operación
+        que tú nos escribes.
       </p>
 
       <LegalHeading>PARA QUÉ LOS USAMOS</LegalHeading>
@@ -48,7 +49,7 @@ export default function PrivacidadPage() {
       <LegalHeading>CON QUIÉN LOS COMPARTIMOS</LegalHeading>
       <LegalList
         items={[
-          "Con la empresa de mensajería que lleva tu paquete (Olva, Shalom u otra), solo lo necesario para entregarlo.",
+          "Con el servicio que lleva tu paquete (Shalom o InDriver), solo lo necesario para entregarlo.",
           "Con WhatsApp / Meta, porque la conversación ocurre en su plataforma y se rige por sus propias políticas.",
           "Con Vercel, que aloja la web y procesa datos técnicos de la visita.",
           "Nunca vendemos ni alquilamos tus datos a terceros.",

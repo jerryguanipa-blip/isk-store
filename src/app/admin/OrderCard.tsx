@@ -48,7 +48,7 @@ export function OrderCard({ order }: { order: Order }) {
 
       {order.payment ? (
         <p className="mt-3 text-sm">
-          <span className="text-muted">{order.payment.method === "plim" ? "Plim" : "Yape"} · código: </span>
+          <span className="text-muted">{order.payment.method === "plin" ? "Plin" : "Yape"} · código: </span>
           <strong className="tabular-nums">{order.payment.code}</strong>
           <span className="text-muted"> ({when(order.payment.submittedAt)})</span>
         </p>

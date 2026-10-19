@@ -45,8 +45,8 @@ export default function EnviosPage() {
       <LegalList
         items={[
           "Eliges color y talla en la web y tocas «Pagar ahora».",
-          "Tienes 15 minutos para yapear o plimear: en ese rato tu talla queda reservada.",
-          "Pones el código de operación de Yape o Plim en la misma página.",
+          "Tienes 15 minutos para yapear o plinear: en ese rato tu talla queda reservada.",
+          "Pones el código de operación de Yape o Plin en la misma página.",
           "Se abre WhatsApp con tu pedido escrito; nos mandas también la captura del pago.",
           "Validamos el pago y coordinamos el envío por Shalom o InDriver.",
         ]}

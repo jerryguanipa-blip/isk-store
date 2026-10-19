@@ -9,7 +9,7 @@ export { driverKind, isEphemeral };
 
 const DEFAULT_SETTINGS: StoreSettings = {
   yape: "",
-  plim: "",
+  plin: "",
   holder: "",
   windowMinutes: 15,
   price: siteConfig.price,

@@ -67,7 +67,7 @@ export async function settingsAction(formData: FormData): Promise<void> {
   const digits = (value: FormDataEntryValue | null) => String(value ?? "").replace(/\D/g, "").slice(0, 15);
   await updateStore((data) => {
     data.settings.yape = digits(formData.get("yape"));
-    data.settings.plim = digits(formData.get("plim"));
+    data.settings.plin = digits(formData.get("plin"));
     data.settings.holder = String(formData.get("holder") ?? "").trim().slice(0, 80);
     const minutes = Number(formData.get("windowMinutes"));
     data.settings.windowMinutes = Math.min(Math.max(Number.isFinite(minutes) ? minutes : 15, 5), 60);

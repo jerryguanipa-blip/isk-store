@@ -95,7 +95,7 @@ export function minutesLeft(order: Order): number {
   return Math.max(0, new Date(order.expiresAt).getTime() - Date.now());
 }
 
-/** Un código de Yape/Plim: números (a veces con letras), de 4 a 20 caracteres. */
+/** Un código de Yape/Plin: números (a veces con letras), de 4 a 20 caracteres. */
 export function isValidPaymentCode(code: string): boolean {
   const clean = code.trim().toUpperCase();
   if (!/^[A-Z0-9-]{4,20}$/.test(clean)) return false;
@@ -124,7 +124,7 @@ export async function confirmOrder(id: string, input: ConfirmInput): Promise<Ord
     if (name.length < 3) throw new OrderError("Escribe tu nombre completo.");
     if (phone.length < 9) throw new OrderError("Escribe un celular válido (9 dígitos).");
     if (!isValidPaymentCode(input.code)) {
-      throw new OrderError("El código de operación no parece válido. Revísalo en tu Yape o Plim.");
+      throw new OrderError("El código de operación no parece válido. Revísalo en tu Yape o Plin.");
     }
     const method: ShippingMethod = input.shipping.method === "indriver" ? "indriver" : "shalom";
     if (method === "shalom" && !data.settings.shalom) throw new OrderError("Shalom no está disponible ahora.");
@@ -144,7 +144,7 @@ export async function confirmOrder(id: string, input: ConfirmInput): Promise<Ord
       notes: input.shipping.notes.trim().slice(0, 200),
     };
     order.payment = {
-      method: input.method === "plim" ? "plim" : "yape",
+      method: input.method === "plin" ? "plin" : "yape",
       code: input.code.trim().toUpperCase(),
       submittedAt: new Date().toISOString(),
     };
@@ -189,7 +189,7 @@ export function buildPaymentMessage(order: Order): string {
     ...lines,
     `TOTAL: ${formatPrice(order.total)}`,
     "",
-    `Pagué con: ${order.payment?.method === "plim" ? "Plim" : "Yape"}`,
+    `Pagué con: ${order.payment?.method === "plin" ? "Plin" : "Yape"}`,
     `Código de operación: ${order.payment?.code ?? ""}`,
     "",
     `Nombre: ${order.customer?.name ?? ""}`,

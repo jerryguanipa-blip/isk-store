@@ -4,6 +4,30 @@ Ordenadas por urgencia. Lo demás ya está hecho y funcionando.
 
 ---
 
+## 🔴 0. PUBLICAR LA VERSIÓN NUEVA (el panel todavía no está en iskoficial.com)
+
+El código del panel ya está en GitHub (commit subido), pero **falta publicarlo en Vercel**: mi
+sesión de `vercel` en esta PC perdió el permiso ("Not authorized") y los despliegues a producción
+están bloqueados para mí. Hazlo tú con estos tres comandos, en orden:
+
+```bash
+vercel login
+```
+
+```bash
+vercel link --yes
+```
+
+```bash
+vercel --prod --yes
+```
+
+Cuando termine, abre https://iskoficial.com/admin: debe pedirte contraseña (para eso es el punto
+1 de abajo). Si prefieres no usar la terminal, también puedes conectar GitHub con Vercel (punto 6)
+y a partir de ahí cada `git push` publica solo.
+
+---
+
 ## 🔴 1. CONTRASEÑA DEL PANEL `/admin` (sin esto el panel no abre)
 
 El panel de la tienda está en **https://iskoficial.com/admin**. Para que abra hay que poner una
@@ -40,13 +64,13 @@ naranja. (Yo no puedo crear el store: pide tu cuenta y es un servicio que tienes
 
 ---
 
-## 🔴 3. NÚMERO DE YAPE / PLIM (se pone desde el panel, sin tocar código)
+## 🔴 3. NÚMERO DE YAPE / PLIN (se pone desde el panel, sin tocar código)
 
 El número de pago quedó **pendiente a propósito**, como pediste. Cuando lo tengas:
-entra a `/admin` → sección **AJUSTES** → escribe el número de Yape y/o Plim y el titular →
+entra a `/admin` → sección **AJUSTES** → escribe el número de Yape y/o Plin y el titular →
 **GUARDAR AJUSTES**. Desde ese momento les aparece a los clientes en la pantalla de pago.
 
-Mientras esté vacío, al cliente le sale: «Todavía no publicamos el número de Yape/Plim.
+Mientras esté vacío, al cliente le sale: «Todavía no publicamos el número de Yape/Plin.
 Escríbenos por WhatsApp y te lo pasamos al instante».
 
 ---

@@ -176,7 +176,7 @@ export function CartView() {
           </div>
 
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Con “Pagar ahora” reservamos tus tallas 15 minutos: yapeas o plimeas, pones el código
+            Con “Pagar ahora” reservamos tus tallas 15 minutos: yapeas o plineas, pones el código
             de operación y te confirmamos por WhatsApp. El envío (Shalom o InDriver) se coordina
             al momento.
           </p>

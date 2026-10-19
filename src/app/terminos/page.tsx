@@ -46,26 +46,30 @@ export default function TerminosPage() {
       <LegalHeading>4. CÓMO SE FORMALIZA LA COMPRA</LegalHeading>
       <LegalList
         items={[
-          "Eliges tu producto y talla en la web.",
-          "El pedido se envía por WhatsApp; ahí confirmamos stock, envío y forma de pago.",
-          "La compra queda cerrada cuando confirmamos por escrito la disponibilidad y tú aceptas el total.",
-          "Si el producto se agotó antes de confirmar, te avisamos y no se te cobra nada.",
+          "Eliges tu producto y talla en la web y tocas «Pagar ahora».",
+          "Tu talla queda reservada 15 minutos para que pagues con Yape o Plin.",
+          "Registras el código de operación y se abre WhatsApp con el detalle del pedido.",
+          "La compra queda cerrada cuando validamos el pago y te lo confirmamos por escrito.",
+          "Si el pago no se completa dentro de los 15 minutos, el pedido se cancela solo y la talla se libera.",
+          "Si el producto se agotó antes de confirmar, te avisamos y te devolvemos el dinero.",
         ]}
       />
 
       <LegalHeading>5. FORMAS DE PAGO</LegalHeading>
       <LegalList
         items={[
-          "Yape, Plin y transferencia bancaria.",
-          "Efectivo contra entrega, solo en Lima Metropolitana.",
-          "Los pagos con tarjeta aún no están habilitados en esta versión de la web.",
+          "Yape o Plin, al número que aparece en la pantalla de pago.",
+          "El pago se confirma con el código de operación que tú registras en la web.",
+          "No cobramos contra entrega ni aceptamos tarjeta en esta versión de la web.",
         ]}
       />
 
       <LegalHeading>6. ENTREGA</LegalHeading>
       <p>
-        Los plazos de entrega son estimados y dependen del courier. Los detalles están en
-        la página de Envíos, que forma parte de estos términos.
+        Enviamos solo por Shalom (agencias de todo el Perú) o por InDriver (dentro de Lima). Los
+        plazos son estimados y dependen del servicio elegido. El costo del envío se coordina
+        contigo por WhatsApp y se paga aparte del producto. Los detalles están en la página de
+        Envíos, que forma parte de estos términos.
       </p>
 
       <LegalHeading>7. CAMBIOS, DEVOLUCIONES Y RETRACTO</LegalHeading>

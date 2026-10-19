@@ -72,8 +72,7 @@ export default function CambiosPage() {
 
       <LegalHeading>DEVOLUCIÓN DEL DINERO</LegalHeading>
       <p>
-        La devolución se hace por el mismo medio por el que pagaste (Yape, Plin,
-        transferencia o efectivo) dentro de los 5 días hábiles siguientes a que
+        La devolución se hace por el mismo medio por el que pagaste (Yape o Plin) dentro de los 5 días hábiles siguientes a que
         aprobemos la solicitud.
       </p>
 

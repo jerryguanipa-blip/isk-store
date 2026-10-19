@@ -58,7 +58,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           orderId={order.id}
           expiresAt={order.expiresAt}
           yape={settings.yape}
-          plim={settings.plim}
+          plin={settings.plin}
           holder={settings.holder}
           shalom={settings.shalom}
           indriver={settings.indriver}

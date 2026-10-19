@@ -19,7 +19,7 @@ export async function GET(_request: Request, ctx: { params: Promise<{ id: string
   return NextResponse.json({ status: order.status, expiresAt: order.expiresAt, ref: order.ref });
 }
 
-/** El cliente manda sus datos y el código de operación de Yape/Plim. */
+/** El cliente manda sus datos y el código de operación de Yape/Plin. */
 export async function POST(request: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
   try {

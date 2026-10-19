@@ -9,7 +9,7 @@ type Props = {
   orderId: string;
   expiresAt: string;
   yape: string;
-  plim: string;
+  plin: string;
   holder: string;
   shalom: boolean;
   indriver: boolean;
@@ -88,20 +88,20 @@ function CopyField({ label, value }: { label: string; value: string }) {
 const inputClass =
   "min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink";
 
-export function PaymentPanel({ orderId, expiresAt, yape, plim, holder, shalom, indriver, total }: Props) {
+export function PaymentPanel({ orderId, expiresAt, yape, plin, holder, shalom, indriver, total }: Props) {
   const [expired, setExpired] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState<string | null>(null);
-  const [method, setMethod] = useState<"yape" | "plim">(!yape && plim ? "plim" : "yape");
+  const [method, setMethod] = useState<"yape" | "plin">(!yape && plin ? "plin" : "yape");
   const [shippingMethod, setShippingMethod] = useState<"shalom" | "indriver">(shalom ? "shalom" : "indriver");
 
   const handleExpire = useCallback(() => setExpired(true), []);
 
   const numbers = [
     yape ? { key: "yape" as const, label: "YAPE", value: yape } : null,
-    plim ? { key: "plim" as const, label: "PLIM", value: plim } : null,
-  ].filter(Boolean) as Array<{ key: "yape" | "plim"; label: string; value: string }>;
+    plin ? { key: "plin" as const, label: "PLIN", value: plin } : null,
+  ].filter(Boolean) as Array<{ key: "yape" | "plin"; label: string; value: string }>;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -187,7 +187,7 @@ export function PaymentPanel({ orderId, expiresAt, yape, plim, holder, shalom, i
           </div>
         ) : (
           <p className="mt-3 text-sm text-muted">
-            Todavía no publicamos el número de Yape/Plim. Escríbenos por WhatsApp y te lo pasamos al
+            Todavía no publicamos el número de Yape/Plin. Escríbenos por WhatsApp y te lo pasamos al
             instante para completar este pedido.
           </p>
         )}
@@ -199,7 +199,7 @@ export function PaymentPanel({ orderId, expiresAt, yape, plim, holder, shalom, i
         <fieldset className="mt-4">
           <legend className="text-xs text-muted">¿Con qué pagaste?</legend>
           <div className="mt-2 flex gap-2">
-            {(["yape", "plim"] as const).map((option) => (
+            {(["yape", "plin"] as const).map((option) => (
               <button
                 key={option}
                 type="button"
@@ -216,7 +216,7 @@ export function PaymentPanel({ orderId, expiresAt, yape, plim, holder, shalom, i
         </fieldset>
 
         <label className="mt-4 block">
-          <span className="text-xs text-muted">Código de operación de {method === "yape" ? "Yape" : "Plim"}</span>
+          <span className="text-xs text-muted">Código de operación de {method === "yape" ? "Yape" : "Plin"}</span>
           <input
             name="code"
             required

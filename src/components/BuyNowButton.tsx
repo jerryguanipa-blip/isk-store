@@ -17,9 +17,9 @@ type Props = {
 
 /**
  * Crea el pedido en el servidor (abre la ventana de 15 minutos) y lleva al
- * cliente a la página de pago con Yape/Plim.
+ * cliente a la página de pago con Yape/Plin.
  */
-export function BuyNowButton({ getItems, label = "PAGAR AHORA · YAPE O PLIM", className, onMissing }: Props) {
+export function BuyNowButton({ getItems, label = "PAGAR AHORA · YAPE O PLIN", className, onMissing }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

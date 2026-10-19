@@ -157,14 +157,14 @@ el CTA "IR A LA TIENDA". El lema pasó a "IMAGINA · SUEÑA · KREA".
   pincel seco, inclinado y ascendente. Texto en "Air Force 1" como en la referencia, rotado -6°.
 - Se mantiene la misma animación de escritura (máscara, 1500 ms, una vez), precio Inter 300 y secuencia.
 
-### 27. Panel de tienda, pago con Yape/Plim y envíos Shalom / InDriver
+### 27. Panel de tienda, pago con Yape/Plin y envíos Shalom / InDriver
 - **Precio único S/ 200.00** en `src/config/site.ts`: una sola fuente para la web, los pedidos
   y el panel (el panel lo muestra, no lo edita, para que nunca digan cosas distintas).
 - **Base de datos**: un solo JSON (`settings`, `inventory`, `orders`). Tres formas de guardarlo,
   elegidas solas: archivo en la PC (desarrollo), **Vercel Blob** si existe `BLOB_READ_WRITE_TOKEN`
   (producción) o carpeta temporal del servidor si no hay nada (el panel avisa que es temporal).
   Se eligió así para no contratar ninguna base de datos ni crear cuentas nuevas.
-- **Validación "sola" del pago**: Yape y Plim no tienen API pública para confirmar un pago, así
+- **Validación "sola" del pago**: Yape y Plin no tienen API pública para confirmar un pago, así
   que lo automático es la ventana de 15 minutos, la reserva y liberación de stock, el formato del
   código de operación y el aviso por WhatsApp con todo el detalle. La confirmación final es un
   botón en el panel. Si algún día se quiere 100% automático hay que usar una pasarela

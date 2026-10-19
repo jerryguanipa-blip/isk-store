@@ -89,9 +89,9 @@ export default async function AdminPage() {
         </p>
       ) : null}
 
-      {!settings.yape && !settings.plim ? (
+      {!settings.yape && !settings.plin ? (
         <p className="mt-4 border border-line bg-surface p-4 text-sm">
-          Falta poner el <strong>número de Yape o Plim</strong> en Ajustes. Mientras tanto, a los
+          Falta poner el <strong>número de Yape o Plin</strong> en Ajustes. Mientras tanto, a los
           clientes les sale el aviso de pedirlo por WhatsApp.
         </p>
       ) : null}
@@ -175,10 +175,10 @@ export default async function AdminPage() {
               />
             </label>
             <label className="block">
-              <span className="text-xs text-muted">Número de Plim</span>
+              <span className="text-xs text-muted">Número de Plin</span>
               <input
-                name="plim"
-                defaultValue={settings.plim}
+                name="plin"
+                defaultValue={settings.plin}
                 inputMode="numeric"
                 placeholder="9XXXXXXXX"
                 className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
