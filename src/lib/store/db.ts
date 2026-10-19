@@ -8,8 +8,9 @@ import type { Order, StoreData, StoreSettings } from "@/lib/store/types";
 export { driverKind, isEphemeral };
 
 const DEFAULT_SETTINGS: StoreSettings = {
-  yape: "983501670",
-  plin: "983501670",
+  dale: "983501670",
+  yape: "",
+  plin: "",
   holder: "Jerimy G.",
   windowMinutes: 15,
   price: siteConfig.price,
@@ -18,13 +19,43 @@ const DEFAULT_SETTINGS: StoreSettings = {
   checkoutEnabled: true,
 };
 
+/**
+ * Stock de arranque (pares por talla), el que nos pasó la tienda.
+ * Si el panel ya guardó números, mandan los del panel.
+ */
+const STOCK_INICIAL: Record<string, Record<string, number>> = {
+  "air-force-1-triple-white": {
+    "36": 3,
+    "37": 4,
+    "38": 3,
+    "39": 3,
+    "40": 4,
+    "41": 6,
+    "42": 7,
+    "43": 5,
+    "44": 1,
+  },
+  "air-force-1-triple-black": {
+    "36": 3,
+    "37": 3,
+    "38": 3,
+    "39": 3,
+    "40": 4,
+    "41": 5,
+    "42": 6,
+    "43": 7,
+    "44": 2,
+  },
+};
+
 function emptyInventory(): StoreData["inventory"] {
   const inventory: StoreData["inventory"] = {};
   for (const product of products) {
     const sizes: Record<string, number | null> = {};
     for (const size of product.sizes) {
-      // null = todavía sin inventario cargado; no bloquea la venta
-      sizes[String(size.eur)] = null;
+      const inicial = STOCK_INICIAL[product.slug]?.[String(size.eur)];
+      // null = sin control de stock; un número = pares disponibles
+      sizes[String(size.eur)] = typeof inicial === "number" ? inicial : null;
     }
     inventory[product.slug] = sizes;
   }

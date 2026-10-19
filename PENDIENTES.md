@@ -70,29 +70,39 @@ naranja. (Yo no puedo crear el store: pide tu cuenta y es un servicio que tienes
 
 ---
 
-## ✅ 3. NÚMERO DE YAPE / PLIN — HECHO (19/10/2026)
+## ✅ 3. NÚMERO DE PAGO — HECHO (19/10/2026)
 
-Ya está puesto en el código: **983501670**, a nombre de **Jerimy G.**, para Yape y para Plin.
-Es lo que ve el cliente en la pantalla de pago, con botón de copiar.
+El cliente paga a la billetera **Dale**: **983501670**, a nombre de **Jerimy G.**
 
-Si alguna vez cambias de número (o si el de Plin es distinto al de Yape), **no hace falta tocar
-código**: `/admin` → **AJUSTES** → escribes el número nuevo → **GUARDAR AJUSTES**.
+En la pantalla de pago le sale el número con botón de copiar y el paso a paso: desde Yape o Plin,
+opción «otras billeteras / otros bancos» → Dale → número → monto → copiar el código de operación.
+Luego pega ese código en la web y se abre WhatsApp con todo el pedido para que tú lo valides.
+
+Si cambias de número: `/admin` → **AJUSTES** → «Número de la billetera Dale» → GUARDAR. Ahí
+mismo puedes agregar un Yape o Plin propio si algún día quieres cobrar también directo.
 
 ---
 
-## 🟠 4. INVENTARIO FINAL (dijiste que me lo pasas mañana)
+## ✅ 4. INVENTARIO — CARGADO (19/10/2026)
 
-Cuando lo tengas, cargarlo toma menos de un minuto: `/admin` → **INVENTARIO**. Cada color
-(blanco y negro) trae las nueve tallas, de la 36 a la 44, con **− y +** y atajos:
+Quedó el stock real que pasaste: **72 pares** (36 blancas + 36 negras).
 
-- **TODAS EN 1 / TODAS EN 2** → llena las nueve tallas de golpe y luego corriges con + y − las
-  que tengan más o menos pares.
-- **TODAS EN 0** → marca todo como agotado (la talla sale tachada en la web).
-- **SIN CONTROL** → deja las casillas vacías: se puede vender sin contar stock.
+| Talla | Blancas | Negras |
+|---|---|---|
+| 36 | 3 | 3 |
+| 37 | 4 | 3 |
+| 38 | 3 | 3 |
+| 39 | 3 | 3 |
+| 40 | 4 | 4 |
+| 41 | 6 | 5 |
+| 42 | 7 | 6 |
+| 43 | 5 | 7 |
+| 44 | 1 | 2 |
 
-Arriba de cada color te dice cuántos pares tienes en total. Cuando termines, **GUARDAR
-INVENTARIO**. Desde ese momento la web solo deja comprar lo que hay, y cada pedido descuenta
-los pares en el acto (si el cliente no paga en 15 minutos, vuelven solos).
+Está escrito en el código como stock de arranque, así que la web ya sale con esos números. Cada
+pedido descuenta en el acto y, si el cliente no paga en 15 minutos, los pares vuelven solos.
+Cuando una talla llega a 0 sale tachada y no se puede pedir. Para corregir cantidades: `/admin`
+→ **INVENTARIO** (tiene − y + y los atajos TODAS EN 1 / 2 / 0 / SIN CONTROL).
 
 ---
 

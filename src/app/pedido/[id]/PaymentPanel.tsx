@@ -4,10 +4,13 @@ import { Check, Copy } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { formatPrice } from "@/lib/format";
+import { PAYMENT_LABEL, type PaymentMethod } from "@/lib/store/types";
 
 type Props = {
   orderId: string;
   expiresAt: string;
+  /** Billetera Dale: ahí paga el cliente */
+  dale: string;
   yape: string;
   plin: string;
   holder: string;
@@ -88,17 +91,28 @@ function CopyField({ label, value }: { label: string; value: string }) {
 const inputClass =
   "min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink";
 
-export function PaymentPanel({ orderId, expiresAt, yape, plin, holder, shalom, indriver, total }: Props) {
+export function PaymentPanel({
+  orderId,
+  expiresAt,
+  dale,
+  yape,
+  plin,
+  holder,
+  shalom,
+  indriver,
+  total,
+}: Props) {
   const [expired, setExpired] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState<string | null>(null);
-  const [method, setMethod] = useState<"yape" | "plin">(!yape && plin ? "plin" : "yape");
+  const [method, setMethod] = useState<PaymentMethod>("yape");
   const [shippingMethod, setShippingMethod] = useState<"shalom" | "indriver">(shalom ? "shalom" : "indriver");
 
   const handleExpire = useCallback(() => setExpired(true), []);
 
-  const numbers = [
+  /** Números extra, por si algún día también se cobra por Yape o Plin directo. */
+  const extras = [
     yape ? { key: "yape" as const, label: "YAPE", value: yape } : null,
     plin ? { key: "plin" as const, label: "PLIN", value: plin } : null,
   ].filter(Boolean) as Array<{ key: "yape" | "plin"; label: string; value: string }>;
@@ -177,17 +191,38 @@ export function PaymentPanel({ orderId, expiresAt, yape, plin, holder, shalom, i
       <Countdown expiresAt={expiresAt} onExpire={handleExpire} />
 
       <div className="mt-6 border border-line p-5">
-        <p className="ui-label text-xs">1 · PAGA {formatPrice(total)}</p>
-        {numbers.length > 0 ? (
+        <p className="ui-label text-xs">1 · PAGA {formatPrice(total)} A LA BILLETERA DALE</p>
+        {dale ? (
           <div className="mt-4 flex flex-col gap-3">
-            {numbers.map((item) => (
-              <CopyField key={item.key} label={item.label} value={item.value} />
-            ))}
+            <CopyField label="DALE" value={dale} />
             {holder ? <p className="text-xs text-muted">Titular: {holder}</p> : null}
+
+            <div className="border border-line bg-surface p-4">
+              <p className="ui-label text-[11px]">CÓMO PAGAR DESDE YAPE O PLIN</p>
+              <ol className="mt-2 flex flex-col gap-1 text-sm text-muted">
+                <li>1. Abre tu app y entra a «Yapear / Plinear».</li>
+                <li>
+                  2. Elige la opción <strong className="text-ink">«Otras billeteras»</strong> o{" "}
+                  <strong className="text-ink">«Otros bancos»</strong> y marca{" "}
+                  <strong className="text-ink">Dale</strong>.
+                </li>
+                <li>3. Pon el número {dale} y el monto {formatPrice(total)}.</li>
+                <li>4. Copia el código de operación y pégalo aquí abajo.</li>
+              </ol>
+            </div>
+
+            {extras.length > 0 ? (
+              <div className="flex flex-col gap-3">
+                <p className="text-xs text-muted">También puedes pagar directo a:</p>
+                {extras.map((item) => (
+                  <CopyField key={item.key} label={item.label} value={item.value} />
+                ))}
+              </div>
+            ) : null}
           </div>
         ) : (
           <p className="mt-3 text-sm text-muted">
-            Todavía no publicamos el número de Yape/Plin. Escríbenos por WhatsApp y te lo pasamos al
+            Todavía no publicamos el número de pago. Escríbenos por WhatsApp y te lo pasamos al
             instante para completar este pedido.
           </p>
         )}
@@ -197,26 +232,28 @@ export function PaymentPanel({ orderId, expiresAt, yape, plin, holder, shalom, i
         <p className="ui-label text-xs">2 · CONFIRMA TU PAGO</p>
 
         <fieldset className="mt-4">
-          <legend className="text-xs text-muted">¿Con qué pagaste?</legend>
-          <div className="mt-2 flex gap-2">
-            {(["yape", "plin"] as const).map((option) => (
+          <legend className="text-xs text-muted">¿Desde dónde pagaste?</legend>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {(["yape", "plin", "dale", "otro"] as const).map((option) => (
               <button
                 key={option}
                 type="button"
                 onClick={() => setMethod(option)}
                 aria-pressed={method === option}
-                className={`ui-label min-h-12 flex-1 border px-3 text-xs ${
+                className={`ui-label min-h-12 border px-3 text-xs ${
                   method === option ? "border-ink bg-ink text-white" : "border-line"
                 }`}
               >
-                {option.toUpperCase()}
+                {option === "otro" ? "OTRO BANCO" : option.toUpperCase()}
               </button>
             ))}
           </div>
         </fieldset>
 
         <label className="mt-4 block">
-          <span className="text-xs text-muted">Código de operación de {method === "yape" ? "Yape" : "Plin"}</span>
+          <span className="text-xs text-muted">
+            Código de operación {method === "otro" ? "de tu banco" : `de ${PAYMENT_LABEL[method]}`}
+          </span>
           <input
             name="code"
             required

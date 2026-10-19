@@ -66,6 +66,7 @@ export async function settingsAction(formData: FormData): Promise<void> {
   await requireAdmin();
   const digits = (value: FormDataEntryValue | null) => String(value ?? "").replace(/\D/g, "").slice(0, 15);
   await updateStore((data) => {
+    data.settings.dale = digits(formData.get("dale"));
     data.settings.yape = digits(formData.get("yape"));
     data.settings.plin = digits(formData.get("plin"));
     data.settings.holder = String(formData.get("holder") ?? "").trim().slice(0, 80);

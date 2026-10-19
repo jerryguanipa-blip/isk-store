@@ -47,7 +47,7 @@ export default function TerminosPage() {
       <LegalList
         items={[
           "Eliges tu producto y talla en la web y tocas «Pagar ahora».",
-          "Tu talla queda reservada 15 minutos para que pagues con Yape o Plin.",
+          "Tu talla queda reservada 15 minutos para que hagas el pago.",
           "Registras el código de operación y se abre WhatsApp con el detalle del pedido.",
           "La compra queda cerrada cuando validamos el pago y te lo confirmamos por escrito.",
           "Si el pago no se completa dentro de los 15 minutos, el pedido se cancela solo y la talla se libera.",
@@ -58,7 +58,8 @@ export default function TerminosPage() {
       <LegalHeading>5. FORMAS DE PAGO</LegalHeading>
       <LegalList
         items={[
-          "Yape o Plin, al número que aparece en la pantalla de pago.",
+          "Pago a la billetera Dale, al número que aparece en la pantalla de pago.",
+          "Puedes enviarlo desde Yape, Plin o tu banco con la opción «otras billeteras / otros bancos».",
           "El pago se confirma con el código de operación que tú registras en la web.",
           "No cobramos contra entrega ni aceptamos tarjeta en esta versión de la web.",
         ]}

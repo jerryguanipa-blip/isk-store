@@ -34,7 +34,15 @@ export const SHIPPING_LABEL: Record<ShippingMethod, string> = {
   indriver: "InDriver (en el momento)",
 };
 
-export type PaymentMethod = "yape" | "plin";
+/** Desde dónde salió el pago hacia la billetera Dale. */
+export type PaymentMethod = "yape" | "plin" | "dale" | "otro";
+
+export const PAYMENT_LABEL: Record<PaymentMethod, string> = {
+  yape: "Yape",
+  plin: "Plin",
+  dale: "Dale",
+  otro: "Banco / otra billetera",
+};
 
 export type OrderItem = {
   slug: string;
@@ -62,7 +70,7 @@ export type OrderShipping = {
 
 export type OrderPayment = {
   method: PaymentMethod;
-  /** Código de operación de Yape o Plin que escribe el cliente */
+  /** Código de operación que escribe el cliente */
   code: string;
   submittedAt: string;
 };
@@ -92,11 +100,13 @@ export type Order = {
 };
 
 export type StoreSettings = {
-  /** Número Yape (solo dígitos). Vacío = pendiente. */
+  /** Número de la billetera Dale: ahí paga el cliente. Vacío = pendiente. */
+  dale: string;
+  /** Número Yape, si algún día se cobra también por ahí. Vacío = no se muestra. */
   yape: string;
-  /** Número Plin (solo dígitos). Vacío = pendiente. */
+  /** Número Plin, si algún día se cobra también por ahí. Vacío = no se muestra. */
   plin: string;
-  /** Titular que le aparece al cliente al yapear */
+  /** Titular que le aparece al cliente al pagar */
   holder: string;
   /** Minutos que dura la ventana de pago */
   windowMinutes: number;

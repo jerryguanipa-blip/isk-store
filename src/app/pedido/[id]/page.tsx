@@ -57,6 +57,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         <PaymentPanel
           orderId={order.id}
           expiresAt={order.expiresAt}
+          dale={settings.dale}
           yape={settings.yape}
           plin={settings.plin}
           holder={settings.holder}

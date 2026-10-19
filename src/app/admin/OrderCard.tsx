@@ -1,7 +1,7 @@
 import { orderStatusAction, trackingAction } from "@/app/admin/actions";
 import { formatPrice } from "@/lib/format";
 import type { Order, OrderStatus } from "@/lib/store/types";
-import { ORDER_STATUS_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
+import { ORDER_STATUS_LABEL, PAYMENT_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
 
 function when(iso: string): string {
   return new Date(iso).toLocaleString("es-PE", {
@@ -48,7 +48,7 @@ export function OrderCard({ order }: { order: Order }) {
 
       {order.payment ? (
         <p className="mt-3 text-sm">
-          <span className="text-muted">{order.payment.method === "plin" ? "Plin" : "Yape"} · código: </span>
+          <span className="text-muted">{PAYMENT_LABEL[order.payment.method]} · código: </span>
           <strong className="tabular-nums">{order.payment.code}</strong>
           <span className="text-muted"> ({when(order.payment.submittedAt)})</span>
         </p>

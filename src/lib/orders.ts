@@ -16,7 +16,7 @@ import type {
   ShippingMethod,
   StoreData,
 } from "@/lib/store/types";
-import { SHIPPING_LABEL } from "@/lib/store/types";
+import { PAYMENT_LABEL, SHIPPING_LABEL } from "@/lib/store/types";
 
 export type NewOrderItem = { slug: string; size: number; qty: number };
 
@@ -95,7 +95,10 @@ export function minutesLeft(order: Order): number {
   return Math.max(0, new Date(order.expiresAt).getTime() - Date.now());
 }
 
-/** Un código de Yape/Plin: números (a veces con letras), de 4 a 20 caracteres. */
+/** Métodos aceptados al confirmar el pago. */
+const PAYMENT_METHODS: PaymentMethod[] = ["yape", "plin", "dale", "otro"];
+
+/** Un código de operación: números (a veces con letras), de 4 a 20 caracteres. */
 export function isValidPaymentCode(code: string): boolean {
   const clean = code.trim().toUpperCase();
   if (!/^[A-Z0-9-]{4,20}$/.test(clean)) return false;
@@ -124,7 +127,7 @@ export async function confirmOrder(id: string, input: ConfirmInput): Promise<Ord
     if (name.length < 3) throw new OrderError("Escribe tu nombre completo.");
     if (phone.length < 9) throw new OrderError("Escribe un celular válido (9 dígitos).");
     if (!isValidPaymentCode(input.code)) {
-      throw new OrderError("El código de operación no parece válido. Revísalo en tu Yape o Plin.");
+      throw new OrderError("El código de operación no parece válido. Revísalo en tu app de pago.");
     }
     const method: ShippingMethod = input.shipping.method === "indriver" ? "indriver" : "shalom";
     if (method === "shalom" && !data.settings.shalom) throw new OrderError("Shalom no está disponible ahora.");
@@ -144,7 +147,7 @@ export async function confirmOrder(id: string, input: ConfirmInput): Promise<Ord
       notes: input.shipping.notes.trim().slice(0, 200),
     };
     order.payment = {
-      method: input.method === "plin" ? "plin" : "yape",
+      method: PAYMENT_METHODS.includes(input.method) ? input.method : "yape",
       code: input.code.trim().toUpperCase(),
       submittedAt: new Date().toISOString(),
     };
@@ -189,7 +192,7 @@ export function buildPaymentMessage(order: Order): string {
     ...lines,
     `TOTAL: ${formatPrice(order.total)}`,
     "",
-    `Pagué con: ${order.payment?.method === "plin" ? "Plin" : "Yape"}`,
+    `Pagué desde: ${order.payment ? PAYMENT_LABEL[order.payment.method] : ""}`,
     `Código de operación: ${order.payment?.code ?? ""}`,
     "",
     `Nombre: ${order.customer?.name ?? ""}`,

@@ -90,10 +90,10 @@ export default async function AdminPage() {
         </p>
       ) : null}
 
-      {!settings.yape && !settings.plin ? (
+      {!settings.dale ? (
         <p className="mt-4 border border-line bg-surface p-4 text-sm">
-          Falta poner el <strong>número de Yape o Plin</strong> en Ajustes. Mientras tanto, a los
-          clientes les sale el aviso de pedirlo por WhatsApp.
+          Falta poner el <strong>número de la billetera Dale</strong> en Ajustes. Mientras tanto, a
+          los clientes les sale el aviso de pedirlo por WhatsApp.
         </p>
       ) : null}
 
@@ -152,8 +152,20 @@ export default async function AdminPage() {
         <h2 className="ui-label text-xs">AJUSTES</h2>
         <form action={settingsAction} className="mt-4 border border-line p-4">
           <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block sm:col-span-2">
+              <span className="text-xs text-muted">
+                Número de la billetera Dale (ahí paga el cliente)
+              </span>
+              <input
+                name="dale"
+                defaultValue={settings.dale}
+                inputMode="numeric"
+                placeholder="9XXXXXXXX"
+                className="mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink"
+              />
+            </label>
             <label className="block">
-              <span className="text-xs text-muted">Número de Yape</span>
+              <span className="text-xs text-muted">Número de Yape (opcional)</span>
               <input
                 name="yape"
                 defaultValue={settings.yape}
@@ -163,7 +175,7 @@ export default async function AdminPage() {
               />
             </label>
             <label className="block">
-              <span className="text-xs text-muted">Número de Plin</span>
+              <span className="text-xs text-muted">Número de Plin (opcional)</span>
               <input
                 name="plin"
                 defaultValue={settings.plin}

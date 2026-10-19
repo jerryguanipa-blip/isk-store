@@ -32,7 +32,7 @@ export default function PrivacidadPage() {
       />
       <p>
         No pedimos ni guardamos números de tarjeta, claves ni datos bancarios. Los pagos
-        se hacen con Yape o Plin fuera de la web: nosotros solo guardamos el código de operación
+        se hacen a la billetera Dale fuera de la web: nosotros solo guardamos el código de operación
         que tú nos escribes.
       </p>
 
