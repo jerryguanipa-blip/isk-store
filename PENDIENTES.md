@@ -4,69 +4,34 @@ Ordenadas por urgencia. Lo demás ya está hecho y funcionando.
 
 ---
 
-## 🔴 0. PUBLICAR LA VERSIÓN NUEVA (el panel todavía no está en iskoficial.com)
+## ✅ 0. PUBLICAR — RESUELTO (19/10/2026)
 
-El código del panel ya está en GitHub (commit subido), pero **falta publicarlo en Vercel**: mi
-sesión de `vercel` en esta PC perdió el permiso ("Not authorized") y los despliegues a producción
-están bloqueados para mí. Hazlo tú con estos tres comandos, en orden:
+La web ya no se publica a mano: **cada cambio que subo a GitHub se publica solo** en
+iskoficial.com (GitHub Actions → Vercel). El archivo que lo hace es
+`.github/workflows/publicar.yml` y usa el secreto `VERCEL_TOKEN` del repositorio.
 
-```bash
-vercel login
-```
-
-```bash
-vercel link --yes
-```
-
-```bash
-vercel env rm NEXT_PUBLIC_WHATSAPP production
-```
-
-(si dice que no existe, perfecto, sigue de largo)
-
-```bash
-vercel --prod --yes
-```
-
-Cuando termine, abre https://iskoficial.com/admin: debe pedirte contraseña (para eso es el punto
-1 de abajo). Si prefieres no usar la terminal, también puedes conectar GitHub con Vercel (punto 6)
-y a partir de ahí cada `git push` publica solo.
+Si alguna vez quieres publicar a mano: GitHub → pestaña **Actions** → *Publicar en Vercel* →
+**Run workflow**.
 
 ---
 
-## 🔴 1. CONTRASEÑA DEL PANEL `/admin` (sin esto el panel no abre)
+## ✅ 1. CONTRASEÑA DEL PANEL — PUESTA (19/10/2026)
 
-El panel de la tienda está en **https://iskoficial.com/admin**. Para que abra hay que poner una
-contraseña tuya (mínimo 6 caracteres). Se hace una sola vez:
+`ADMIN_PASSWORD` está cargada en Vercel (Production). El panel abre en
+**https://iskoficial.com/admin** y pide esa contraseña. La sesión dura 8 horas.
 
-```bash
-vercel env add ADMIN_PASSWORD production
-```
-
-Te va a pedir el valor: escribe la contraseña que quieras (no la escribas en el chat ni en
-ningún archivo del proyecto). Después, para que tome efecto:
-
-```bash
-vercel --prod --yes
-```
-
-En tu PC, para probar en local, el archivo `D:\isk-store\.env.local` ya tiene una de prueba
-(`ADMIN_PASSWORD`). Cámbiala cuando quieras: ese archivo no se sube a GitHub.
+Para cambiarla: Vercel → isk-store → Settings → Environment Variables → `ADMIN_PASSWORD` →
+Edit → Save, y vuelve a publicar (Actions → Run workflow).
 
 ---
 
-## 🔴 2. GUARDAR LOS PEDIDOS DE VERDAD (Vercel Blob, es gratis para este tamaño)
+## ✅ 2. GUARDAR LOS PEDIDOS — RESUELTO (19/10/2026)
 
-Hoy, en la web publicada, los pedidos se guardan en memoria temporal del servidor: funcionan,
-pero se borran cuando Vercel reinicia la función. Para que queden guardados:
+Se creó el almacén **isk-tienda** (Vercel Blob, privado) y está conectado al proyecto. Los
+pedidos y el stock ya se guardan de verdad: no se borran cuando el servidor reinicia.
 
-1. Entra a **vercel.com → proyecto `isk-store` → pestaña Storage**.
-2. Crea un store de tipo **Blob** y conéctalo al proyecto `isk-store`.
-   Vercel agrega solo la variable `BLOB_READ_WRITE_TOKEN`; no hay que copiar nada a mano.
-3. Vuelve a desplegar: `vercel --prod --yes`.
-
-El código ya detecta esa variable: si existe, guarda ahí; si no, avisa en el panel con un aviso
-naranja. (Yo no puedo crear el store: pide tu cuenta y es un servicio que tienes que aceptar tú.)
+Es privado a propósito: dentro van nombres, celulares y DNI de clientes, así que solo se lee
+con el token del servidor, nunca por una URL pública.
 
 ---
 
@@ -126,29 +91,15 @@ que abrir el chat de JERRY SHOP (916385028).
 
 ---
 
-## 🟠 6. CONECTAR GITHUB CON VERCEL (para publicar con un solo `git push`)
+## ✅ 6. PUBLICACIÓN AUTOMÁTICA — RESUELTA POR OTRO CAMINO (19/10/2026)
 
-La web ya está publicada, pero Vercel **no pudo enlazarse con tu repositorio de GitHub**
-(lo intenté 3 veces). El error fue:
+No se pudo enlazar Vercel con GitHub porque son cuentas distintas: la tienda vive en la cuenta
+de Vercel **ISK OFFICIAL** (que tiene conectado el GitHub `iskoficial5-sudo`), y el código está
+en el GitHub `jerryguanipa-blip`, que ya está enlazado a tu otra cuenta de Vercel. GitHub solo
+se deja enlazar a una cuenta de Vercel a la vez.
 
-> You need admin or write access to the repository "isk-store" to link it.
-
-Pasa porque tu cuenta de Vercel (**iskoficial5**) y tu cuenta de GitHub
-(**jerryguanipa-blip**) no están conectadas entre sí. Solo tú puedes autorizarlo desde el
-navegador:
-
-1. Entra a https://vercel.com/isk-offcial/isk-store/settings/git
-2. Clic en **Connect Git Repository** → **GitHub**.
-3. Inicia sesión con **jerryguanipa-blip** y autoriza la app de Vercel
-   (puedes darle acceso solo al repo `isk-store`).
-4. Elige `jerryguanipa-blip/isk-store`, rama `main`.
-
-Desde ese momento cada `git push` publica la web sola. **Mientras tanto**, para publicar
-cambios usa en `D:\isk-store`:
-
-```bash
-vercel --prod --yes
-```
+La solución fue publicar con **GitHub Actions** usando un token de Vercel: el resultado es el
+mismo (cada push publica solo) y no hubo que mover cuentas ni repositorios de sitio.
 
 ---
 

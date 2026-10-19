@@ -16,6 +16,30 @@
 
 ---
 
+## 🚀 TIENDA EN VIVO Y PUBLICÁNDOSE SOLA (19/10/2026)
+
+- **Publicación automática**: cada cambio subido a GitHub se publica solo en iskoficial.com
+  (GitHub Actions + token de Vercel). No hay que correr nada a mano.
+- **Almacén privado** (Vercel Blob `isk-tienda`): pedidos y stock dejaron de borrarse. Privado
+  porque guarda nombre, celular y DNI de los clientes.
+- **Pago a la billetera Dale** (983501670 · Jerimy G.) con el paso a paso para enviarlo desde
+  Yape o Plin con la opción «otras billeteras / otros bancos».
+- **Stock real cargado**: 72 pares (36 blancas + 36 negras).
+- **Contraseña del panel** cargada en Vercel: `/admin` pide contraseña y la sesión dura 8 horas.
+- **Variable vieja corregida**: `NEXT_PUBLIC_WHATSAPP` tenía el número de prueba `51XXXXXXXXX`
+  y habría roto todos los botones; ahora es 51916385028.
+
+**Probado en producción (iskoficial.com)**
+
+- Pedido real de prueba: reservó la talla (44 blancas 1 → 0) y el siguiente intento recibió
+  «Se acaba de agotar esa talla». ✅
+- Pantalla de pago: contador de 15 minutos corriendo, número de Dale con botón de copiar,
+  titular y las 4 instrucciones de «otras billeteras». ✅
+- Panel `/admin`: pide contraseña. ✅
+- Todos los botones de WhatsApp apuntan a wa.me/51916385028. ✅
+
+---
+
 ## ➕ TALLAS Y CANTIDADES CON UN TOQUE (19/10/2026)
 
 **En la ficha del producto (lo que ve el cliente)**
