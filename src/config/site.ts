@@ -3,7 +3,8 @@
  * Cambiar algo aquí lo cambia en TODA la web.
  */
 
-const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "51XXXXXXXXX";
+/** WhatsApp de JERRY SHOP (donde llegan los pedidos). Solo dígitos, con el 51 del Perú. */
+const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "51916385028";
 
 export const siteConfig = {
   // --- Marca ---

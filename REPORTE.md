@@ -51,9 +51,16 @@
   se rechazan con mensaje claro. ✅
 - `eslint`, `tsc` y `next build`: sin errores.
 
-**Lo que queda pendiente (está en PENDIENTES.md):** contraseña del panel en Vercel, crear el
-store de Vercel Blob para que los pedidos no se borren, número de Yape/Plin, inventario final y
-el número real de WhatsApp.
+**Datos de la tienda ya configurados (19/10/2026)**
+
+- **Pago**: Yape y Plin al **983501670**, a nombre de **Jerimy G.** (se ve en la pantalla de pago,
+  con botón de copiar; se puede cambiar desde `/admin` → Ajustes sin tocar código).
+- **WhatsApp**: todos los botones y la confirmación de cada pedido van al **916385028**
+  (JERRY SHOP).
+
+**Lo que queda pendiente (está en PENDIENTES.md):** publicar la versión nueva en Vercel,
+contraseña del panel, crear el store de Vercel Blob para que los pedidos no se borren y el
+inventario final.
 
 ---
 

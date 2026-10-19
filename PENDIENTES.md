@@ -19,6 +19,12 @@ vercel link --yes
 ```
 
 ```bash
+vercel env rm NEXT_PUBLIC_WHATSAPP production
+```
+
+(si dice que no existe, perfecto, sigue de largo)
+
+```bash
 vercel --prod --yes
 ```
 
@@ -64,14 +70,13 @@ naranja. (Yo no puedo crear el store: pide tu cuenta y es un servicio que tienes
 
 ---
 
-## 🔴 3. NÚMERO DE YAPE / PLIN (se pone desde el panel, sin tocar código)
+## ✅ 3. NÚMERO DE YAPE / PLIN — HECHO (19/10/2026)
 
-El número de pago quedó **pendiente a propósito**, como pediste. Cuando lo tengas:
-entra a `/admin` → sección **AJUSTES** → escribe el número de Yape y/o Plin y el titular →
-**GUARDAR AJUSTES**. Desde ese momento les aparece a los clientes en la pantalla de pago.
+Ya está puesto en el código: **983501670**, a nombre de **Jerimy G.**, para Yape y para Plin.
+Es lo que ve el cliente en la pantalla de pago, con botón de copiar.
 
-Mientras esté vacío, al cliente le sale: «Todavía no publicamos el número de Yape/Plin.
-Escríbenos por WhatsApp y te lo pasamos al instante».
+Si alguna vez cambias de número (o si el de Plin es distinto al de Yape), **no hace falta tocar
+código**: `/admin` → **AJUSTES** → escribes el número nuevo → **GUARDAR AJUSTES**.
 
 ---
 
@@ -83,40 +88,23 @@ talla: en 0 la talla sale tachada en la web, y vacío significa «sin control».
 
 ---
 
-## 🔴 5. PONER EL NÚMERO REAL DE WHATSAPP (bloquea las ventas)
+## ✅ 5. NÚMERO DE WHATSAPP — HECHO (19/10/2026)
 
-> **Estado:** pendiente por decisión del dueño, pero **todo está listo**: es un solo valor.
-> El aviso para el administrador que se veía en el carrito se quitó para que los clientes
-> no lo vean.
+Todos los botones de WhatsApp de la web (y la confirmación de cada pedido) van al
+**916385028** — tu WhatsApp de JERRY SHOP. Quedó escrito en el código como `51916385028`,
+así que funciona sin configurar nada más.
 
-Hoy el número es el placeholder `51XXXXXXXXX`. **Mientras siga así, ningún botón de
-WhatsApp va a abrir un chat real y la tienda no puede recibir pedidos.**
-
-Se cambia en dos sitios:
-
-**a) En tu PC (para pruebas locales)** — archivo `D:\isk-store\.env.local`:
-
-```bash
-NEXT_PUBLIC_WHATSAPP=51987654321
-```
-
-**b) En Vercel (la web publicada):**
+**Un solo detalle al publicar:** si en Vercel quedó guardada la variable
+`NEXT_PUBLIC_WHATSAPP` con el número de prueba viejo, esa variable **le gana al código**.
+Para asegurarte, corre esto una vez antes de publicar (si dice que no existe, mejor: no hay
+nada que borrar):
 
 ```bash
 vercel env rm NEXT_PUBLIC_WHATSAPP production
 ```
 
-```bash
-vercel env add NEXT_PUBLIC_WHATSAPP production
-```
-
-Te pedirá el valor: escribe tu número con código de país y sin `+`, espacios ni guiones
-(ejemplo: `51987654321`). Después hay que volver a desplegar:
-
-```bash
-vercel --prod --yes
-```
-
+Y después de publicar, abre https://iskoficial.com y toca el botón verde de WhatsApp: tiene
+que abrir el chat de JERRY SHOP (916385028).
 
 ---
 
