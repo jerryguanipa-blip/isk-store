@@ -103,14 +103,16 @@ export default function HomePage() {
         aria-labelledby="pedido-titulo"
         className="mx-auto max-w-[1800px] scroll-mt-20 px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
       >
-        <div className="text-center">
-          <p className="eyebrow text-muted">PÍDELAS EN 30 SEGUNDOS</p>
-          <h2 id="pedido-titulo" className="display mt-2 text-3xl sm:text-4xl">
+        <div className="mx-auto max-w-[30rem] border-y border-line py-7 text-center">
+          <p className="eyebrow text-[11px] text-muted">PÍDELAS EN 30 SEGUNDOS</p>
+          <h2
+            id="pedido-titulo"
+            className="display mt-3 text-balance text-2xl leading-[1.1] sm:text-[1.75rem]"
+          >
             ELIGE TU PAR Y TU TALLA
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm text-muted">
-            Toca tu talla y mándanos el pedido por WhatsApp. Ahí te pasamos los datos para pagar y
-            coordinamos el envío: Shalom a todo el Perú o InDriver en Lima.
+          <p className="mx-auto mt-3 max-w-[24rem] text-pretty text-sm leading-relaxed text-muted">
+            Toca tu talla y mándanos el pedido por WhatsApp. Ahí coordinamos el pago y el envío.
           </p>
         </div>
 
