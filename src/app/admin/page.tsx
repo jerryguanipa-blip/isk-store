@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { inventoryAction, logoutAction, settingsAction } from "@/app/admin/actions";
+import { InventoryGrid } from "@/app/admin/InventoryGrid";
 import { LoginForm } from "@/app/admin/LoginForm";
 import { OrderCard } from "@/app/admin/OrderCard";
 import { products } from "@/data/products";
@@ -133,26 +134,13 @@ export default async function AdminPage() {
         </p>
         <form action={inventoryAction} className="mt-4 flex flex-col gap-6">
           {products.map((product) => (
-            <div key={product.slug} className="border border-line p-4">
-              <p className="ui-label text-xs">{product.colorName}</p>
-              <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-9">
-                {product.sizes.map((size) => {
-                  const stock = inventory[product.slug]?.[String(size.eur)];
-                  return (
-                    <label key={size.eur} className="block">
-                      <span className="text-xs text-muted">EUR {size.eur}</span>
-                      <input
-                        name={`stock:${product.slug}:${size.eur}`}
-                        defaultValue={stock === null || stock === undefined ? "" : String(stock)}
-                        inputMode="numeric"
-                        placeholder="—"
-                        className="mt-1 min-h-11 w-full border border-line bg-paper px-2 text-center text-sm tabular-nums outline-none focus:border-ink"
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
+            <InventoryGrid
+              key={product.slug}
+              slug={product.slug}
+              colorName={product.colorName}
+              sizes={product.sizes.map((size) => size.eur)}
+              initial={inventory[product.slug] ?? {}}
+            />
           ))}
           <button type="submit" className="btn btn-primary self-start px-8">
             GUARDAR INVENTARIO

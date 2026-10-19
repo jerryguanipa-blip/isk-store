@@ -70,6 +70,29 @@ export function buildProductMessage(
   ].join("\n");
 }
 
+/** Mensaje de la ficha cuando el cliente ya eligió tallas y cantidades. */
+export function buildSizePickMessage(
+  productName: string,
+  picks: Array<{ size: number; qty: number }>,
+  price: number,
+): string {
+  const pairs = picks.reduce((sum, pick) => sum + pick.qty, 0);
+  return [
+    `¡Hola ${siteConfig.name}! 👋`,
+    "",
+    `Quiero: ${productName}`,
+    ...picks.map((pick) => `• Talla EUR ${pick.size} · ${pick.qty} par${pick.qty > 1 ? "es" : ""}`),
+    `TOTAL: ${pairs} par${pairs > 1 ? "es" : ""} · ${formatPrice(price * pairs)}`,
+    "",
+    "Mis datos para el envío:",
+    "• Nombre completo:",
+    "• Ciudad / distrito:",
+    "• Agencia Shalom o dirección (InDriver):",
+    "",
+    "¿Me confirmas?",
+  ].join("\n");
+}
+
 /** Mensaje de los botones "COMPRAR VÍA WHATSAPP" de la landing. */
 export function buildLandingMessage(colorName?: string): string {
   const lines = colorName

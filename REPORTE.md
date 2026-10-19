@@ -16,7 +16,32 @@
 
 ---
 
-## 🧾 PANEL DE TIENDA + PAGO CON YAPE/PLIM (18/10/2026)
+## ➕ TALLAS Y CANTIDADES CON UN TOQUE (19/10/2026)
+
+**En la ficha del producto (lo que ve el cliente)**
+
+- Las nueve tallas (36 a la 44) siguen en la misma cuadrícula: **cada toque suma un par**, y la
+  talla muestra una insignia con cuántos lleva.
+- Debajo aparece una línea por talla elegida con **− y +**, el precio de esa talla y una X para
+  quitarla. Abajo, el total en pares y en soles.
+- Puede llevar **varias tallas en el mismo pedido** (ej. 2 del 40 y 1 del 41) y pagarlas juntas
+  con un solo botón.
+- Nunca puede pedir más de lo que hay: el + se bloquea al llegar al stock del panel, y la talla
+  en 0 sale tachada.
+- El botón de WhatsApp manda el pedido ya escrito con todas las tallas y el total.
+
+**En el panel (lo que ves tú)**
+
+- El inventario de cada color pasó a tener **− y +** por talla, más atajos **TODAS EN 1**,
+  **TODAS EN 2**, **TODAS EN 0** y **SIN CONTROL**, con el total de pares arriba.
+
+**Probado**: 2 pares del 40 + 1 del 41 → pedido `ISK-8CQV` por S/ 600.00 con las dos tallas;
+tope de stock respetado (4 toques en una talla con 2 pares se queda en 2); el carrito recibe las
+dos tallas; mensaje de WhatsApp con el detalle; inventario guardado desde los atajos del panel.
+
+---
+
+## 🧾 PANEL DE TIENDA + PAGO CON YAPE/PLIN (18/10/2026)
 
 **Qué se agregó**
 

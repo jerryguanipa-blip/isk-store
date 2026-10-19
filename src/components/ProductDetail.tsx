@@ -3,34 +3,65 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Ruler } from "lucide-react";
+import { Minus, Plus, Ruler, X } from "lucide-react";
 import type { Product } from "@/data/products";
 import { cn, formatPrice } from "@/lib/format";
 import { useCart } from "@/store/cart";
-import { useSoldOutSizes } from "@/lib/client-hooks";
-import { buildProductMessage, whatsappUrl } from "@/lib/checkout";
+import { useSizeStock } from "@/lib/client-hooks";
+import { buildLandingMessage, buildSizePickMessage, whatsappUrl } from "@/lib/checkout";
 import { BuyNowButton } from "@/components/BuyNowButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { SizeGuideModal } from "@/components/SizeGuideModal";
 
+/** Tope de pares por talla cuando no hay stock cargado en el panel. */
+const SIN_CONTROL = 10;
+
 export function ProductDetail({ product }: { product: Product }) {
-  const [size, setSize] = useState<number | null>(null);
+  /** Pares elegidos por talla: { 40: 2, 42: 1 } */
+  const [picked, setPicked] = useState<Record<number, number>>({});
   const [error, setError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const add = useCart((s) => s.add);
-  const soldOut = useSoldOutSizes(product.slug);
+  const stock = useSizeStock(product.slug);
+
+  /** Máximo que puede llevar de una talla (lo que diga el panel, o 10). */
+  const maxFor = (eur: number) => {
+    const available = stock[eur];
+    return typeof available === "number" ? available : SIN_CONTROL;
+  };
+  const isSoldOut = (eur: number) => stock[eur] === 0;
+
+  const changeQty = (eur: number, delta: number) => {
+    setError(false);
+    setPicked((current) => {
+      const next = Math.min(Math.max((current[eur] ?? 0) + delta, 0), maxFor(eur));
+      const copy = { ...current };
+      if (next === 0) delete copy[eur];
+      else copy[eur] = next;
+      return copy;
+    });
+  };
+
+  const picks = product.sizes
+    .filter((option) => (picked[option.eur] ?? 0) > 0)
+    .map((option) => ({ size: option.eur, qty: picked[option.eur] }));
+  const pairs = picks.reduce((sum, pick) => sum + pick.qty, 0);
+  const total = pairs * product.price;
 
   const handleAdd = () => {
-    if (size === null) {
+    if (pairs === 0) {
       setError(true);
       return;
     }
     setError(false);
-    add(product, size);
+    for (const pick of picks) add(product, pick.size, pick.qty);
+    setPicked({});
   };
 
   const whatsappHref = whatsappUrl(
-    buildProductMessage(product.name, product.colorName, size, product.price),
+    picks.length > 0
+      ? buildSizePickMessage(product.name, picks, product.price)
+      : buildLandingMessage(product.colorName),
   );
 
   return (
@@ -70,7 +101,7 @@ export function ProductDetail({ product }: { product: Product }) {
               <h2 className="ui-label text-xs">
                 TALLA EUR{" "}
                 <span className="text-muted">
-                  {size ? `· ${size} seleccionada` : "· elige una"}
+                  {pairs > 0 ? `· ${pairs} par${pairs > 1 ? "es" : ""}` : "· toca la tuya"}
                 </span>
               </h2>
               <button
@@ -83,39 +114,103 @@ export function ProductDetail({ product }: { product: Product }) {
               </button>
             </div>
 
-            <div
-              role="radiogroup"
-              aria-label="Elige tu talla europea"
-              aria-required="true"
-              className="mt-3 flex flex-wrap gap-2"
-            >
+            <div className="mt-3 flex flex-wrap gap-2">
               {product.sizes.map((option) => {
-                const selected = size === option.eur;
+                const qty = picked[option.eur] ?? 0;
+                const agotada = !option.available || isSoldOut(option.eur);
+                const quedan = stock[option.eur];
                 return (
                   <button
                     key={option.eur}
                     type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    disabled={!option.available || soldOut.includes(option.eur)}
-                    onClick={() => {
-                      setSize(option.eur);
-                      setError(false);
-                    }}
+                    disabled={agotada || qty >= maxFor(option.eur)}
+                    aria-label={
+                      agotada
+                        ? `Talla ${option.eur} agotada`
+                        : `Agregar un par de la talla ${option.eur}${
+                            typeof quedan === "number" ? `, quedan ${quedan}` : ""
+                          }`
+                    }
+                    onClick={() => changeQty(option.eur, 1)}
                     className={cn(
-                      "grid h-12 w-12 place-items-center border text-sm tabular-nums transition-colors",
-                      selected
+                      "relative grid h-12 w-12 place-items-center border text-sm tabular-nums transition-colors",
+                      qty > 0
                         ? "border-ink bg-ink text-white"
                         : "border-line bg-paper text-ink hover:border-ink",
-                      (!option.available || soldOut.includes(option.eur)) &&
-                        "cursor-not-allowed opacity-30 line-through",
+                      agotada && "cursor-not-allowed opacity-30 line-through",
+                      !agotada && qty >= maxFor(option.eur) && "cursor-not-allowed",
                     )}
                   >
                     {option.eur}
+                    {qty > 0 && (
+                      <span className="absolute -top-2 -right-2 grid h-5 min-w-5 place-items-center border border-ink bg-paper px-1 text-[11px] text-ink">
+                        {qty}
+                      </span>
+                    )}
                   </button>
                 );
               })}
             </div>
+
+            <p className="mt-3 text-xs text-muted">
+              Toca una talla para sumar un par. Puedes llevar varias tallas en el mismo pedido.
+            </p>
+
+            {/* Tallas elegidas, con + y - */}
+            {picks.length > 0 && (
+              <ul className="mt-4 divide-y divide-line border-y border-line">
+                {picks.map((pick) => (
+                  <li key={pick.size} className="flex items-center gap-3 py-3">
+                    <span className="ui-label w-20 text-xs">EUR {pick.size}</span>
+
+                    <div className="flex items-center border border-line">
+                      <button
+                        type="button"
+                        onClick={() => changeQty(pick.size, -1)}
+                        aria-label={`Quitar un par de la talla ${pick.size}`}
+                        className="grid h-11 w-11 place-items-center transition-colors hover:bg-ink hover:text-white"
+                      >
+                        <Minus className="h-3.5 w-3.5" aria-hidden="true" />
+                      </button>
+                      <span className="min-w-10 text-center text-sm tabular-nums" aria-live="polite">
+                        {pick.qty}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => changeQty(pick.size, 1)}
+                        disabled={pick.qty >= maxFor(pick.size)}
+                        aria-label={`Agregar un par de la talla ${pick.size}`}
+                        className="grid h-11 w-11 place-items-center transition-colors hover:bg-ink hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ink"
+                      >
+                        <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                      </button>
+                    </div>
+
+                    <span className="ml-auto text-sm tabular-nums">
+                      {formatPrice(product.price * pick.qty)}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => changeQty(pick.size, -pick.qty)}
+                      aria-label={`Quitar la talla ${pick.size} del pedido`}
+                      className="grid h-11 w-11 place-items-center text-muted transition-colors hover:text-ink"
+                    >
+                      <X className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {pairs > 0 && (
+              <div className="mt-3 flex items-center justify-between">
+                <span className="ui-label text-xs">
+                  TOTAL · {pairs} PAR{pairs > 1 ? "ES" : ""}
+                </span>
+                <span className="text-lg tabular-nums">{formatPrice(total)}</span>
+              </div>
+            )}
 
             {error && (
               <motion.p
@@ -125,7 +220,7 @@ export function ProductDetail({ product }: { product: Product }) {
                 role="alert"
                 className="ui-label mt-3 text-xs text-ink"
               >
-                ⚠ ELIGE UNA TALLA PARA CONTINUAR
+                ⚠ TOCA TU TALLA PARA CONTINUAR
               </motion.p>
             )}
           </div>
@@ -133,7 +228,11 @@ export function ProductDetail({ product }: { product: Product }) {
           {/* Acciones */}
           <div className="mt-6 flex flex-col gap-2">
             <BuyNowButton
-              getItems={() => (size === null ? null : [{ slug: product.slug, size, qty: 1 }])}
+              getItems={() =>
+                picks.length === 0
+                  ? null
+                  : picks.map((pick) => ({ slug: product.slug, size: pick.size, qty: pick.qty }))
+              }
               onMissing={() => setError(true)}
             />
 

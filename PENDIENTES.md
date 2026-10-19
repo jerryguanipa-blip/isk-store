@@ -80,11 +80,19 @@ código**: `/admin` → **AJUSTES** → escribes el número nuevo → **GUARDAR 
 
 ---
 
-## 🔴 4. INVENTARIO FINAL
+## 🟠 4. INVENTARIO FINAL (dijiste que me lo pasas mañana)
 
-Dijiste que me pasarías el inventario final. Mientras tanto, todas las tallas están sin control
-de stock (se pueden vender). En `/admin` → **INVENTARIO** pones los pares que tienes de cada
-talla: en 0 la talla sale tachada en la web, y vacío significa «sin control».
+Cuando lo tengas, cargarlo toma menos de un minuto: `/admin` → **INVENTARIO**. Cada color
+(blanco y negro) trae las nueve tallas, de la 36 a la 44, con **− y +** y atajos:
+
+- **TODAS EN 1 / TODAS EN 2** → llena las nueve tallas de golpe y luego corriges con + y − las
+  que tengan más o menos pares.
+- **TODAS EN 0** → marca todo como agotado (la talla sale tachada en la web).
+- **SIN CONTROL** → deja las casillas vacías: se puede vender sin contar stock.
+
+Arriba de cada color te dice cuántos pares tienes en total. Cuando termines, **GUARDAR
+INVENTARIO**. Desde ese momento la web solo deja comprar lo que hay, y cada pedido descuenta
+los pares en el acto (si el cliente no paga en 15 minutos, vuelven solos).
 
 ---
 

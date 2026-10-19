@@ -42,11 +42,12 @@ export type StockResponse = {
 };
 
 /**
- * Tallas agotadas según el inventario del panel. Mientras carga (o si el
- * servidor no responde) no bloquea nada: se asume que hay stock.
+ * Stock por talla según el inventario del panel: `null` = sin control (se puede
+ * vender), un número = pares disponibles. Mientras carga, o si el servidor no
+ * responde, no bloquea nada: se asume que hay stock.
  */
-export function useSoldOutSizes(slug: string): number[] {
-  const [soldOut, setSoldOut] = useState<number[]>([]);
+export function useSizeStock(slug: string): Record<number, number | null> {
+  const [stock, setStock] = useState<Record<number, number | null>>({});
 
   useEffect(() => {
     let active = true;
@@ -55,11 +56,11 @@ export function useSoldOutSizes(slug: string): number[] {
       .then((data) => {
         if (!active || !data) return;
         const sizes = data.inventory?.[slug] ?? {};
-        setSoldOut(
-          Object.entries(sizes)
-            .filter(([, stock]) => typeof stock === "number" && stock <= 0)
-            .map(([size]) => Number(size)),
-        );
+        const parsed: Record<number, number | null> = {};
+        for (const [size, value] of Object.entries(sizes)) {
+          parsed[Number(size)] = typeof value === "number" ? value : null;
+        }
+        setStock(parsed);
       })
       .catch(() => undefined);
     return () => {
@@ -67,5 +68,5 @@ export function useSoldOutSizes(slug: string): number[] {
     };
   }, [slug]);
 
-  return soldOut;
+  return stock;
 }
