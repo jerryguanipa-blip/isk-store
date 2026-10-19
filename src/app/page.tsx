@@ -6,7 +6,6 @@ import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { Reveal } from "@/components/Reveal";
 import { QuickOrder } from "@/components/QuickOrder";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: { absolute: siteConfig.title },
@@ -83,18 +82,17 @@ export default function HomePage() {
             {formatPrice(siteConfig.price)}
           </p>
 
-          <div className="isk-rise isk-rise-late mt-6 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
-            <WhatsAppButton
-              tone="light"
-              className="w-full max-w-xs border-white bg-transparent text-white hover:bg-white hover:text-ink sm:w-auto"
-            />
+          <div className="isk-rise isk-rise-late mt-6 flex w-full flex-col items-center gap-3 sm:w-auto">
             <a
               href="#pedido"
               data-cta
-              className="ui-label inline-flex min-h-12 items-center px-2 text-xs text-white underline underline-offset-4 hover:no-underline"
+              className="btn btn-primary w-full max-w-xs border-white bg-white text-ink hover:bg-transparent hover:text-white sm:w-auto sm:px-12"
             >
-              ELEGIR TALLA Y PEDIR
+              ELEGIR TALLA
             </a>
+            <p className="text-xs text-white/80">
+              Eliges tu talla y nos mandas el pedido por WhatsApp.
+            </p>
           </div>
         </div>
       </section>
@@ -167,13 +165,15 @@ export default function HomePage() {
 
         <Reveal delay={0.15}>
           <div className="mt-8 flex flex-col items-center gap-5">
-            <WhatsAppButton tone="dark" className="w-full max-w-xs sm:w-auto" />
+            <a href="#pedido" data-cta className="btn btn-primary w-full max-w-xs sm:w-auto sm:px-12">
+              ELEGIR TALLA
+            </a>
             <Link
               href="/shop"
               data-cta
               className="ui-label text-xs underline underline-offset-4 hover:no-underline"
             >
-              ELEGIR MI TALLA EN LA WEB
+              VER LA TIENDA COMPLETA
             </Link>
           </div>
         </Reveal>
