@@ -118,6 +118,8 @@ export type SizeStock = Record<string, number | null>;
 
 export type StoreData = {
   version: number;
+  /** Versión del stock cargado desde el código */
+  stockVersion?: number;
   settings: StoreSettings;
   /** slug del producto -> stock por talla */
   inventory: Record<string, SizeStock>;

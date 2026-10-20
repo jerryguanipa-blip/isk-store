@@ -16,20 +16,22 @@ const DEFAULT_SETTINGS: StoreSettings = {
 };
 
 /**
- * Stock de arranque (pares por talla), el que nos pasó la tienda.
- * Si el panel ya guardó números, mandan los del panel.
+ * Stock que manda la tienda (pares por talla). Al subir el número de versión,
+ * la web lo vuelve a cargar aunque ya hubiera números guardados en el panel.
  */
+const STOCK_VERSION = 2;
+
 const STOCK_INICIAL: Record<string, Record<string, number>> = {
   "air-force-1-triple-white": {
-    "36": 3,
+    "36": 1,
     "37": 4,
     "38": 3,
-    "39": 3,
-    "40": 4,
-    "41": 6,
-    "42": 7,
-    "43": 5,
-    "44": 1,
+    "39": 2,
+    "40": 1,
+    "41": 5,
+    "42": 6,
+    "43": 2,
+    "44": 0,
   },
   "air-force-1-triple-black": {
     "36": 3,
@@ -39,7 +41,7 @@ const STOCK_INICIAL: Record<string, Record<string, number>> = {
     "40": 4,
     "41": 5,
     "42": 6,
-    "43": 7,
+    "43": 6,
     "44": 2,
   },
 };
@@ -59,18 +61,27 @@ function emptyInventory(): StoreData["inventory"] {
 }
 
 function defaults(): StoreData {
-  return { version: 1, settings: { ...DEFAULT_SETTINGS }, inventory: emptyInventory(), orders: [] };
+  return {
+    version: 1,
+    stockVersion: STOCK_VERSION,
+    settings: { ...DEFAULT_SETTINGS },
+    inventory: emptyInventory(),
+    orders: [],
+  };
 }
 
 /** Rellena lo que falte: productos o tallas nuevas, ajustes nuevos. */
 function normalize(data: StoreData): StoreData {
   const base = defaults();
+  // Stock nuevo mandado desde el código: pisa lo guardado una sola vez.
+  const stockFresco = (data.stockVersion ?? 0) < STOCK_VERSION;
   const inventory: StoreData["inventory"] = {};
   for (const [slug, sizes] of Object.entries(base.inventory)) {
-    inventory[slug] = { ...sizes, ...(data.inventory?.[slug] ?? {}) };
+    inventory[slug] = stockFresco ? { ...sizes } : { ...sizes, ...(data.inventory?.[slug] ?? {}) };
   }
   return {
     version: 1,
+    stockVersion: STOCK_VERSION,
     // el precio vive en el código (una sola fuente para la web y los pedidos)
     settings: { ...base.settings, ...(data.settings ?? {}), price: siteConfig.price },
     inventory,
