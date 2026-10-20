@@ -121,9 +121,10 @@ export type Sale = {
   id: string;
   /** Fecha en que se concretó */
   at: string;
-  slug: string;
-  colorName: string;
-  size: number;
+  /** Modelo y talla; vacíos en ventas viejas que se anotaron solo por cliente */
+  slug?: string;
+  colorName?: string;
+  size?: number;
   qty: number;
   /** Precio por par */
   unit: number;
@@ -132,6 +133,8 @@ export type Sale = {
   source: "web" | "manual" | "historico";
   /** Código del pedido, si vino de la web */
   orderRef?: string;
+  /** A quién se le vendió */
+  client?: string;
   note?: string;
 };
 

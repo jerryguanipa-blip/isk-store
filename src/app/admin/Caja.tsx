@@ -1,5 +1,6 @@
 import { anularVentaAction, registrarVentaAction } from "@/app/admin/actions";
 import { products } from "@/data/products";
+import { siteConfig } from "@/config/site";
 import { formatPrice } from "@/lib/format";
 import type { Sale, SizeStock } from "@/lib/store/types";
 
@@ -14,7 +15,7 @@ function cuando(iso: string): string {
 const ORIGEN: Record<Sale["source"], string> = {
   web: "Pedido web",
   manual: "Cargada a mano",
-  historico: "Antes del panel",
+  historico: "Cierre anterior",
 };
 
 type Props = {
@@ -27,31 +28,38 @@ const campo =
   "mt-1 min-h-12 w-full border border-line bg-paper px-3 text-sm outline-none focus:border-ink";
 
 /**
- * Control de caja: cuánto se compró, cuánto se vendió, cuánto queda y cuánta
- * plata entró. Cada venta descuenta stock; anularla lo devuelve.
+ * Control de caja. Las vendidas por color se calculan contra el inventario
+ * real (compradas − las que quedan), así que el cuadre no depende de cómo se
+ * anotó cada venta y nunca cuenta un par dos veces.
  */
 export function Caja({ sales, compraInicial, inventory }: Props) {
   const suma = (o: Record<string, number | null> | undefined) =>
     Object.values(o ?? {}).reduce((total: number, v) => total + (v ?? 0), 0);
 
   const porColor = products.map((product) => {
-    const ventas = sales.filter((v) => v.slug === product.slug);
+    const compradas = suma(compraInicial[product.slug]);
+    const disponibles = suma(inventory[product.slug]);
+    const vendidas = compradas - disponibles;
     return {
       slug: product.slug,
       nombre: product.colorName,
-      compradas: suma(compraInicial[product.slug]),
-      vendidas: ventas.reduce((t, v) => t + v.qty, 0),
-      disponibles: suma(inventory[product.slug]),
-      dinero: ventas.reduce((t, v) => t + v.total, 0),
+      compradas,
+      vendidas,
+      disponibles,
+      dinero: vendidas * siteConfig.price,
     };
   });
 
   const totalCompradas = porColor.reduce((t, c) => t + c.compradas, 0);
   const totalVendidas = porColor.reduce((t, c) => t + c.vendidas, 0);
   const totalDisponibles = porColor.reduce((t, c) => t + c.disponibles, 0);
-  const caja = sales.reduce((t, v) => t + v.total, 0);
+  const esperado = totalVendidas * siteConfig.price;
 
-  const recientes = [...sales].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 30);
+  const caja = sales.reduce((t, v) => t + v.total, 0);
+  const paresAnotados = sales.reduce((t, v) => t + v.qty, 0);
+  const descuadre = paresAnotados - totalVendidas;
+
+  const recientes = [...sales].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 40);
 
   return (
     <section className="mt-12">
@@ -74,6 +82,20 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
           </div>
         ))}
       </div>
+
+      {descuadre !== 0 ? (
+        <p className="mt-4 border border-ink bg-surface p-4 text-sm">
+          <strong>Ojo:</strong>{" "}
+          {descuadre > 0
+            ? `hay ${descuadre} par${descuadre > 1 ? "es" : ""} anotado${descuadre > 1 ? "s" : ""} en caja de más frente al inventario. Revisa si alguna venta quedó anotada dos veces.`
+            : `faltan ${-descuadre} par${-descuadre > 1 ? "es" : ""} por anotar en caja: el inventario bajó más de lo que dicen las ventas. Deberían ser ${formatPrice(esperado)}.`}
+        </p>
+      ) : (
+        <p className="mt-4 text-xs text-muted">
+          Cuadrado: {totalVendidas} pares vendidos según el inventario y {paresAnotados} anotados en
+          caja, {formatPrice(caja)}.
+        </p>
+      )}
 
       <div className="mt-4 overflow-x-auto border border-line">
         <table className="w-full text-sm">
@@ -101,7 +123,7 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
               <td className="px-3 py-3 tabular-nums">{totalCompradas}</td>
               <td className="px-3 py-3 tabular-nums">{totalVendidas}</td>
               <td className="px-3 py-3 tabular-nums">{totalDisponibles}</td>
-              <td className="px-3 py-3 tabular-nums">{formatPrice(caja)}</td>
+              <td className="px-3 py-3 tabular-nums">{formatPrice(esperado)}</td>
             </tr>
           </tbody>
         </table>
@@ -138,8 +160,8 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
             <input name="qty" defaultValue="1" inputMode="numeric" className={`${campo} tabular-nums`} />
           </label>
           <label className="block">
-            <span className="text-xs text-muted">Nota (opcional)</span>
-            <input name="note" placeholder="Ej. Rosa, Trujillo" className={campo} />
+            <span className="text-xs text-muted">Cliente</span>
+            <input name="note" placeholder="Ej. Alex – Trujillo" className={campo} />
           </label>
         </div>
         <button type="submit" className="btn btn-primary mt-4 px-8">
@@ -148,7 +170,7 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
       </form>
 
       <div className="mt-6">
-        <p className="ui-label text-xs">ÚLTIMAS VENTAS</p>
+        <p className="ui-label text-xs">VENTAS REGISTRADAS</p>
         {recientes.length === 0 ? (
           <p className="mt-3 text-sm text-muted">Todavía no hay ventas anotadas.</p>
         ) : (
@@ -157,12 +179,15 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
               <li key={venta.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
                 <span className="text-xs text-muted">{cuando(venta.at)}</span>
                 <span className="text-sm">
-                  {venta.colorName} · EUR {venta.size} · {venta.qty} par{venta.qty > 1 ? "es" : ""}
+                  {venta.client ?? venta.note ?? "Sin identificar"}
+                  {venta.colorName ? ` · ${venta.colorName}` : ""}
+                  {venta.size ? ` · EUR ${venta.size}` : ""}
+                  {" · "}
+                  {venta.qty} par{venta.qty > 1 ? "es" : ""}
                 </span>
                 <span className="text-xs text-muted">
                   {ORIGEN[venta.source]}
                   {venta.orderRef ? ` · ${venta.orderRef}` : ""}
-                  {venta.note ? ` · ${venta.note}` : ""}
                 </span>
                 <span className="ml-auto text-sm tabular-nums">{formatPrice(venta.total)}</span>
                 <form action={anularVentaAction}>

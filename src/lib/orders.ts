@@ -157,7 +157,7 @@ export async function registrarVenta(
       unit: siteConfig.price,
       total: siteConfig.price * pares,
       source: "manual",
-      note: note.trim().slice(0, 120) || undefined,
+      client: note.trim().slice(0, 120) || undefined,
     });
   });
 }
@@ -167,9 +167,12 @@ export async function anularVenta(id: string): Promise<void> {
   await updateStore((data) => {
     const venta = (data.sales ?? []).find((v) => v.id === id);
     if (!venta) throw new OrderError("No encontramos esa venta.");
-    const stock = data.inventory[venta.slug]?.[String(venta.size)];
-    if (typeof stock === "number") {
-      data.inventory[venta.slug][String(venta.size)] = stock + venta.qty;
+    // Las ventas viejas se anotaron solo por cliente: no tienen talla que devolver.
+    if (venta.slug && venta.size !== undefined) {
+      const stock = data.inventory[venta.slug]?.[String(venta.size)];
+      if (typeof stock === "number") {
+        data.inventory[venta.slug][String(venta.size)] = stock + venta.qty;
+      }
     }
     data.sales = (data.sales ?? []).filter((v) => v.id !== id);
   });

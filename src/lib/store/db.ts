@@ -56,39 +56,35 @@ const STOCK_INICIAL: Record<string, Record<string, number>> = {
 };
 
 /**
- * Ventas que ya estaban hechas antes de tener el panel (las que llevabas en la
- * hoja de control): 14 blancas + 1 negra = 15 pares, S/ 3,000.
+ * Cierre del 20/10/2026: las ventas que ya estaban hechas antes del panel,
+ * con el cliente de cada una. Son 15 pares y S/ 3,000 en total.
+ *
+ * Los pedidos de Miguel Ángel y Alex que entraron por la web son estos mismos
+ * pares: están anotados una sola vez para que la caja no se infle.
  */
-const VENTAS_VERSION = 1;
+const VENTAS_VERSION = 2;
 
-const VENTAS_HISTORICAS: Array<{ slug: string; size: number; qty: number }> = [
-  { slug: "air-force-1-triple-white", size: 36, qty: 2 },
-  { slug: "air-force-1-triple-white", size: 39, qty: 1 },
-  { slug: "air-force-1-triple-white", size: 40, qty: 3 },
-  { slug: "air-force-1-triple-white", size: 41, qty: 2 },
-  { slug: "air-force-1-triple-white", size: 42, qty: 2 },
-  { slug: "air-force-1-triple-white", size: 43, qty: 3 },
-  { slug: "air-force-1-triple-white", size: 44, qty: 1 },
-  { slug: "air-force-1-triple-black", size: 43, qty: 1 },
+const VENTAS_HISTORICAS: Array<{ cliente: string; pares: number }> = [
+  { cliente: "Venta inicial sin identificar", pares: 2 },
+  { cliente: "Tío J'CA – Josué", pares: 6 },
+  { cliente: "Mattias Yañez", pares: 2 },
+  { cliente: "Gian Pérez", pares: 3 },
+  { cliente: "Miguel Ángel", pares: 1 },
+  { cliente: "Alex – Trujillo", pares: 1 },
 ];
 
 function ventasHistoricas(): Sale[] {
-  const fecha = "2026-10-19T12:00:00.000Z";
-  return VENTAS_HISTORICAS.map((v, i) => {
-    const producto = products.find((p) => p.slug === v.slug);
-    return {
-      id: `historico-${i + 1}`,
-      at: fecha,
-      slug: v.slug,
-      colorName: producto?.colorName ?? v.slug,
-      size: v.size,
-      qty: v.qty,
-      unit: siteConfig.price,
-      total: siteConfig.price * v.qty,
-      source: "historico" as const,
-      note: "Ventas anteriores al panel",
-    };
-  });
+  const fecha = "2026-10-20T12:00:00.000Z";
+  return VENTAS_HISTORICAS.map((venta, i) => ({
+    id: `cierre-${i + 1}`,
+    at: fecha,
+    qty: venta.pares,
+    unit: siteConfig.price,
+    total: siteConfig.price * venta.pares,
+    source: "historico" as const,
+    client: venta.cliente,
+    note: "Cierre del 20/10",
+  }));
 }
 
 function emptyInventory(): StoreData["inventory"] {
