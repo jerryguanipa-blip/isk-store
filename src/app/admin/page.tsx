@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { inventoryAction, logoutAction, settingsAction } from "@/app/admin/actions";
+import { Caja } from "@/app/admin/Caja";
 import { InventoryGrid } from "@/app/admin/InventoryGrid";
 import { LoginForm } from "@/app/admin/LoginForm";
 import { OrderCard } from "@/app/admin/OrderCard";
@@ -8,7 +9,7 @@ import { products } from "@/data/products";
 import { siteConfig } from "@/config/site";
 import { adminConfigured, isAdmin } from "@/lib/admin-auth";
 import { formatPrice } from "@/lib/format";
-import { isEphemeral, readStore } from "@/lib/store/db";
+import { COMPRA_INICIAL, isEphemeral, readStore } from "@/lib/store/db";
 import type { OrderStatus } from "@/lib/store/types";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +57,7 @@ export default async function AdminPage() {
     );
   }
 
-  const { orders, inventory, settings } = await readStore();
+  const { orders, inventory, settings, sales = [] } = await readStore();
   const sorted = [...orders].sort((a, b) => {
     const byStatus = priority(a.status) - priority(b.status);
     if (byStatus !== 0) return byStatus;
@@ -71,8 +72,8 @@ export default async function AdminPage() {
       total + Object.values(tallas).reduce((suma: number, v) => suma + (v ?? 0), 0),
     0,
   );
-  const pagados = orders.filter((o) => o.status === "pagado" || o.status === "enviado");
-  const vendido = pagados.reduce((sum, order) => sum + order.total, 0);
+  const paresVendidos = sales.reduce((sum, venta) => sum + venta.qty, 0);
+  const vendido = sales.reduce((sum, venta) => sum + venta.total, 0);
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 pt-8 pb-24 sm:px-6">
@@ -100,8 +101,8 @@ export default async function AdminPage() {
         {[
           { label: "PEDIDOS ABIERTOS", value: String(porValidar) },
           { label: "PARES EN STOCK", value: String(paresEnStock) },
-          { label: "PAGADOS", value: String(pagados.length) },
-          { label: "VENDIDO", value: formatPrice(vendido) },
+          { label: "PARES VENDIDOS", value: String(paresVendidos) },
+          { label: "DINERO EN CAJA", value: formatPrice(vendido) },
         ].map((item) => (
           <div key={item.label} className="border border-line p-4">
             <p className="ui-label text-[11px] text-muted">{item.label}</p>
@@ -124,6 +125,8 @@ export default async function AdminPage() {
           </ul>
         )}
       </section>
+
+      <Caja sales={sales} compraInicial={COMPRA_INICIAL} inventory={inventory} />
 
       <section className="mt-12">
         <h2 className="ui-label text-xs">INVENTARIO</h2>

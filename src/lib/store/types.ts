@@ -116,6 +116,25 @@ export type StoreSettings = {
 /** Stock por talla. `null` = sin control de stock (se puede vender). */
 export type SizeStock = Record<string, number | null>;
 
+/** Una venta concretada: lo que entra a caja y sale del stock. */
+export type Sale = {
+  id: string;
+  /** Fecha en que se concretó */
+  at: string;
+  slug: string;
+  colorName: string;
+  size: number;
+  qty: number;
+  /** Precio por par */
+  unit: number;
+  total: number;
+  /** De dónde salió: pedido de la web, venta cargada a mano o histórico */
+  source: "web" | "manual" | "historico";
+  /** Código del pedido, si vino de la web */
+  orderRef?: string;
+  note?: string;
+};
+
 export type StoreData = {
   version: number;
   /** Versión del stock cargado desde el código */
@@ -124,4 +143,8 @@ export type StoreData = {
   /** slug del producto -> stock por talla */
   inventory: Record<string, SizeStock>;
   orders: Order[];
+  /** Caja: todas las ventas concretadas */
+  sales?: Sale[];
+  /** Versión del histórico de ventas cargado desde el código */
+  salesVersion?: number;
 };

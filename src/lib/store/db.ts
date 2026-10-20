@@ -3,7 +3,7 @@ import "server-only";
 import { products } from "@/data/products";
 import { siteConfig } from "@/config/site";
 import { driverKind, isEphemeral, readRaw, writeRaw } from "@/lib/store/driver";
-import type { Order, StoreData, StoreSettings } from "@/lib/store/types";
+import type { Order, Sale, StoreData, StoreSettings } from "@/lib/store/types";
 
 export { driverKind, isEphemeral };
 
@@ -16,10 +16,19 @@ const DEFAULT_SETTINGS: StoreSettings = {
 };
 
 /**
+ * Compra inicial: los pares que entraron a la tienda. Es la referencia fija
+ * del control de caja (no cambia con las ventas).
+ */
+export const COMPRA_INICIAL: Record<string, Record<string, number>> = {
+  "air-force-1-triple-white": { "36": 3, "37": 4, "38": 3, "39": 3, "40": 4, "41": 6, "42": 7, "43": 5, "44": 1 },
+  "air-force-1-triple-black": { "36": 3, "37": 3, "38": 3, "39": 3, "40": 4, "41": 5, "42": 6, "43": 7, "44": 2 },
+};
+
+/**
  * Stock que manda la tienda (pares por talla). Al subir el número de versión,
  * la web lo vuelve a cargar aunque ya hubiera números guardados en el panel.
  */
-const STOCK_VERSION = 2;
+const STOCK_VERSION = 3;
 
 const STOCK_INICIAL: Record<string, Record<string, number>> = {
   "air-force-1-triple-white": {
@@ -28,8 +37,8 @@ const STOCK_INICIAL: Record<string, Record<string, number>> = {
     "38": 3,
     "39": 2,
     "40": 1,
-    "41": 5,
-    "42": 6,
+    "41": 4,
+    "42": 5,
     "43": 2,
     "44": 0,
   },
@@ -45,6 +54,42 @@ const STOCK_INICIAL: Record<string, Record<string, number>> = {
     "44": 2,
   },
 };
+
+/**
+ * Ventas que ya estaban hechas antes de tener el panel (las que llevabas en la
+ * hoja de control): 14 blancas + 1 negra = 15 pares, S/ 3,000.
+ */
+const VENTAS_VERSION = 1;
+
+const VENTAS_HISTORICAS: Array<{ slug: string; size: number; qty: number }> = [
+  { slug: "air-force-1-triple-white", size: 36, qty: 2 },
+  { slug: "air-force-1-triple-white", size: 39, qty: 1 },
+  { slug: "air-force-1-triple-white", size: 40, qty: 3 },
+  { slug: "air-force-1-triple-white", size: 41, qty: 2 },
+  { slug: "air-force-1-triple-white", size: 42, qty: 2 },
+  { slug: "air-force-1-triple-white", size: 43, qty: 3 },
+  { slug: "air-force-1-triple-white", size: 44, qty: 1 },
+  { slug: "air-force-1-triple-black", size: 43, qty: 1 },
+];
+
+function ventasHistoricas(): Sale[] {
+  const fecha = "2026-10-19T12:00:00.000Z";
+  return VENTAS_HISTORICAS.map((v, i) => {
+    const producto = products.find((p) => p.slug === v.slug);
+    return {
+      id: `historico-${i + 1}`,
+      at: fecha,
+      slug: v.slug,
+      colorName: producto?.colorName ?? v.slug,
+      size: v.size,
+      qty: v.qty,
+      unit: siteConfig.price,
+      total: siteConfig.price * v.qty,
+      source: "historico" as const,
+      note: "Ventas anteriores al panel",
+    };
+  });
+}
 
 function emptyInventory(): StoreData["inventory"] {
   const inventory: StoreData["inventory"] = {};
@@ -64,9 +109,11 @@ function defaults(): StoreData {
   return {
     version: 1,
     stockVersion: STOCK_VERSION,
+    salesVersion: VENTAS_VERSION,
     settings: { ...DEFAULT_SETTINGS },
     inventory: emptyInventory(),
     orders: [],
+    sales: ventasHistoricas(),
   };
 }
 
@@ -79,13 +126,23 @@ function normalize(data: StoreData): StoreData {
   for (const [slug, sizes] of Object.entries(base.inventory)) {
     inventory[slug] = stockFresco ? { ...sizes } : { ...sizes, ...(data.inventory?.[slug] ?? {}) };
   }
+  // El histórico de ventas se carga una sola vez, al subir su versión.
+  const ventasFrescas = (data.salesVersion ?? 0) < VENTAS_VERSION;
+  const sales = ventasFrescas ? ventasHistoricas() : Array.isArray(data.sales) ? data.sales : [];
+  // Los pedidos que vencieron o se cancelaron no se guardan: el panel solo
+  // muestra pedidos vivos y ventas concretadas.
+  const orders = (Array.isArray(data.orders) ? data.orders : []).filter(
+    (order) => order.status !== "expirado" && order.status !== "cancelado",
+  );
   return {
     version: 1,
     stockVersion: STOCK_VERSION,
+    salesVersion: VENTAS_VERSION,
     // el precio vive en el código (una sola fuente para la web y los pedidos)
     settings: { ...base.settings, ...(data.settings ?? {}), price: siteConfig.price },
     inventory,
-    orders: Array.isArray(data.orders) ? data.orders : [],
+    orders,
+    sales,
   };
 }
 

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { checkPassword, endSession, isAdmin, startSession } from "@/lib/admin-auth";
-import { setOrderStatus, setTracking } from "@/lib/orders";
+import { anularVenta, registrarVenta, setOrderStatus, setTracking } from "@/lib/orders";
 import { updateStore } from "@/lib/store/db";
 import type { OrderStatus } from "@/lib/store/types";
 
@@ -71,5 +71,20 @@ export async function settingsAction(formData: FormData): Promise<void> {
     data.settings.indriver = formData.get("indriver") === "on";
     data.settings.checkoutEnabled = formData.get("checkoutEnabled") === "on";
   });
+  revalidatePath("/admin");
+}
+
+export async function registrarVentaAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  const slug = String(formData.get("slug") ?? "");
+  const size = Number(formData.get("size"));
+  const qty = Number(formData.get("qty"));
+  await registrarVenta(slug, size, qty, String(formData.get("note") ?? ""));
+  revalidatePath("/admin");
+}
+
+export async function anularVentaAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  await anularVenta(String(formData.get("id") ?? ""));
   revalidatePath("/admin");
 }
