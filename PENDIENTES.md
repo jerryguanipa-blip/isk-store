@@ -72,7 +72,8 @@ Cuando una talla llega a 0 sale tachada y no se puede pedir. Para corregir canti
 ## ✅ 5. NÚMERO DE WHATSAPP — HECHO (19/10/2026)
 
 Todos los botones de WhatsApp de la web (y la confirmación de cada pedido) van al
-**916385028** — tu WhatsApp de JERRY SHOP. Quedó escrito en el código como `51916385028`,
+**983501670** — tu WhatsApp de JERRY SHOP (el 916385028 quedó de baja el 21/10/2026).
+Quedó escrito en el código como `51983501670`,
 así que funciona sin configurar nada más.
 
 **Un solo detalle al publicar:** si en Vercel quedó guardada la variable
@@ -85,7 +86,7 @@ vercel env rm NEXT_PUBLIC_WHATSAPP production
 ```
 
 Y después de publicar, abre https://iskoficial.com y toca el botón verde de WhatsApp: tiene
-que abrir el chat de JERRY SHOP (916385028).
+que abrir el chat de JERRY SHOP (983501670).
 
 ---
 

@@ -4,7 +4,7 @@
  */
 
 /** WhatsApp de JERRY SHOP (donde llegan los pedidos). Solo dígitos, con el 51 del Perú. */
-const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "51916385028";
+const rawWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP ?? "51983501670";
 
 export const siteConfig = {
   // --- Marca ---

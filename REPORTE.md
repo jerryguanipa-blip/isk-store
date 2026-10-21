@@ -51,7 +51,7 @@ código de operación y los números de Yape/Plin/Dale del código.
 - **Stock real cargado**: 72 pares (36 blancas + 36 negras).
 - **Contraseña del panel** cargada en Vercel: `/admin` pide contraseña y la sesión dura 8 horas.
 - **Variable vieja corregida**: `NEXT_PUBLIC_WHATSAPP` tenía el número de prueba `51XXXXXXXXX`
-  y habría roto todos los botones; ahora es 51916385028.
+  y habría roto todos los botones; ahora es 51983501670 (el 916385028 se dio de baja el 21/10/2026).
 
 **Probado en producción (iskoficial.com)**
 
@@ -60,7 +60,7 @@ código de operación y los números de Yape/Plin/Dale del código.
 - Pantalla de pago: contador de 15 minutos corriendo, número de Dale con botón de copiar,
   titular y las 4 instrucciones de «otras billeteras». ✅
 - Panel `/admin`: pide contraseña. ✅
-- Todos los botones de WhatsApp apuntan a wa.me/51916385028. ✅
+- Todos los botones de WhatsApp apuntan al número vigente. ✅
 
 ---
 
@@ -128,7 +128,7 @@ dos tallas; mensaje de WhatsApp con el detalle; inventario guardado desde los at
 
 - **Pago**: Yape y Plin al **983501670**, a nombre de **Jerimy G.** (se ve en la pantalla de pago,
   con botón de copiar; se puede cambiar desde `/admin` → Ajustes sin tocar código).
-- **WhatsApp**: todos los botones y la confirmación de cada pedido van al **916385028**
+- **WhatsApp**: todos los botones y la confirmación de cada pedido van al **983501670**
   (JERRY SHOP).
 
 **Lo que queda pendiente (está en PENDIENTES.md):** publicar la versión nueva en Vercel,
