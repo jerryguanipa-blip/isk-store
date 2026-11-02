@@ -28,31 +28,31 @@ export const COMPRA_INICIAL: Record<string, Record<string, number>> = {
  * Stock que manda la tienda (pares por talla). Al subir el número de versión,
  * la web lo vuelve a cargar aunque ya hubiera números guardados en el panel.
  */
-const STOCK_VERSION = 4;
+const STOCK_VERSION = 5;
 
 const STOCK_INICIAL: Record<string, Record<string, number>> = {
-  // Conteo físico del 31/10/2026: 14 pares
+  // Conteo del 01/11/2026: 16 pares
   "air-force-1-triple-white": {
     "36": 0,
-    "37": 3,
+    "37": 4,
     "38": 3,
     "39": 1,
-    "40": 0,
+    "40": 1,
     "41": 3,
     "42": 1,
     "43": 2,
     "44": 1,
   },
-  // Negras: lo que ya tenía la tienda (29 pares)
+  // Conteo del 01/11/2026 con la mercadería nueva: 26 pares
   "air-force-1-triple-black": {
     "36": 3,
     "37": 3,
-    "38": 1,
+    "38": 2,
     "39": 3,
-    "40": 4,
+    "40": 3,
     "41": 3,
-    "42": 4,
-    "43": 6,
+    "42": 3,
+    "43": 4,
     "44": 2,
   },
 };
