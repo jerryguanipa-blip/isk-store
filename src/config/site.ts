@@ -61,6 +61,7 @@ export const siteConfig = {
 
   navLinks: [
     { href: "/shop", label: "TIENDA" },
+    { href: "/stock", label: "STOCK" },
     { href: "/product/air-force-1-triple-white", label: "WHITE" },
     { href: "/product/air-force-1-triple-black", label: "BLACK" },
   ],
