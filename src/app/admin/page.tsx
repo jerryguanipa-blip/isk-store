@@ -9,7 +9,7 @@ import { products } from "@/data/products";
 import { siteConfig } from "@/config/site";
 import { adminConfigured, isAdmin } from "@/lib/admin-auth";
 import { formatPrice } from "@/lib/format";
-import { COMPRA_INICIAL, isEphemeral, readStore } from "@/lib/store/db";
+import { isEphemeral, readStore } from "@/lib/store/db";
 import type { OrderStatus } from "@/lib/store/types";
 
 export const dynamic = "force-dynamic";
@@ -126,7 +126,7 @@ export default async function AdminPage() {
         )}
       </section>
 
-      <Caja sales={sales} compraInicial={COMPRA_INICIAL} inventory={inventory} />
+      <Caja sales={sales} comprados={settings.comprados} inventory={inventory} />
 
       <section className="mt-12">
         <h2 className="ui-label text-xs">INVENTARIO</h2>
@@ -171,6 +171,15 @@ export default async function AdminPage() {
               <label className="flex items-center gap-3">
                 <input type="checkbox" name="indriver" defaultChecked={settings.indriver} className="h-4 w-4" />
                 Envíos por InDriver
+              </label>
+              <label className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  name="soloWhatsapp"
+                  defaultChecked={settings.soloWhatsapp}
+                  className="h-4 w-4"
+                />
+                Sin tallas en la web (todo por WhatsApp)
               </label>
               <label className="flex items-center gap-3">
                 <input

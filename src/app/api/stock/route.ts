@@ -8,7 +8,11 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const { inventory, settings } = await readStore();
   return NextResponse.json(
-    { inventory, checkoutEnabled: settings.checkoutEnabled },
+    {
+      inventory,
+      checkoutEnabled: settings.checkoutEnabled,
+      soloWhatsapp: settings.soloWhatsapp,
+    },
     { headers: { "Cache-Control": "no-store" } },
   );
 }

@@ -1,4 +1,8 @@
-import { anularVentaAction, registrarVentaAction } from "@/app/admin/actions";
+import {
+  anularVentaAction,
+  entradaMercaderiaAction,
+  registrarVentaAction,
+} from "@/app/admin/actions";
 import { products } from "@/data/products";
 import { siteConfig } from "@/config/site";
 import { formatPrice } from "@/lib/format";
@@ -20,7 +24,8 @@ const ORIGEN: Record<Sale["source"], string> = {
 
 type Props = {
   sales: Sale[];
-  compraInicial: Record<string, Record<string, number>>;
+  /** Pares comprados por color, cargados desde el panel */
+  comprados: Record<string, number>;
   inventory: Record<string, SizeStock>;
 };
 
@@ -32,12 +37,12 @@ const campo =
  * real (compradas − las que quedan), así que el cuadre no depende de cómo se
  * anotó cada venta y nunca cuenta un par dos veces.
  */
-export function Caja({ sales, compraInicial, inventory }: Props) {
+export function Caja({ sales, comprados, inventory }: Props) {
   const suma = (o: Record<string, number | null> | undefined) =>
     Object.values(o ?? {}).reduce((total: number, v) => total + (v ?? 0), 0);
 
   const porColor = products.map((product) => {
-    const compradas = suma(compraInicial[product.slug]);
+    const compradas = comprados[product.slug] ?? 0;
     const disponibles = suma(inventory[product.slug]);
     const vendidas = compradas - disponibles;
     return {
@@ -128,6 +133,42 @@ export function Caja({ sales, compraInicial, inventory }: Props) {
           </tbody>
         </table>
       </div>
+
+      <form action={entradaMercaderiaAction} className="mt-6 border border-line p-4">
+        <p className="ui-label text-xs">CARGAR MERCADERÍA NUEVA</p>
+        <p className="mt-2 text-xs text-muted">
+          Cuando llega un lote: suma los pares al stock de la web y a la compra total de caja.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <label className="block">
+            <span className="text-xs text-muted">Modelo</span>
+            <select name="slug" className={campo}>
+              {products.map((product) => (
+                <option key={product.slug} value={product.slug}>
+                  {product.colorName}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-xs text-muted">Talla</span>
+            <select name="size" defaultValue="41" className={`${campo} tabular-nums`}>
+              {(products[0]?.sizes ?? []).map((size) => (
+                <option key={size.eur} value={size.eur}>
+                  {size.eur}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-xs text-muted">Pares que llegaron</span>
+            <input name="qty" defaultValue="1" inputMode="numeric" className={`${campo} tabular-nums`} />
+          </label>
+        </div>
+        <button type="submit" className="btn btn-secondary mt-4 px-8">
+          CARGAR AL STOCK
+        </button>
+      </form>
 
       <form action={registrarVentaAction} className="mt-6 border border-line p-4">
         <p className="ui-label text-xs">ANOTAR UNA VENTA</p>

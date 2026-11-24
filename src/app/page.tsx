@@ -6,6 +6,7 @@ import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { Reveal } from "@/components/Reveal";
 import { QuickOrder } from "@/components/QuickOrder";
+import { readStore } from "@/lib/store/db";
 
 export const metadata: Metadata = {
   title: { absolute: siteConfig.title },
@@ -52,7 +53,10 @@ const structuredData = {
   ],
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { settings } = await readStore();
+  const sinTallas = settings.soloWhatsapp;
+
   return (
     <>
       <script
@@ -88,10 +92,12 @@ export default function HomePage() {
               data-cta
               className="btn btn-primary w-full max-w-xs border-white bg-white text-ink hover:bg-transparent hover:text-white sm:w-auto sm:px-12"
             >
-              ELEGIR TALLA
+              {sinTallas ? "VER LOS PARES" : "ELEGIR TALLA"}
             </a>
             <p className="text-xs text-white/80">
-              Eliges tu talla y nos mandas el pedido por WhatsApp.
+              {sinTallas
+                ? "Te decimos qué tallas hay y cerramos por WhatsApp."
+                : "Eliges tu talla y nos mandas el pedido por WhatsApp."}
             </p>
           </div>
         </div>
@@ -104,22 +110,26 @@ export default function HomePage() {
         className="mx-auto max-w-[1800px] scroll-mt-20 px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
       >
         <div className="mx-auto max-w-[30rem] border-y border-line py-7 text-center">
-          <p className="eyebrow text-[11px] text-muted">PÍDELAS EN 30 SEGUNDOS</p>
+          <p className="eyebrow text-[11px] text-muted">
+            {sinTallas ? "DISPONIBILIDAD AL DÍA" : "PÍDELAS EN 30 SEGUNDOS"}
+          </p>
           <h2
             id="pedido-titulo"
             className="display mt-3 text-balance text-2xl leading-[1.1] sm:text-[1.75rem]"
           >
-            ELIGE TU PAR Y TU TALLA
+            {sinTallas ? "ELIGE TU PAR Y ESCRÍBENOS" : "ELIGE TU PAR Y TU TALLA"}
           </h2>
           <p className="mx-auto mt-3 max-w-[24rem] text-pretty text-sm leading-relaxed text-muted">
-            Toca tu talla y mándanos el pedido por WhatsApp. Ahí coordinamos el pago y el envío.
+            {sinTallas
+              ? "Te decimos al toque qué tallas tenemos y coordinamos el pago y el envío por WhatsApp."
+              : "Toca tu talla y mándanos el pedido por WhatsApp. Ahí coordinamos el pago y el envío."}
           </p>
         </div>
 
         <div className="mt-10 grid gap-x-10 gap-y-14 md:grid-cols-2">
           {[white, black].map((product, index) => (
             <Reveal key={product.slug} delay={index * 0.05}>
-              <QuickOrder product={product} priority={index === 0} />
+              <QuickOrder product={product} priority={index === 0} sinTallas={sinTallas} />
             </Reveal>
           ))}
         </div>

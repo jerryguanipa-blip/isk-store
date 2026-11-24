@@ -22,7 +22,7 @@ export function ProductDetail({ product }: { product: Product }) {
   const [error, setError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const add = useCart((s) => s.add);
-  const stock = useSizeStock(product.slug);
+  const { stock, soloWhatsapp, cargando } = useSizeStock(product.slug);
 
   /** Máximo que puede llevar de una talla (lo que diga el panel, o 10). */
   const maxFor = (eur: number) => {
@@ -95,6 +95,27 @@ export function ProductDetail({ product }: { product: Product }) {
 
           <p className="mt-6 max-w-prose text-muted">{product.description}</p>
 
+          {cargando ? (
+            <p className="mt-8 text-sm text-muted">Cargando tallas…</p>
+          ) : soloWhatsapp ? (
+            <div className="mt-8 border border-line p-6">
+              <p className="display text-xl">DISPONIBILIDAD POR WHATSAPP</p>
+              <p className="mt-3 text-sm text-muted">
+                Escríbenos y te decimos al toque qué tallas tenemos de este par y cuándo llega el
+                próximo lote. Precio único: {formatPrice(product.price)}.
+              </p>
+              <a
+                href={whatsappHref}
+                data-cta
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary mt-6 w-full"
+              >
+                CONSULTAR POR WHATSAPP
+              </a>
+            </div>
+          ) : (
+            <>
           {/* Tallas */}
           <div className="mt-8">
             <div className="flex items-center justify-between">
@@ -255,6 +276,9 @@ export function ProductDetail({ product }: { product: Product }) {
               O ESCRÍBENOS PARA PREGUNTAR
             </a>
           </div>
+
+            </>
+          )}
 
           {/* Acordeones */}
           <div className="mt-8 border-b border-line">

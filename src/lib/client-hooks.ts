@@ -39,6 +39,15 @@ export function useMediaQuery(query: string): boolean {
 export type StockResponse = {
   inventory: Record<string, Record<string, number | null>>;
   checkoutEnabled: boolean;
+  soloWhatsapp?: boolean;
+};
+
+/** Lo que la web sabe del stock mientras y después de consultarlo. */
+export type EstadoStock = {
+  cargando: boolean;
+  /** true = no se muestran tallas: todo se coordina por WhatsApp */
+  soloWhatsapp: boolean;
+  stock: Record<number, number | null>;
 };
 
 /**
@@ -46,27 +55,37 @@ export type StockResponse = {
  * vender), un número = pares disponibles. Mientras carga, o si el servidor no
  * responde, no bloquea nada: se asume que hay stock.
  */
-export function useSizeStock(slug: string): Record<number, number | null> {
-  const [stock, setStock] = useState<Record<number, number | null>>({});
+export function useSizeStock(slug: string): EstadoStock {
+  const [estado, setEstado] = useState<EstadoStock>({
+    cargando: true,
+    soloWhatsapp: false,
+    stock: {},
+  });
 
   useEffect(() => {
     let active = true;
     fetch("/api/stock", { cache: "no-store" })
       .then((res) => (res.ok ? (res.json() as Promise<StockResponse>) : null))
       .then((data) => {
-        if (!active || !data) return;
-        const sizes = data.inventory?.[slug] ?? {};
-        const parsed: Record<number, number | null> = {};
-        for (const [size, value] of Object.entries(sizes)) {
-          parsed[Number(size)] = typeof value === "number" ? value : null;
+        if (!active) return;
+        if (!data) {
+          setEstado((previo) => ({ ...previo, cargando: false }));
+          return;
         }
-        setStock(parsed);
+        const sizes = data.inventory?.[slug] ?? {};
+        const stock: Record<number, number | null> = {};
+        for (const [size, value] of Object.entries(sizes)) {
+          stock[Number(size)] = typeof value === "number" ? value : null;
+        }
+        setEstado({ cargando: false, soloWhatsapp: Boolean(data.soloWhatsapp), stock });
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (active) setEstado((previo) => ({ ...previo, cargando: false }));
+      });
     return () => {
       active = false;
     };
   }, [slug]);
 
-  return stock;
+  return estado;
 }

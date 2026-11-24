@@ -4,6 +4,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { products } from "@/data/products";
 import { formatPrice } from "@/lib/format";
+import { buildLandingMessage, whatsappUrl } from "@/lib/checkout";
 import { readStore } from "@/lib/store/db";
 
 export const dynamic = "force-dynamic";
@@ -34,7 +35,7 @@ function Celda({ pares }: { pares: number | null }) {
 }
 
 export default async function StockPage() {
-  const { inventory } = await readStore();
+  const { inventory, settings } = await readStore();
   const [white, black] = products;
 
   const hora = new Date().toLocaleString("es-PE", {
@@ -48,6 +49,34 @@ export default async function StockPage() {
   const quedan = (slug: string, eur: number) => inventory[slug]?.[String(eur)] ?? null;
   const hayAlgo = (slug: string) =>
     Object.values(inventory[slug] ?? {}).some((v) => v === null || (v ?? 0) > 0);
+
+  if (settings.soloWhatsapp) {
+    return (
+      <div className="mx-auto w-full max-w-2xl px-4 pt-16 pb-24 sm:px-6">
+        <p className="eyebrow text-muted">DISPONIBILIDAD</p>
+        <h1 className="display mt-2 text-3xl sm:text-4xl">TE DECIMOS POR WHATSAPP</h1>
+        <p className="mt-4 max-w-prose text-sm text-muted">
+          Estamos reponiendo stock. Escríbenos y te decimos al toque qué tallas tenemos a la mano y
+          cuándo llega el próximo lote. Precio único: {formatPrice(siteConfig.price)} el par,
+          blancas o negras.
+        </p>
+        <div className="mt-8 flex flex-col gap-2 sm:flex-row">
+          <a
+            href={whatsappUrl(buildLandingMessage())}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta
+            className="btn btn-primary sm:px-10"
+          >
+            CONSULTAR POR WHATSAPP
+          </a>
+          <Link href="/shop" className="btn btn-secondary sm:px-10">
+            VER LOS MODELOS
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pt-10 pb-20 sm:px-6 lg:pt-16">

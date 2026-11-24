@@ -105,6 +105,13 @@ export type StoreSettings = {
    * pedido por WhatsApp. Si no se confirma, vuelven al stock solas.
    */
   windowMinutes: number;
+  /**
+   * true = la web no muestra tallas ni stock: el cliente escribe y la
+   * disponibilidad se confirma en el chat.
+   */
+  soloWhatsapp: boolean;
+  /** Pares comprados por color (la referencia de caja) */
+  comprados: Record<string, number>;
   /** Precio único */
   price: number;
   shalom: boolean;

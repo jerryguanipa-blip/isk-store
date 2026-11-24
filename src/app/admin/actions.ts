@@ -3,7 +3,13 @@
 import { revalidatePath } from "next/cache";
 
 import { checkPassword, endSession, isAdmin, startSession } from "@/lib/admin-auth";
-import { anularVenta, registrarVenta, setOrderStatus, setTracking } from "@/lib/orders";
+import {
+  anularVenta,
+  entradaMercaderia,
+  registrarVenta,
+  setOrderStatus,
+  setTracking,
+} from "@/lib/orders";
 import { updateStore } from "@/lib/store/db";
 import type { OrderStatus } from "@/lib/store/types";
 
@@ -70,6 +76,7 @@ export async function settingsAction(formData: FormData): Promise<void> {
     data.settings.shalom = formData.get("shalom") === "on";
     data.settings.indriver = formData.get("indriver") === "on";
     data.settings.checkoutEnabled = formData.get("checkoutEnabled") === "on";
+    data.settings.soloWhatsapp = formData.get("soloWhatsapp") === "on";
   });
   revalidatePath("/admin");
 }
@@ -86,5 +93,15 @@ export async function registrarVentaAction(formData: FormData): Promise<void> {
 export async function anularVentaAction(formData: FormData): Promise<void> {
   await requireAdmin();
   await anularVenta(String(formData.get("id") ?? ""));
+  revalidatePath("/admin");
+}
+
+export async function entradaMercaderiaAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  await entradaMercaderia(
+    String(formData.get("slug") ?? ""),
+    Number(formData.get("size")),
+    Number(formData.get("qty")),
+  );
   revalidatePath("/admin");
 }

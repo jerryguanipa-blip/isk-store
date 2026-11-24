@@ -8,6 +8,7 @@ import { useState } from "react";
 import { WhatsAppOrderButton } from "@/components/WhatsAppOrderButton";
 import type { Product } from "@/data/products";
 import { useSizeStock } from "@/lib/client-hooks";
+import { buildLandingMessage, whatsappUrl } from "@/lib/checkout";
 import { cn, formatPrice } from "@/lib/format";
 
 /** Tope por talla cuando el panel todavía no controla el stock. */
@@ -17,10 +18,22 @@ const SIN_CONTROL = 10;
  * Tarjeta de la portada: el par, sus tallas y el botón que manda el pedido
  * por WhatsApp. Sin formularios ni datos personales.
  */
-export function QuickOrder({ product, priority = false }: { product: Product; priority?: boolean }) {
+export function QuickOrder({
+  product,
+  priority = false,
+  sinTallas,
+}: {
+  product: Product;
+  priority?: boolean;
+  /** Lo que ya sabe el servidor; evita el parpadeo de "cargando" */
+  sinTallas?: boolean;
+}) {
   const [picked, setPicked] = useState<Record<number, number>>({});
   const [error, setError] = useState(false);
-  const stock = useSizeStock(product.slug);
+  const consulta = useSizeStock(product.slug);
+  const stock = consulta.stock;
+  const soloWhatsapp = sinTallas ?? consulta.soloWhatsapp;
+  const cargando = sinTallas === undefined && consulta.cargando;
 
   const maxFor = (eur: number) => {
     const quedan = stock[eur];
@@ -61,6 +74,32 @@ export function QuickOrder({ product, priority = false }: { product: Product; pr
         <p className="tabular-nums text-lg">{formatPrice(product.price)}</p>
       </div>
 
+      {cargando ? (
+        <p className="mt-6 text-sm text-muted">Cargando tallas…</p>
+      ) : soloWhatsapp ? (
+        <div className="mt-5 flex flex-col gap-3">
+          <p className="text-sm text-muted">
+            Escríbenos y te decimos al toque qué tallas hay de este par. Precio único:{" "}
+            {formatPrice(product.price)}.
+          </p>
+          <a
+            href={whatsappUrl(buildLandingMessage(product.colorName))}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta
+            className="btn btn-primary w-full"
+          >
+            CONSULTAR POR WHATSAPP
+          </a>
+          <Link
+            href={`/product/${product.slug}`}
+            className="ui-label text-xs underline underline-offset-4 hover:no-underline"
+          >
+            VER MÁS FOTOS Y DETALLES
+          </Link>
+        </div>
+      ) : (
+        <>
       <p className="ui-label mt-4 text-[11px] text-muted">
         1 · ELIGE TU TALLA {pairs > 0 ? `· ${pairs} par${pairs > 1 ? "es" : ""}` : ""}
       </p>
@@ -155,7 +194,9 @@ export function QuickOrder({ product, priority = false }: { product: Product; pr
         >
           VER MÁS FOTOS Y DETALLES
         </Link>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

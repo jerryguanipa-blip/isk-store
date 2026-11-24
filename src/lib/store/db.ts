@@ -9,6 +9,8 @@ export { driverKind, isEphemeral };
 
 const DEFAULT_SETTINGS: StoreSettings = {
   windowMinutes: 15,
+  soloWhatsapp: true,
+  comprados: {},
   price: siteConfig.price,
   shalom: true,
   indriver: true,
@@ -19,74 +21,19 @@ const DEFAULT_SETTINGS: StoreSettings = {
  * Compra inicial: los pares que entraron a la tienda. Es la referencia fija
  * del control de caja (no cambia con las ventas).
  */
-export const COMPRA_INICIAL: Record<string, Record<string, number>> = {
-  "air-force-1-triple-white": { "36": 3, "37": 4, "38": 3, "39": 3, "40": 4, "41": 6, "42": 7, "43": 5, "44": 1 },
-  "air-force-1-triple-black": { "36": 3, "37": 3, "38": 3, "39": 3, "40": 4, "41": 5, "42": 6, "43": 7, "44": 2 },
-};
-
 /**
- * Stock que manda la tienda (pares por talla). Al subir el número de versión,
- * la web lo vuelve a cargar aunque ya hubiera números guardados en el panel.
+ * Stock de la tienda. El 24/11/2026 se vendió todo y se reinició el sistema:
+ * arranca en cero y la mercadería nueva se carga desde el panel.
  */
-const STOCK_VERSION = 7;
+const STOCK_VERSION = 8;
 
-const STOCK_INICIAL: Record<string, Record<string, number>> = {
-  // Ficha del 15/11/2026: 8 pares. Agotadas la 36, 40, 41 y 43.
-  "air-force-1-triple-white": {
-    "36": 0,
-    "37": 2,
-    "38": 3,
-    "39": 1,
-    "40": 0,
-    "41": 0,
-    "42": 1,
-    "43": 0,
-    "44": 1,
-  },
-  // Ficha del 15/11/2026: 23 pares, todas las tallas con stock.
-  "air-force-1-triple-black": {
-    "36": 3,
-    "37": 2,
-    "38": 2,
-    "39": 3,
-    "40": 3,
-    "41": 2,
-    "42": 4,
-    "43": 3,
-    "44": 1,
-  },
-};
+const STOCK_INICIAL: Record<string, Record<string, number>> = {};
 
-/**
- * Cierre del 20/10/2026: las ventas que ya estaban hechas antes del panel,
- * con el cliente de cada una. Son 15 pares y S/ 3,000 en total.
- *
- * Los pedidos de Miguel Ángel y Alex que entraron por la web son estos mismos
- * pares: están anotados una sola vez para que la caja no se infle.
- */
-const VENTAS_VERSION = 2;
-
-const VENTAS_HISTORICAS: Array<{ cliente: string; pares: number }> = [
-  { cliente: "Venta inicial sin identificar", pares: 2 },
-  { cliente: "Tío J'CA – Josué", pares: 6 },
-  { cliente: "Mattias Yañez", pares: 2 },
-  { cliente: "Gian Pérez", pares: 3 },
-  { cliente: "Miguel Ángel", pares: 1 },
-  { cliente: "Alex – Trujillo", pares: 1 },
-];
+/** Caja y ventas también arrancan de cero. */
+const VENTAS_VERSION = 3;
 
 function ventasHistoricas(): Sale[] {
-  const fecha = "2026-10-20T12:00:00.000Z";
-  return VENTAS_HISTORICAS.map((venta, i) => ({
-    id: `cierre-${i + 1}`,
-    at: fecha,
-    qty: venta.pares,
-    unit: siteConfig.price,
-    total: siteConfig.price * venta.pares,
-    source: "historico" as const,
-    client: venta.cliente,
-    note: "Cierre del 20/10",
-  }));
+  return [];
 }
 
 function emptyInventory(): StoreData["inventory"] {
@@ -95,8 +42,8 @@ function emptyInventory(): StoreData["inventory"] {
     const sizes: Record<string, number | null> = {};
     for (const size of product.sizes) {
       const inicial = STOCK_INICIAL[product.slug]?.[String(size.eur)];
-      // null = sin control de stock; un número = pares disponibles
-      sizes[String(size.eur)] = typeof inicial === "number" ? inicial : null;
+      // 0 = agotada; el stock real se carga desde el panel
+      sizes[String(size.eur)] = typeof inicial === "number" ? inicial : 0;
     }
     inventory[product.slug] = sizes;
   }

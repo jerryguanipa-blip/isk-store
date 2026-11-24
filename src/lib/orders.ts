@@ -207,3 +207,23 @@ export function buildOrderWhatsAppMessage(order: Order): string {
     "¿Me pasan los datos para pagar y coordinamos el envío?",
   ].join("\n");
 }
+
+/** Llegó mercadería: suma pares al stock y a la compra total de la caja. */
+export async function entradaMercaderia(slug: string, size: number, qty: number): Promise<void> {
+  await updateStore((data) => {
+    const producto = products.find((p) => p.slug === slug);
+    if (!producto) throw new OrderError("Ese modelo no existe.");
+    if (!producto.sizes.some((s) => s.eur === size)) throw new OrderError("Esa talla no existe.");
+    const pares = Math.max(1, Math.min(Math.trunc(qty) || 1, 200));
+
+    const sizes = data.inventory[slug] ?? {};
+    const actual = sizes[String(size)];
+    sizes[String(size)] = (typeof actual === "number" ? actual : 0) + pares;
+    data.inventory[slug] = sizes;
+
+    data.settings.comprados = {
+      ...data.settings.comprados,
+      [slug]: (data.settings.comprados?.[slug] ?? 0) + pares,
+    };
+  });
+}
